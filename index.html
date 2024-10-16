@@ -1,292 +1,130 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StartupHub - Найди свою команду мечты!</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            overflow-x: hidden;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        .navbar-brand {
-            font-weight: bold;
-            color: #007bff !important;
-        }
-        .card {
-            margin-bottom: 20px;
-            position: relative;
-            cursor: pointer;
-            border-radius: 8px;
-            border: 3px solid #000;
-            box-shadow: 8px 8px 0px #000;
-            background: #ffffff;
-            height: 100%;
-        }
-        .card-body {
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .ceo-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            position: absolute;
-            top: -25px;
-            left: 20px;
-            background-color: #ffd700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #000;
-            font-weight: bold;
-            font-size: 1.5rem;
-            border: 3px solid #000;
-        }
-        .ceo-name {
-            font-size: 1rem;
-            margin-top: 10px;
-            font-weight: 700;
-        }
-        .btn-primary {
-            background-color: #000;
-            border-color: #000;
-            border-radius: 0;
-            font-weight: 700;
-            padding: 10px 20px;
-            box-shadow: 4px 4px 0px #000;
-            transition: all 0.3s ease;
-        }
-        .btn-primary:hover {
-            background-color: #007bff;
-            color: #fff;
-            box-shadow: 6px 6px 0px #000;
-        }
-        .modal-header {
-            background-color: #000;
-            color: white;
-            border-bottom: 3px solid #000;
-        }
-        .progress-bar-container {
-            width: 100%;
-            background-color: #e0e0e0;
-            border-radius: 4px;
-            margin-top: 10px;
-            border: 2px solid #000;
-        }
-        .progress-bar {
-            height: 10px;
-            background-color: #000;
-            border-radius: 4px;
-            transition: width 0.3s ease-in-out;
-        }
-        .card-title {
-            font-weight: 700;
-        }
-        .card-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-        .col-md-4 {
-            flex: 1;
-            min-width: 300px;
-        }
-        .parallax-element {
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            background-color: #007bff;
-            border-radius: 50%;
-            box-shadow: 4px 4px 0px #000;
-        }
-        .parallax-element::after {
-            content: '';
-            position: absolute;
-            width: 50%;
-            height: 50%;
-            background-color: #ffd700;
-            top: 25%;
-            left: 25%;
-            border-radius: 50%;
-            box-shadow: 2px 2px 0px #000;
-        }
-    </style>
-</head>
-<body>
-<div id="app">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand" href="#">StartupHub</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#about">О сервисе</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#how-it-works">Как это работает</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#startups">Стартапы</a>
-                    </li>
-                </ul>
-                <div>
-                    <button class="btn btn-outline-primary me-2">Войти</button>
-                    <button class="btn btn-primary">Регистрация</button>
-                </div>
-            </div>
-        </div>
-    </nav>
+import React, { useEffect, useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
 
-    <div class="container mt-4">
-        <div class="text-center py-5">
-            <h1 class="display-4">Создай свой стартап и воплоти идею в реальность!</h1>
-            <p class="lead">Найди команду, продемонстрируй результаты и привлекай инвесторов через нашу платформу.</p>
-            <button class="btn btn-primary btn-lg">Начать сейчас</button>
-        </div>
+const App = () => {
+  const [startups, setStartups] = useState([
+    { id: 1, name: 'TechInnovate', industry: 'Технологии', description: 'Инновационные решения для бизнеса', neededSpecialists: ['Разработчик', 'Дизайнер'], ceoName: 'Иван Петров', progress: 75, supportCount: 48 },
+    { id: 2, name: 'FinRevolution', industry: 'Финансы', description: 'Революция в мире финансов', neededSpecialists: ['Финансовый аналитик', 'Разработчик'], ceoName: 'Анна Сидорова', progress: 60, supportCount: 45 },
+    { id: 3, name: 'HealthTech', industry: 'Здравоохранение', description: 'Технологии для здоровья', neededSpecialists: ['Врач', 'Разработчик', 'Менеджер'], ceoName: 'Михаил Иванов', progress: 40, supportCount: 42 }
+  ]);
 
-        <section id="about" class="my-5">
-            <h2 class="mb-4">Как работает наш сервис</h2>
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="card text-center p-3">
-                        <h5>Этап 1: Идея</h5>
-                        <p>Пройдите общественное одобрение и соберите первые баллы поддержки.</p>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card text-center p-3">
-                        <h5>Этап 2: Команда</h5>
-                        <p>Соберите команду единомышленников для реализации проекта.</p>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card text-center p-3">
-                        <h5>Этап 3: MVP</h5>
-                        <p>Создайте минимальный рабочий продукт и подготовьтесь к запуску.</p>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card text-center p-3">
-                        <h5>Этап 4: Инвестиции</h5>
-                        <p>Привлекай инвестиции и развивай свой стартап.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="startups" class="my-5">
-            <h2 class="mb-4">Популярные стартапы</h2>
-            <div class="card-row">
-                <div class="col-md-4" v-for="startup in startups" :key="startup.id">
-                    <div class="card h-100" @click="openStartupDetails(startup)">
-                        <div class="ceo-avatar">{{ startup.ceoName.charAt(0) }}</div>
-                        <div class="card-body">
-                            <h5 class="card-title">{{ startup.name }}</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">{{ startup.industry }}</h6>
-                            <p class="card-text">{{ startup.description }}</p>
-                            <p><strong>Нужны:</strong> {{ startup.neededSpecialists.join(', ') }}</p>
-                            <p><strong>Поддержка:</strong> {{ startup.supportCount }}</p>
-                            <div class="progress-bar-container">
-                                <div class="progress-bar" :style="{ width: startup.progress + '%' }"></div>
-                            </div>
-                            <p class="mt-1 mb-0"><small>Прогресс: {{ startup.progress }}%</small></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="how-it-works" class="my-5">
-            <h2 class="mb-4">Как это работает</h2>
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="card text-center p-3">
-                        <h5>Создай карточку стартапа</h5>
-                        <p>Опиши свою идею и представь её сообществу.</p>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card text-center p-3">
-                        <h5>Найди команду</h5>
-                        <p>Ищите единомышленников и формируйте сильную команду.</p>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card text-center p-3">
-                        <h5>Запусти MVP</h5>
-                        <p>Представьте результаты и убедите инвесторов.</p>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card text-center p-3">
-                        <h5>Привлекай инвестиции</h5>
-                        <p>Получайте поддержку и развивайте проект.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <footer class="bg-dark text-white py-4">
-        <div class="container text-center">
-            <p>&copy; 2024 StartupHub. Все права защищены.</p>
-        </div>
-    </footer>
-
-    <div class="parallax-element" style="top: 10%; left: 10%;"></div>
-    <div class="parallax-element" style="top: 50%; left: 80%;"></div>
-    <div class="parallax-element" style="top: 80%; left: 20%;"></div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/vue@3.2.31/dist/vue.global.prod.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-const app = Vue.createApp({
-    data() {
-        return {
-            startups: [
-                { id: 1, name: 'TechInnovate', industry: 'Технологии', description: 'Инновационные решения для бизнеса', neededSpecialists: ['Разработчик', 'Дизайнер'], ceoName: 'Иван Петров', progress: 75, supportCount: 48 },
-                { id: 2, name: 'FinRevolution', industry: 'Финансы', description: 'Революция в мире финансов', neededSpecialists: ['Финансовый аналитик', 'Разработчик'], ceoName: 'Анна Сидорова', progress: 60, supportCount: 45 },
-                { id: 3, name: 'HealthTech', industry: 'Здравоохранение', description: 'Технологии для здоровья', neededSpecialists: ['Врач', 'Разработчик', 'Менеджер'], ceoName: 'Михаил Иванов', progress: 40, supportCount: 42 }
-            ]
-        }
-    },
-    methods: {
-        openStartupDetails(startup) {
-            alert('Открытие деталей стартапа: ' + startup.name);
-        }
-    }
-});
-
-app.mount('#app');
-
-// Parallax scrolling effect
-window.addEventListener('scroll', function() {
-    const elements = document.querySelectorAll('.parallax-element');
-    elements.forEach(element => {
+  useEffect(() => {
+    const handleScroll = () => {
+      const elements = document.querySelectorAll('.parallax-element');
+      elements.forEach(element => {
         const speed = 0.3;
         const offset = window.pageYOffset * speed;
         element.style.transform = `translateY(${offset}px)`;
-    });
-});
-</script>
-</body>
-</html>
+      });
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const openStartupDetails = (startup) => {
+    alert(`Открытие деталей стартапа: ${startup.name}`);
+  };
+
+  return (
+    <div className="app">
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <div className="container">
+          <a className="navbar-brand" href="#">StartupHub</a>
+          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <div className="collapse navbar-collapse" id="navbarNav">
+            <ul className="navbar-nav me-auto">
+              <li className="nav-item">
+                <a className="nav-link" href="#about">О сервисе</a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="#how-it-works">Как это работает</a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="#startups">Стартапы</a>
+              </li>
+            </ul>
+            <div>
+              <button className="btn btn-outline-primary me-2">Войти</button>
+              <button className="btn btn-primary">Регистрация</button>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <div className="container mt-4">
+        <div className="text-center py-5">
+          <h1 className="display-4">Создай свой стартап и воплоти идею в реальность!</h1>
+          <p className="lead">Найди команду, продемонстрируй результаты и привлекай инвесторов через нашу платформу.</p>
+          <button className="btn btn-primary btn-lg">Начать сейчас</button>
+        </div>
+
+        <section id="about" className="my-5">
+          <h2 className="mb-4">Как работает наш сервис</h2>
+          <div className="row">
+            {['Идея', 'Команда', 'MVP', 'Инвестиции'].map((stage, index) => (
+              <div className="col-md-3" key={index}>
+                <div className="card text-center p-3">
+                  <h5>Этап {index + 1}: {stage}</h5>
+                  <p>{`Описание этапа ${stage}`}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section id="startups" className="my-5">
+          <h2 className="mb-4">Популярные стартапы</h2>
+          <div className="card-row">
+            {startups.map((startup) => (
+              <div className="col-md-4" key={startup.id}>
+                <div className="card h-100" onClick={() => openStartupDetails(startup)}>
+                  <div className="ceo-avatar">{startup.ceoName.charAt(0)}</div>
+                  <div className="card-body">
+                    <h5 className="card-title">{startup.name}</h5>
+                    <h6 className="card-subtitle mb-2 text-muted">{startup.industry}</h6>
+                    <p className="card-text">{startup.description}</p>
+                    <p><strong>Нужны:</strong> {startup.neededSpecialists.join(', ')}</p>
+                    <p><strong>Поддержка:</strong> {startup.supportCount}</p>
+                    <div className="progress-bar-container">
+                      <div className="progress-bar" style={{ width: `${startup.progress}%` }}></div>
+                    </div>
+                    <p className="mt-1 mb-0"><small>Прогресс: {startup.progress}%</small></p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section id="how-it-works" className="my-5">
+          <h2 className="mb-4">Как это работает</h2>
+          <div className="row">
+            {['Создай карточку стартапа', 'Найди команду', 'Запусти MVP', 'Привлекай инвестиции'].map((step, index) => (
+              <div className="col-md-3" key={index}>
+                <div className="card text-center p-3">
+                  <h5>{step}</h5>
+                  <p>{`Описание для шага: ${step}`}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
+
+      <footer className="bg-dark text-white py-4">
+        <div className="container text-center">
+          <p>&copy; 2024 StartupHub. Все права защищены.</p>
+        </div>
+      </footer>
+
+      <div className="parallax-element" style={{ top: '10%', left: '10%' }}></div>
+      <div className="parallax-element" style={{ top: '50%', left: '80%' }}></div>
+      <div className="parallax-element" style={{ top: '80%', left: '20%' }}></div>
+    </div>
+  );
+};
+
+export default App;
