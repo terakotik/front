@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import 'tailwindcss/tailwind.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
+import Group23 from './Group_23.svg';
 
 const App = () => {
   const [startups, setStartups] = useState([
@@ -26,92 +28,105 @@ const App = () => {
   };
 
   return (
-    <div className="app bg-gray-100 min-h-screen">
-      {/* Navbar */}
-      <nav className="bg-white shadow-md py-4">
-        <div className="container mx-auto flex justify-between items-center">
-          <a className="text-4xl font-bold text-black">StartupHub</a>
-          <div className="flex space-x-4">
-            <a href="#about" className="text-lg text-black">О сервисе</a>
-            <a href="#how-it-works" className="text-lg text-black">Как это работает</a>
-            <a href="#startups" className="text-lg text-black">Стартапы</a>
-          </div>
-          <div className="space-x-4">
-            <button className="px-4 py-2 border-2 border-black text-black">Войти</button>
-            <button className="px-4 py-2 bg-black text-white">Регистрация</button>
+    <div className="app">
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <div className="container">
+          <a className="navbar-brand" href="#">
+            <img src={Group23} alt="StartupHub Logo" width="40" height="40" className="d-inline-block align-top" />
+            StartupHub
+          </a>
+          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <div className="collapse navbar-collapse" id="navbarNav">
+            <ul className="navbar-nav me-auto">
+              <li className="nav-item">
+                <a className="nav-link" href="#about">О сервисе</a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="#how-it-works">Как это работает</a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="#startups">Стартапы</a>
+              </li>
+            </ul>
+            <div>
+              <button className="btn btn-outline-primary me-2">Войти</button>
+              <button className="btn btn-primary">Регистрация</button>
+            </div>
           </div>
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <div className="container mx-auto mt-16 text-center">
-        <h1 className="text-5xl font-extrabold text-black mb-6">Создай свой стартап и воплоти идею в реальность!</h1>
-        <p className="text-xl mb-6">Найди команду, продемонстрируй результаты и привлекай инвесторов через нашу платформу.</p>
-        <button className="px-8 py-4 bg-black text-white text-lg">Начать сейчас</button>
+      <div className="hero-section text-center py-5" style={{ backgroundImage: 'url(https://websim.ai/p/rlacv1n40vfffy1uqu8o/16)', backgroundSize: 'cover', color: '#fff' }}>
+        <h1 className="display-4">Создай свой стартап и воплоти идею в реальность!</h1>
+        <p className="lead">Найди команду, продемонстрируй результаты и привлекай инвесторов через нашу платформу.</p>
+        <button className="btn btn-primary btn-lg">Начать сейчас</button>
       </div>
 
-      {/* About Section */}
-      <section id="about" className="my-16">
-        <h2 className="text-4xl font-bold text-center mb-10">Как работает наш сервис</h2>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 container mx-auto">
-          {['Идея', 'Команда', 'MVP', 'Инвестиции'].map((stage, index) => (
-            <div key={index} className="bg-white p-6 shadow-lg text-center border-2 border-black">
-              <h5 className="text-xl font-bold">Этап {index + 1}: {stage}</h5>
-              <p className="text-gray-700">{`Описание этапа ${stage}`}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Startups Section */}
-      <section id="startups" className="my-16">
-        <h2 className="text-4xl font-bold text-center mb-10">Популярные стартапы</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 container mx-auto">
-          {startups.map((startup) => (
-            <div key={startup.id} className="bg-white p-6 shadow-lg border-2 border-black" onClick={() => openStartupDetails(startup)}>
-              <div className="flex items-center mb-4">
-                <div className="w-12 h-12 rounded-full bg-black text-white flex items-center justify-center text-lg font-bold">{startup.ceoName.charAt(0)}</div>
-                <div className="ml-4">
-                  <h5 className="text-xl font-bold">{startup.name}</h5>
-                  <h6 className="text-gray-600">{startup.industry}</h6>
+      <div className="container mt-4">
+        <section id="about" className="my-5">
+          <h2 className="mb-4">Как работает наш сервис</h2>
+          <div className="row">
+            {['Идея', 'Команда', 'MVP', 'Инвестиции'].map((stage, index) => (
+              <div className="col-md-3" key={index}>
+                <div className="card text-center p-3">
+                  <h5>Этап {index + 1}: {stage}</h5>
+                  <p>{`Описание этапа ${stage}`}</p>
                 </div>
               </div>
-              <p className="text-gray-700 mb-4">{startup.description}</p>
-              <p className="text-gray-700 mb-2"><strong>Нужны:</strong> {startup.neededSpecialists.join(', ')}</p>
-              <p className="text-gray-700 mb-2"><strong>Поддержка:</strong> {startup.supportCount}</p>
-              <div className="w-full bg-gray-200 h-4 rounded-full overflow-hidden mb-4">
-                <div className="bg-black h-full" style={{ width: `${startup.progress}%` }}></div>
+            ))}
+          </div>
+        </section>
+
+        <section id="startups" className="my-5">
+          <h2 className="mb-4">Популярные стартапы</h2>
+          <div className="row">
+            {startups.map((startup) => (
+              <div className="col-md-4 mb-4" key={startup.id}>
+                <div className="card h-100 shadow-sm" onClick={() => openStartupDetails(startup)}>
+                  <div className="card-header text-center bg-primary text-white">{startup.ceoName.charAt(0)}</div>
+                  <div className="card-body">
+                    <h5 className="card-title">{startup.name}</h5>
+                    <h6 className="card-subtitle mb-2 text-muted">{startup.industry}</h6>
+                    <p className="card-text">{startup.description}</p>
+                    <p><strong>Нужны:</strong> {startup.neededSpecialists.join(', ')}</p>
+                    <p><strong>Поддержка:</strong> {startup.supportCount}</p>
+                    <div className="progress-bar-container">
+                      <div className="progress-bar" style={{ width: `${startup.progress}%` }}></div>
+                    </div>
+                    <p className="mt-1 mb-0"><small>Прогресс: {startup.progress}%</small></p>
+                  </div>
+                </div>
               </div>
-              <p className="text-gray-700"><small>Прогресс: {startup.progress}%</small></p>
-            </div>
-          ))}
-        </div>
-      </section>
+            ))}
+          </div>
+        </section>
 
-      {/* How It Works Section */}
-      <section id="how-it-works" className="my-16">
-        <h2 className="text-4xl font-bold text-center mb-10">Как это работает</h2>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 container mx-auto">
-          {['Создай карточку стартапа', 'Найди команду', 'Запусти MVP', 'Привлекай инвестиции'].map((step, index) => (
-            <div key={index} className="bg-white p-6 shadow-lg text-center border-2 border-black">
-              <h5 className="text-xl font-bold">{step}</h5>
-              <p className="text-gray-700">{`Описание для шага: ${step}`}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+        <section id="how-it-works" className="my-5">
+          <h2 className="mb-4">Как это работает</h2>
+          <div className="row">
+            {['Создай карточку стартапа', 'Найди команду', 'Запусти MVP', 'Привлекай инвестиции'].map((step, index) => (
+              <div className="col-md-3" key={index}>
+                <div className="card text-center p-3">
+                  <h5>{step}</h5>
+                  <p>{`Описание для шага: ${step}`}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
 
-      {/* Footer */}
-      <footer className="bg-black text-white py-6">
-        <div className="container mx-auto text-center">
+      <footer className="bg-dark text-white py-4">
+        <div className="container text-center">
           <p>&copy; 2024 StartupHub. Все права защищены.</p>
         </div>
       </footer>
 
-      {/* Parallax Elements */}
-      <div className="parallax-element fixed top-10 left-10 bg-gray-300 w-16 h-16 rounded-lg"></div>
-      <div className="parallax-element fixed top-1/2 left-4/5 bg-gray-300 w-20 h-20 rounded-lg"></div>
-      <div className="parallax-element fixed top-4/5 left-1/5 bg-gray-300 w-24 h-24 rounded-lg"></div>
+      <div className="parallax-element" style={{ top: '10%', left: '10%' }}></div>
+      <div className="parallax-element" style={{ top: '50%', left: '80%' }}></div>
+      <div className="parallax-element" style={{ top: '80%', left: '20%' }}></div>
     </div>
   );
 };
