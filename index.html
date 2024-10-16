@@ -3,230 +3,212 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Стартап Платформа</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>StartupHub - Найди свою команду мечты!</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .navbar-brand {
+            font-weight: bold;
+            color: #007bff !important;
+        }
+        .card {
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            cursor: pointer;
+        }
+        .ceo-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        .ceo-name {
+            font-size: 0.8rem;
+            position: absolute;
+            top: 55px;
+            right: 10px;
+            text-align: center;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-outline-primary {
+            color: #007bff;
+            border-color: #007bff;
+        }
+        .modal-header {
+            background-color: #007bff;
+            color: white;
+        }
+        .progress-bar-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+        .progress-bar {
+            height: 10px;
+            background-color: #007bff;
+            border-radius: 4px;
+            transition: width 0.3s ease-in-out;
+        }
+    </style>
 </head>
-<body class="bg-gradient-to-r from-blue-500 via-green-400 to-teal-500">
-    <!-- Верхняя навигационная панель -->
-    <header class="bg-white shadow-lg sticky top-0 z-10">
-        <div class="container mx-auto flex justify-between items-center py-6 px-8">
-            <a class="text-3xl font-extrabold text-blue-700" href="#">Стартап Платформа</a>
-            <nav class="space-x-6">
-                <a href="#about" class="text-white text-lg font-medium hover:text-yellow-300">О сервисе</a>
-                <a href="#how-it-works" class="text-white text-lg font-medium hover:text-yellow-300">Как это работает</a>
-                <a href="#create-startup" class="text-white text-lg font-medium hover:text-yellow-300">Создать стартап</a>
-                <a href="#login" class="text-white text-lg font-medium hover:text-yellow-300">Войти/Регистрация</a>
-            </nav>
-            <button class="bg-yellow-400 text-blue-900 px-6 py-3 rounded-lg font-bold hover:bg-yellow-500" onclick="toggleStartupFormModal()">Создать стартап</button>
-        </div>
-    </header>
-
-    <!-- Главный баннер -->
-    <section class="container mx-auto text-center py-32">
-        <h1 class="text-5xl font-bold text-white mb-6">Создай свой стартап и воплоти идею в реальность!</h1>
-        <p class="text-2xl text-white mb-12">Найди команду, продемонстрируй результаты и привлекай инвесторов через нашу платформу.</p>
-        <button class="bg-white text-blue-900 px-8 py-4 rounded-full text-lg font-semibold hover:bg-yellow-500 hover:text-blue-900 transition duration-300" onclick="toggleStartupFormModal()">Начать сейчас</button>
-    </section>
-
-    <!-- Краткое описание работы сервиса -->
-    <section class="container mx-auto my-16" id="about">
-        <h2 class="text-4xl font-bold text-center text-white mb-12">Как работает наш сервис</h2>
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div class="text-center bg-white p-6 rounded-lg shadow-lg">
-                <h3 class="text-2xl font-bold text-blue-700 mb-4">Этап 1: Идея</h3>
-                <p>Пройдите общественное одобрение и соберите первые баллы поддержки.</p>
-            </div>
-            <div class="text-center bg-white p-6 rounded-lg shadow-lg">
-                <h3 class="text-2xl font-bold text-blue-700 mb-4">Этап 2: Команда</h3>
-                <p>Соберите команду единомышленников для реализации проекта.</p>
-            </div>
-            <div class="text-center bg-white p-6 rounded-lg shadow-lg">
-                <h3 class="text-2xl font-bold text-blue-700 mb-4">Этап 3: MVP</h3>
-                <p>Создайте минимальный рабочий продукт и подготовьтесь к запуску.</p>
-            </div>
-            <div class="text-center bg-white p-6 rounded-lg shadow-lg">
-                <h3 class="text-2xl font-bold text-blue-700 mb-4">Этап 4: Инвестиции</h3>
-                <p>Привлекай инвестиции и развивай свой стартап.</p>
+<body>
+<div id="app">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="#">StartupHub</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">О сервисе</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#how-it-works">Как это работает</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#startups">Стартапы</a>
+                    </li>
+                </ul>
+                <div>
+                    <button class="btn btn-outline-primary me-2">Войти</button>
+                    <button class="btn btn-primary">Регистрация</button>
+                </div>
             </div>
         </div>
-    </section>
+    </nav>
 
-    <!-- Карточки стартапов -->
-    <section class="container mx-auto my-16" id="startups">
-        <h2 class="text-4xl font-bold text-center text-white mb-12">Популярные стартапы</h2>
-        <div id="startup-cards" class="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <!-- Карточки стартапов будут динамически добавляться здесь -->
+    <div class="container mt-4">
+        <div class="text-center py-5">
+            <h1 class="display-4">Создай свой стартап и воплоти идею в реальность!</h1>
+            <p class="lead">Найди команду, продемонстрируй результаты и привлекай инвесторов через нашу платформу.</p>
+            <button class="btn btn-primary btn-lg">Начать сейчас</button>
         </div>
-    </section>
 
-    <!-- Отзывы и успехи -->
-    <section class="container mx-auto my-16">
-        <h2 class="text-4xl font-bold text-center text-white mb-12">Отзывы и истории успеха</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div class="bg-yellow-100 p-8 rounded-lg shadow-lg">
-                <p class="text-xl font-semibold text-gray-800">"Стартап Платформа помогла мне найти команду и запустить MVP моего проекта!" - Иван</p>
+        <section id="about" class="my-5">
+            <h2 class="mb-4">Как работает наш сервис</h2>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card text-center p-3">
+                        <h5>Этап 1: Идея</h5>
+                        <p>Пройдите общественное одобрение и соберите первые баллы поддержки.</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center p-3">
+                        <h5>Этап 2: Команда</h5>
+                        <p>Соберите команду единомышленников для реализации проекта.</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center p-3">
+                        <h5>Этап 3: MVP</h5>
+                        <p>Создайте минимальный рабочий продукт и подготовьтесь к запуску.</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center p-3">
+                        <h5>Этап 4: Инвестиции</h5>
+                        <p>Привлекай инвестиции и развивай свой стартап.</p>
+                    </div>
+                </div>
             </div>
-            <div class="bg-yellow-100 p-8 rounded-lg shadow-lg">
-                <p class="text-xl font-semibold text-gray-800">"Я смог привлечь инвесторов благодаря этой платформе. Очень рекомендую!" - Мария</p>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Как это работает -->
-    <section class="container mx-auto my-16" id="how-it-works">
-        <h2 class="text-4xl font-bold text-center text-white mb-12">Как это работает</h2>
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div class="text-center bg-white p-6 rounded-lg shadow-lg">
-                <h3 class="text-2xl font-bold text-blue-700 mb-4">1. Создай карточку стартапа</h3>
-                <p>Опиши свою идею и представь её сообществу.</p>
+        <section id="startups" class="my-5">
+            <h2 class="mb-4">Популярные стартапы</h2>
+            <div class="row">
+                <div class="col-md-4" v-for="startup in startups" :key="startup.id">
+                    <div class="card" @click="openStartupDetails(startup)">
+                        <img src="https://example.com/durov-dog-silhouette.jpg" alt="CEO Avatar" class="ceo-avatar">
+                        <span class="ceo-name">{{ startup.ceoName }}</span>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ startup.name }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ startup.industry }}</h6>
+                            <p class="card-text">{{ startup.description }}</p>
+                            <p><strong>Нужны:</strong> {{ startup.neededSpecialists.join(', ') }}</p>
+                            <p><strong>Поддержка:</strong> {{ startup.supportCount }}</p>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar" :style="{ width: startup.progress + '%' }"></div>
+                            </div>
+                            <p class="mt-1 mb-0"><small>Прогресс: {{ startup.progress }}%</small></p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="text-center bg-white p-6 rounded-lg shadow-lg">
-                <h3 class="text-2xl font-bold text-blue-700 mb-4">2. Найди команду</h3>
-                <p>Ищите единомышленников и формируйте сильную команду.</p>
-            </div>
-            <div class="text-center bg-white p-6 rounded-lg shadow-lg">
-                <h3 class="text-2xl font-bold text-blue-700 mb-4">3. Пройди проверку и запусти MVP</h3>
-                <p>Представьте результаты и убедите инвесторов.</p>
-            </div>
-            <div class="text-center bg-white p-6 rounded-lg shadow-lg">
-                <h3 class="text-2xl font-bold text-blue-700 mb-4">4. Привлекай инвестиции</h3>
-                <p>Получайте поддержку и развивайте проект.</p>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Нижняя навигационная панель -->
-    <footer class="bg-blue-900 py-12">
-        <div class="container mx-auto text-center">
-            <div class="mb-6">
-                <a href="#" class="text-white hover:text-yellow-300 text-lg mx-4">Контакты</a>
-                <a href="#" class="text-white hover:text-yellow-300 text-lg mx-4">Часто задаваемые вопросы</a>
-                <a href="#" class="text-white hover:text-yellow-300 text-lg mx-4">Условия использования</a>
+        <section id="how-it-works" class="my-5">
+            <h2 class="mb-4">Как это работает</h2>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card text-center p-3">
+                        <h5>Создай карточку стартапа</h5>
+                        <p>Опиши свою идею и представь её сообществу.</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center p-3">
+                        <h5>Найди команду</h5>
+                        <p>Ищите единомышленников и формируйте сильную команду.</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center p-3">
+                        <h5>Запусти MVP</h5>
+                        <p>Представьте результаты и убедите инвесторов.</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center p-3">
+                        <h5>Привлекай инвестиции</h5>
+                        <p>Получайте поддержку и развивайте проект.</p>
+                    </div>
+                </div>
             </div>
-            <div>
-                <a href="#" class="text-white hover:text-yellow-300 mx-4"><i class="fab fa-facebook text-2xl"></i></a>
-                <a href="#" class="text-white hover:text-yellow-300 mx-4"><i class="fab fa-twitter text-2xl"></i></a>
-                <a href="#" class="text-white hover:text-yellow-300 mx-4"><i class="fab fa-instagram text-2xl"></i></a>
-            </div>
+        </section>
+    </div>
+
+    <footer class="bg-dark text-white py-4">
+        <div class="container text-center">
+            <p>&copy; 2024 StartupHub. Все права защищены.</p>
         </div>
     </footer>
+</div>
 
-    <!-- Попап для комментариев -->
-    <div id="comment-popup" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center">
-        <div class="bg-white w-full max-w-md p-6 rounded-lg">
-            <div class="flex justify-between items-center mb-4">
-                <h5 class="text-xl font-bold">Оставить комментарий</h5>
-                <button class="text-gray-600" onclick="toggleCommentPopup()">&times;</button>
-            </div>
-            <form id="comment-form">
-                <div class="mb-4">
-                    <label for="nickname" class="block text-sm font-medium text-gray-700">Введите ник:</label>
-                    <input type="text" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="nickname" name="nickname">
-                </div>
-                <div class="mb-4">
-                    <label for="comment" class="block text-sm font-medium text-gray-700">Текст комментария:</label>
-                    <textarea class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="comment" name="comment"></textarea>
-                </div>
-                <button type="button" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700" onclick="submitComment()">Отправить</button>
-            </form>
-            <h5 class="text-xl font-bold mt-6">Комментарии</h5>
-            <ul id="comment-list" class="list-disc list-inside mt-4"></ul>
-        </div>
-    </div>
-
-    <!-- Модальное окно для формы стартапа -->
-    <div id="startup-form-modal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center">
-        <div class="bg-white w-full max-w-lg p-6 rounded-lg">
-            <div class="flex justify-between items-center mb-4">
-                <h5 class="text-xl font-bold">Создание Стартапа</h5>
-                <button class="text-gray-600" onclick="toggleStartupFormModal()">&times;</button>
-            </div>
-            <form id="startup-form">
-                <div class="mb-4">
-                    <label for="startup-name" class="block text-sm font-medium text-gray-700">Название стартапа:</label>
-                    <input type="text" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="startup-name" name="startup-name">
-                </div>
-                <div class="mb-4">
-                    <label for="startup-description" class="block text-sm font-medium text-gray-700">Описание идеи:</label>
-                    <textarea class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="startup-description" name="startup-description"></textarea>
-                </div>
-                <div class="mb-4">
-                    <label for="startup-goal" class="block text-sm font-medium text-gray-700">Цель стартапа:</label>
-                    <input type="text" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="startup-goal" name="startup-goal">
-                </div>
-                <button type="button" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700" onclick="createStartup()">Создать Стартап</button>
-            </form>
-        </div>
-    </div>
-
-    <script>
-        function loadComments(startupId) {
-            document.getElementById('comment-list').innerHTML = '<li class="mb-2">Комментарий 1 для ' + startupId + '</li>';
-            toggleCommentPopup();
+<script src="https://cdn.jsdelivr.net/npm/vue@3.2.31/dist/vue.global.prod.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const app = Vue.createApp({
+    data() {
+        return {
+            startups: [
+                { id: 1, name: 'TechInnovate', industry: 'Технологии', description: 'Инновационные решения для бизнеса', neededSpecialists: ['Разработчик', 'Дизайнер'], ceoName: 'Иван Петров', progress: 75, supportCount: 48 },
+                { id: 2, name: 'FinRevolution', industry: 'Финансы', description: 'Революция в мире финансов', neededSpecialists: ['Финансовый аналитик', 'Разработчик'], ceoName: 'Анна Сидорова', progress: 60, supportCount: 45 },
+                { id: 3, name: 'HealthTech', industry: 'Здравоохранение', description: 'Технологии для здоровья', neededSpecialists: ['Врач', 'Разработчик', 'Менеджер'], ceoName: 'Михаил Иванов', progress: 40, supportCount: 42 }
+            ]
         }
-
-        function submitComment() {
-            const nickname = document.getElementById('nickname').value;
-            const comment = document.getElementById('comment').value;
-            if (nickname && comment) {
-                const newComment = document.createElement('li');
-                newComment.classList.add('mb-2');
-                newComment.textContent = `${nickname}: ${comment}`;
-                document.getElementById('comment-list').appendChild(newComment);
-                document.getElementById('nickname').value = '';
-                document.getElementById('comment').value = '';
-            }
+    },
+    methods: {
+        openStartupDetails(startup) {
+            alert('Открытие деталей стартапа: ' + startup.name);
         }
+    }
+});
 
-        function upvoteStartup(startupId) {
-            const upvoteCountElement = document.getElementById(`upvote-count-${startupId}`);
-            let count = parseInt(upvoteCountElement.textContent);
-            upvoteCountElement.textContent = count + 1;
-        }
-
-        function toggleCommentPopup() {
-            const popup = document.getElementById('comment-popup');
-            popup.classList.toggle('hidden');
-        }
-
-        function toggleStartupFormModal() {
-            const modal = document.getElementById('startup-form-modal');
-            modal.classList.toggle('hidden');
-        }
-
-        function createStartup() {
-            const name = document.getElementById('startup-name').value;
-            const description = document.getElementById('startup-description').value;
-            const goal = document.getElementById('startup-goal').value;
-
-            if (name && description && goal) {
-                const startupCards = document.getElementById('startup-cards');
-                const newCard = document.createElement('div');
-                newCard.classList.add('bg-white', 'p-6', 'rounded-lg', 'shadow-lg', 'mb-4');
-                newCard.innerHTML = `
-                    <h3 class="text-2xl font-bold mb-4">${name}</h3>
-                    <p class="mb-4">${description}</p>
-                    <p class="mb-4"><strong>Статус:</strong> Набирает команду</p>
-                    <p class="mb-4"><strong>Участники:</strong> 0/10</p>
-                    <div class="flex space-x-4">
-                        <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Подробнее</button>
-                        <button class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600" data-modal-target="#comment-popup" onclick="loadComments('${name}')">Комментарии</button>
-                        <button class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600" onclick="upvoteStartup('${name}')">
-                            <i class="fas fa-arrow-up"></i> <span id="upvote-count-${name}">0</span>
-                        </button>
-                    </div>
-                `;
-                startupCards.appendChild(newCard);
-
-                toggleStartupFormModal();
-
-                // Очистка формы после создания стартапа
-                document.getElementById('startup-name').value = '';
-                document.getElementById('startup-description').value = '';
-                document.getElementById('startup-goal').value = '';
-            }
-        }
-    </script>
+app.mount('#app');
+</script>
 </body>
 </html>
