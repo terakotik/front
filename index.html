@@ -28,6 +28,13 @@
             position: absolute;
             top: 10px;
             right: 10px;
+            background-color: #007bff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1rem;
         }
         .ceo-name {
             font-size: 0.8rem;
@@ -132,7 +139,7 @@
             <div class="row">
                 <div class="col-md-4" v-for="startup in startups" :key="startup.id">
                     <div class="card" @click="openStartupDetails(startup)">
-                        <img src="https://example.com/durov-dog-silhouette.jpg" alt="CEO Avatar" class="ceo-avatar">
+                        <div class="ceo-avatar">{{ startup.ceoName.charAt(0) }}</div>
                         <span class="ceo-name">{{ startup.ceoName }}</span>
                         <div class="card-body">
                             <h5 class="card-title">{{ startup.name }}</h5>
