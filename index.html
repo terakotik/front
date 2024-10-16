@@ -7,46 +7,46 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-<body class="bg-gray-100">
+<body class="bg-gradient-to-r from-blue-500 via-green-400 to-teal-500">
     <!-- Верхняя навигационная панель -->
-    <header class="bg-white shadow mb-8">
-        <div class="container mx-auto flex justify-between items-center py-4 px-6">
-            <a class="text-2xl font-bold text-gray-800" href="#">Стартап Платформа</a>
-            <nav class="space-x-4">
-                <a href="#about" class="text-gray-600 hover:text-gray-800">О сервисе</a>
-                <a href="#how-it-works" class="text-gray-600 hover:text-gray-800">Как это работает</a>
-                <a href="#create-startup" class="text-gray-600 hover:text-gray-800">Создать стартап</a>
-                <a href="#login" class="text-gray-600 hover:text-gray-800">Войти/Регистрация</a>
+    <header class="bg-white shadow-lg sticky top-0 z-10">
+        <div class="container mx-auto flex justify-between items-center py-6 px-8">
+            <a class="text-3xl font-extrabold text-blue-700" href="#">Стартап Платформа</a>
+            <nav class="space-x-6">
+                <a href="#about" class="text-white text-lg font-medium hover:text-yellow-300">О сервисе</a>
+                <a href="#how-it-works" class="text-white text-lg font-medium hover:text-yellow-300">Как это работает</a>
+                <a href="#create-startup" class="text-white text-lg font-medium hover:text-yellow-300">Создать стартап</a>
+                <a href="#login" class="text-white text-lg font-medium hover:text-yellow-300">Войти/Регистрация</a>
             </nav>
-            <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700" onclick="toggleStartupFormModal()">Создать стартап</button>
+            <button class="bg-yellow-400 text-blue-900 px-6 py-3 rounded-lg font-bold hover:bg-yellow-500" onclick="toggleStartupFormModal()">Создать стартап</button>
         </div>
     </header>
 
     <!-- Главный баннер -->
-    <section class="container mx-auto text-center py-16">
-        <h1 class="text-4xl font-bold mb-4">Создай свой стартап и воплоти идею в реальность!</h1>
-        <p class="text-lg mb-8">Найди команду, продемонстрируй результаты и привлекай инвесторов через нашу платформу.</p>
-        <button class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700" onclick="toggleStartupFormModal()">Начать сейчас</button>
+    <section class="container mx-auto text-center py-32">
+        <h1 class="text-5xl font-bold text-white mb-6">Создай свой стартап и воплоти идею в реальность!</h1>
+        <p class="text-2xl text-white mb-12">Найди команду, продемонстрируй результаты и привлекай инвесторов через нашу платформу.</p>
+        <button class="bg-white text-blue-900 px-8 py-4 rounded-full text-lg font-semibold hover:bg-yellow-500 hover:text-blue-900 transition duration-300" onclick="toggleStartupFormModal()">Начать сейчас</button>
     </section>
 
     <!-- Краткое описание работы сервиса -->
     <section class="container mx-auto my-16" id="about">
-        <h2 class="text-3xl font-bold text-center mb-12">Как работает наш сервис</h2>
+        <h2 class="text-4xl font-bold text-center text-white mb-12">Как работает наш сервис</h2>
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div class="text-center">
-                <h3 class="text-xl font-semibold mb-2">Этап 1: Идея</h3>
+            <div class="text-center bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="text-2xl font-bold text-blue-700 mb-4">Этап 1: Идея</h3>
                 <p>Пройдите общественное одобрение и соберите первые баллы поддержки.</p>
             </div>
-            <div class="text-center">
-                <h3 class="text-xl font-semibold mb-2">Этап 2: Команда</h3>
+            <div class="text-center bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="text-2xl font-bold text-blue-700 mb-4">Этап 2: Команда</h3>
                 <p>Соберите команду единомышленников для реализации проекта.</p>
             </div>
-            <div class="text-center">
-                <h3 class="text-xl font-semibold mb-2">Этап 3: MVP</h3>
+            <div class="text-center bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="text-2xl font-bold text-blue-700 mb-4">Этап 3: MVP</h3>
                 <p>Создайте минимальный рабочий продукт и подготовьтесь к запуску.</p>
             </div>
-            <div class="text-center">
-                <h3 class="text-xl font-semibold mb-2">Этап 4: Инвестиции</h3>
+            <div class="text-center bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="text-2xl font-bold text-blue-700 mb-4">Этап 4: Инвестиции</h3>
                 <p>Привлекай инвестиции и развивай свой стартап.</p>
             </div>
         </div>
@@ -54,60 +54,60 @@
 
     <!-- Карточки стартапов -->
     <section class="container mx-auto my-16" id="startups">
-        <h2 class="text-3xl font-bold text-center mb-12">Популярные стартапы</h2>
-        <div id="startup-cards" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <h2 class="text-4xl font-bold text-center text-white mb-12">Популярные стартапы</h2>
+        <div id="startup-cards" class="grid grid-cols-1 md:grid-cols-2 gap-12">
             <!-- Карточки стартапов будут динамически добавляться здесь -->
         </div>
     </section>
 
     <!-- Отзывы и успехи -->
     <section class="container mx-auto my-16">
-        <h2 class="text-3xl font-bold text-center mb-12">Отзывы и истории успеха</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div class="bg-green-100 p-6 rounded-lg">
-                "Стартап Платформа помогла мне найти команду и запустить MVP моего проекта!" - Иван
+        <h2 class="text-4xl font-bold text-center text-white mb-12">Отзывы и истории успеха</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div class="bg-yellow-100 p-8 rounded-lg shadow-lg">
+                <p class="text-xl font-semibold text-gray-800">"Стартап Платформа помогла мне найти команду и запустить MVP моего проекта!" - Иван</p>
             </div>
-            <div class="bg-green-100 p-6 rounded-lg">
-                "Я смог привлечь инвесторов благодаря этой платформе. Очень рекомендую!" - Мария
+            <div class="bg-yellow-100 p-8 rounded-lg shadow-lg">
+                <p class="text-xl font-semibold text-gray-800">"Я смог привлечь инвесторов благодаря этой платформе. Очень рекомендую!" - Мария</p>
             </div>
         </div>
     </section>
 
     <!-- Как это работает -->
     <section class="container mx-auto my-16" id="how-it-works">
-        <h2 class="text-3xl font-bold text-center mb-12">Как это работает</h2>
+        <h2 class="text-4xl font-bold text-center text-white mb-12">Как это работает</h2>
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div class="text-center">
-                <h3 class="text-xl font-semibold mb-2">1. Создай карточку стартапа</h3>
+            <div class="text-center bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="text-2xl font-bold text-blue-700 mb-4">1. Создай карточку стартапа</h3>
                 <p>Опиши свою идею и представь её сообществу.</p>
             </div>
-            <div class="text-center">
-                <h3 class="text-xl font-semibold mb-2">2. Найди команду</h3>
+            <div class="text-center bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="text-2xl font-bold text-blue-700 mb-4">2. Найди команду</h3>
                 <p>Ищите единомышленников и формируйте сильную команду.</p>
             </div>
-            <div class="text-center">
-                <h3 class="text-xl font-semibold mb-2">3. Пройди проверку и запусти MVP</h3>
+            <div class="text-center bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="text-2xl font-bold text-blue-700 mb-4">3. Пройди проверку и запусти MVP</h3>
                 <p>Представьте результаты и убедите инвесторов.</p>
             </div>
-            <div class="text-center">
-                <h3 class="text-xl font-semibold mb-2">4. Привлекай инвестиции</h3>
+            <div class="text-center bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="text-2xl font-bold text-blue-700 mb-4">4. Привлекай инвестиции</h3>
                 <p>Получайте поддержку и развивайте проект.</p>
             </div>
         </div>
     </section>
 
     <!-- Нижняя навигационная панель -->
-    <footer class="bg-white py-8">
+    <footer class="bg-blue-900 py-12">
         <div class="container mx-auto text-center">
-            <div class="mb-4">
-                <a href="#" class="text-gray-600 hover:text-gray-800 mx-2">Контакты</a>
-                <a href="#" class="text-gray-600 hover:text-gray-800 mx-2">Часто задаваемые вопросы</a>
-                <a href="#" class="text-gray-600 hover:text-gray-800 mx-2">Условия использования</a>
+            <div class="mb-6">
+                <a href="#" class="text-white hover:text-yellow-300 text-lg mx-4">Контакты</a>
+                <a href="#" class="text-white hover:text-yellow-300 text-lg mx-4">Часто задаваемые вопросы</a>
+                <a href="#" class="text-white hover:text-yellow-300 text-lg mx-4">Условия использования</a>
             </div>
             <div>
-                <a href="#" class="text-gray-600 hover:text-gray-800 mx-2"><i class="fab fa-facebook"></i></a>
-                <a href="#" class="text-gray-600 hover:text-gray-800 mx-2"><i class="fab fa-twitter"></i></a>
-                <a href="#" class="text-gray-600 hover:text-gray-800 mx-2"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="text-white hover:text-yellow-300 mx-4"><i class="fab fa-facebook text-2xl"></i></a>
+                <a href="#" class="text-white hover:text-yellow-300 mx-4"><i class="fab fa-twitter text-2xl"></i></a>
+                <a href="#" class="text-white hover:text-yellow-300 mx-4"><i class="fab fa-instagram text-2xl"></i></a>
             </div>
         </div>
     </footer>
