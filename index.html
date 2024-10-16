@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import Group23 from './Group_23.svg';
+import Logo from './logo.svg';
 
 const App = () => {
   const [startups, setStartups] = useState([
@@ -32,7 +32,7 @@ const App = () => {
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container">
           <a className="navbar-brand" href="#">
-            <img src={Group23} alt="StartupHub Logo" width="40" height="40" className="d-inline-block align-top" />
+            <img src={Logo} alt="StartupHub Logo" width="40" height="40" className="d-inline-block align-top" />
             StartupHub
           </a>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
