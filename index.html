@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Стартап Платформа</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="bg-gray-100">
+    <!-- Верхняя навигационная панель -->
+    <header class="bg-white shadow mb-8">
+        <div class="container mx-auto flex justify-between items-center py-4 px-6">
+            <a class="text-2xl font-bold text-gray-800" href="#">Стартап Платформа</a>
+            <nav class="space-x-4">
+                <a href="#about" class="text-gray-600 hover:text-gray-800">О сервисе</a>
+                <a href="#how-it-works" class="text-gray-600 hover:text-gray-800">Как это работает</a>
+                <a href="#create-startup" class="text-gray-600 hover:text-gray-800">Создать стартап</a>
+                <a href="#login" class="text-gray-600 hover:text-gray-800">Войти/Регистрация</a>
+            </nav>
+            <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Создать стартап</button>
+        </div>
+    </header>
+
+    <!-- Главный баннер -->
+    <section class="container mx-auto text-center py-16">
+        <h1 class="text-4xl font-bold mb-4">Создай свой стартап и воплоти идею в реальность!</h1>
+        <p class="text-lg mb-8">Найди команду, продемонстрируй результаты и привлекай инвесторов через нашу платформу.</p>
+        <button class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700" data-modal-target="#startup-form-modal">Начать сейчас</button>
+    </section>
+
+    <!-- Краткое описание работы сервиса -->
+    <section class="container mx-auto my-16" id="about">
+        <h2 class="text-3xl font-bold text-center mb-12">Как работает наш сервис</h2>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="text-center">
+                <h3 class="text-xl font-semibold mb-2">Этап 1: Идея</h3>
+                <p>Пройдите общественное одобрение и соберите первые баллы поддержки.</p>
+            </div>
+            <div class="text-center">
+                <h3 class="text-xl font-semibold mb-2">Этап 2: Команда</h3>
+                <p>Соберите команду единомышленников для реализации проекта.</p>
+            </div>
+            <div class="text-center">
+                <h3 class="text-xl font-semibold mb-2">Этап 3: MVP</h3>
+                <p>Создайте минимальный рабочий продукт и подготовьтесь к запуску.</p>
+            </div>
+            <div class="text-center">
+                <h3 class="text-xl font-semibold mb-2">Этап 4: Инвестиции</h3>
+                <p>Привлекай инвестиции и развивай свой стартап.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Карточки стартапов -->
+    <section class="container mx-auto my-16">
+        <h2 class="text-3xl font-bold text-center mb-12">Популярные стартапы</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="text-2xl font-bold mb-4">Стартап 1</h3>
+                <p class="mb-4">Описание идеи стартапа.</p>
+                <p class="mb-4"><strong>Статус:</strong> Набирает команду</p>
+                <p class="mb-4"><strong>Участники:</strong> 3/10</p>
+                <div class="flex space-x-4">
+                    <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Подробнее</button>
+                    <button class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600" data-modal-target="#comment-popup" onclick="loadComments('стартап1')">Комментарии</button>
+                    <button class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600" onclick="upvoteStartup('стартап1')">
+                        <i class="fas fa-arrow-up"></i> <span id="upvote-count-стартап1">0</span>
+                    </button>
+                </div>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="text-2xl font-bold mb-4">Стартап 2</h3>
+                <p class="mb-4">Описание идеи стартапа.</p>
+                <p class="mb-4"><strong>Статус:</strong> MVP запущен</p>
+                <p class="mb-4"><strong>Участники:</strong> 7/10</p>
+                <div class="flex space-x-4">
+                    <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Подробнее</button>
+                    <button class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600" data-modal-target="#comment-popup" onclick="loadComments('стартап2')">Комментарии</button>
+                    <button class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600" onclick="upvoteStartup('стартап2')">
+                        <i class="fas fa-arrow-up"></i> <span id="upvote-count-стартап2">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Отзывы и успехи -->
+    <section class="container mx-auto my-16">
+        <h2 class="text-3xl font-bold text-center mb-12">Отзывы и истории успеха</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="bg-green-100 p-6 rounded-lg">
+                "Стартап Платформа помогла мне найти команду и запустить MVP моего проекта!" - Иван
+            </div>
+            <div class="bg-green-100 p-6 rounded-lg">
+                "Я смог привлечь инвесторов благодаря этой платформе. Очень рекомендую!" - Мария
+            </div>
+        </div>
+    </section>
+
+    <!-- Как это работает -->
+    <section class="container mx-auto my-16" id="how-it-works">
+        <h2 class="text-3xl font-bold text-center mb-12">Как это работает</h2>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="text-center">
+                <h3 class="text-xl font-semibold mb-2">1. Создай карточку стартапа</h3>
+                <p>Опиши свою идею и представь её сообществу.</p>
+            </div>
+            <div class="text-center">
+                <h3 class="text-xl font-semibold mb-2">2. Найди команду</h3>
+                <p>Ищите единомышленников и формируйте сильную команду.</p>
+            </div>
+            <div class="text-center">
+                <h3 class="text-xl font-semibold mb-2">3. Пройди проверку и запусти MVP</h3>
+                <p>Представьте результаты и убедите инвесторов.</p>
+            </div>
+            <div class="text-center">
+                <h3 class="text-xl font-semibold mb-2">4. Привлекай инвестиции</h3>
+                <p>Получайте поддержку и развивайте проект.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Нижняя навигационная панель -->
+    <footer class="bg-white py-8">
+        <div class="container mx-auto text-center">
+            <div class="mb-4">
+                <a href="#" class="text-gray-600 hover:text-gray-800 mx-2">Контакты</a>
+                <a href="#" class="text-gray-600 hover:text-gray-800 mx-2">Часто задаваемые вопросы</a>
+                <a href="#" class="text-gray-600 hover:text-gray-800 mx-2">Условия использования</a>
+            </div>
+            <div>
+                <a href="#" class="text-gray-600 hover:text-gray-800 mx-2"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="text-gray-600 hover:text-gray-800 mx-2"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="text-gray-600 hover:text-gray-800 mx-2"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Попап для комментариев -->
+    <div id="comment-popup" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center">
+        <div class="bg-white w-full max-w-md p-6 rounded-lg">
+            <div class="flex justify-between items-center mb-4">
+                <h5 class="text-xl font-bold">Оставить комментарий</h5>
+                <button class="text-gray-600" onclick="toggleCommentPopup()">&times;</button>
+            </div>
+            <form id="comment-form">
+                <div class="mb-4">
+                    <label for="nickname" class="block text-sm font-medium text-gray-700">Введите ник:</label>
+                    <input type="text" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="nickname" name="nickname">
+                </div>
+                <div class="mb-4">
+                    <label for="comment" class="block text-sm font-medium text-gray-700">Текст комментария:</label>
+                    <textarea class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="comment" name="comment"></textarea>
+                </div>
+                <button type="button" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700" onclick="submitComment()">Отправить</button>
+            </form>
+            <h5 class="text-xl font-bold mt-6">Комментарии</h5>
+            <ul id="comment-list" class="list-disc list-inside mt-4"></ul>
+        </div>
+    </div>
+
+    <!-- Модальное окно для формы стартапа -->
+    <div id="startup-form-modal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center">
+        <div class="bg-white w-full max-w-lg p-6 rounded-lg">
+            <div class="flex justify-between items-center mb-4">
+                <h5 class="text-xl font-bold">Создание Стартапа</h5>
+                <button class="text-gray-600" onclick="toggleStartupFormModal()">&times;</button>
+            </div>
+            <form>
+                <div class="mb-4">
+                    <label for="startup-name" class="block text-sm font-medium text-gray-700">Название стартапа:</label>
+                    <input type="text" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="startup-name" name="startup-name">
+                </div>
+                <div class="mb-4">
+                    <label for="startup-description" class="block text-sm font-medium text-gray-700">Описание идеи:</label>
+                    <textarea class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="startup-description" name="startup-description"></textarea>
+                </div>
+                <div class="mb-4">
+                    <label for="startup-goal" class="block text-sm font-medium text-gray-700">Цель стартапа:</label>
+                    <input type="text" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="startup-goal" name="startup-goal">
+                </div>
+                <button type="button" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Создать Стартап</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function loadComments(startupId) {
+            document.getElementById('comment-list').innerHTML = '<li class="mb-2">Комментарий 1 для ' + startupId + '</li>';
+            toggleCommentPopup();
+        }
+
+        function submitComment() {
+            const nickname = document.getElementById('nickname').value;
+            const comment = document.getElementById('comment').value;
+            if (nickname && comment) {
+                const newComment = document.createElement('li');
+                newComment.classList.add('mb-2');
+                newComment.textContent = `${nickname}: ${comment}`;
+                document.getElementById('comment-list').appendChild(newComment);
+                document.getElementById('nickname').value = '';
+                document.getElementById('comment').value = '';
+            }
+        }
+
+        function upvoteStartup(startupId) {
+            const upvoteCountElement = document.getElementById(`upvote-count-${startupId}`);
+            let count = parseInt(upvoteCountElement.textContent);
+            upvoteCountElement.textContent = count + 1;
+        }
+
+        function toggleCommentPopup() {
+            const popup = document.getElementById('comment-popup');
+            popup.classList.toggle('hidden');
+        }
+
+        function toggleStartupFormModal() {
+            const modal = document.getElementById('startup-form-modal');
+            modal.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>
