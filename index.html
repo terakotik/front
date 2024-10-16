@@ -18,7 +18,7 @@
                 <a href="#create-startup" class="text-gray-600 hover:text-gray-800">Создать стартап</a>
                 <a href="#login" class="text-gray-600 hover:text-gray-800">Войти/Регистрация</a>
             </nav>
-            <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Создать стартап</button>
+            <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700" onclick="toggleStartupFormModal()">Создать стартап</button>
         </div>
     </header>
 
@@ -26,7 +26,7 @@
     <section class="container mx-auto text-center py-16">
         <h1 class="text-4xl font-bold mb-4">Создай свой стартап и воплоти идею в реальность!</h1>
         <p class="text-lg mb-8">Найди команду, продемонстрируй результаты и привлекай инвесторов через нашу платформу.</p>
-        <button class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700" data-modal-target="#startup-form-modal">Начать сейчас</button>
+        <button class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700" onclick="toggleStartupFormModal()">Начать сейчас</button>
     </section>
 
     <!-- Краткое описание работы сервиса -->
@@ -53,35 +53,10 @@
     </section>
 
     <!-- Карточки стартапов -->
-    <section class="container mx-auto my-16">
+    <section class="container mx-auto my-16" id="startups">
         <h2 class="text-3xl font-bold text-center mb-12">Популярные стартапы</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div class="bg-white p-6 rounded-lg shadow-lg">
-                <h3 class="text-2xl font-bold mb-4">Стартап 1</h3>
-                <p class="mb-4">Описание идеи стартапа.</p>
-                <p class="mb-4"><strong>Статус:</strong> Набирает команду</p>
-                <p class="mb-4"><strong>Участники:</strong> 3/10</p>
-                <div class="flex space-x-4">
-                    <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Подробнее</button>
-                    <button class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600" data-modal-target="#comment-popup" onclick="loadComments('стартап1')">Комментарии</button>
-                    <button class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600" onclick="upvoteStartup('стартап1')">
-                        <i class="fas fa-arrow-up"></i> <span id="upvote-count-стартап1">0</span>
-                    </button>
-                </div>
-            </div>
-            <div class="bg-white p-6 rounded-lg shadow-lg">
-                <h3 class="text-2xl font-bold mb-4">Стартап 2</h3>
-                <p class="mb-4">Описание идеи стартапа.</p>
-                <p class="mb-4"><strong>Статус:</strong> MVP запущен</p>
-                <p class="mb-4"><strong>Участники:</strong> 7/10</p>
-                <div class="flex space-x-4">
-                    <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Подробнее</button>
-                    <button class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600" data-modal-target="#comment-popup" onclick="loadComments('стартап2')">Комментарии</button>
-                    <button class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600" onclick="upvoteStartup('стартап2')">
-                        <i class="fas fa-arrow-up"></i> <span id="upvote-count-стартап2">0</span>
-                    </button>
-                </div>
-            </div>
+        <div id="startup-cards" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Карточки стартапов будут динамически добавляться здесь -->
         </div>
     </section>
 
@@ -167,7 +142,7 @@
                 <h5 class="text-xl font-bold">Создание Стартапа</h5>
                 <button class="text-gray-600" onclick="toggleStartupFormModal()">&times;</button>
             </div>
-            <form>
+            <form id="startup-form">
                 <div class="mb-4">
                     <label for="startup-name" class="block text-sm font-medium text-gray-700">Название стартапа:</label>
                     <input type="text" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="startup-name" name="startup-name">
@@ -180,7 +155,7 @@
                     <label for="startup-goal" class="block text-sm font-medium text-gray-700">Цель стартапа:</label>
                     <input type="text" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" id="startup-goal" name="startup-goal">
                 </div>
-                <button type="button" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Создать Стартап</button>
+                <button type="button" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700" onclick="createStartup()">Создать Стартап</button>
             </form>
         </div>
     </div>
@@ -218,6 +193,39 @@
         function toggleStartupFormModal() {
             const modal = document.getElementById('startup-form-modal');
             modal.classList.toggle('hidden');
+        }
+
+        function createStartup() {
+            const name = document.getElementById('startup-name').value;
+            const description = document.getElementById('startup-description').value;
+            const goal = document.getElementById('startup-goal').value;
+
+            if (name && description && goal) {
+                const startupCards = document.getElementById('startup-cards');
+                const newCard = document.createElement('div');
+                newCard.classList.add('bg-white', 'p-6', 'rounded-lg', 'shadow-lg', 'mb-4');
+                newCard.innerHTML = `
+                    <h3 class="text-2xl font-bold mb-4">${name}</h3>
+                    <p class="mb-4">${description}</p>
+                    <p class="mb-4"><strong>Статус:</strong> Набирает команду</p>
+                    <p class="mb-4"><strong>Участники:</strong> 0/10</p>
+                    <div class="flex space-x-4">
+                        <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Подробнее</button>
+                        <button class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600" data-modal-target="#comment-popup" onclick="loadComments('${name}')">Комментарии</button>
+                        <button class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600" onclick="upvoteStartup('${name}')">
+                            <i class="fas fa-arrow-up"></i> <span id="upvote-count-${name}">0</span>
+                        </button>
+                    </div>
+                `;
+                startupCards.appendChild(newCard);
+
+                toggleStartupFormModal();
+
+                // Очистка формы после создания стартапа
+                document.getElementById('startup-name').value = '';
+                document.getElementById('startup-description').value = '';
+                document.getElementById('startup-goal').value = '';
+            }
         }
     </script>
 </body>
