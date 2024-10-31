@@ -3,156 +3,285 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upliner - Проекты и решения</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.0.23/dist/tailwind.min.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.10.2/cdn.min.js" defer></script>
+    <title>Upliner - Цифровое агентство</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        .expandable-card {
+            transition: transform 0.3s ease, max-height 0.5s ease;
+            max-height: 200px;
+            overflow: hidden;
         }
-        .main-menu a {
-            transition: color 0.3s;
+        .expandable-card.open {
+            max-height: 600px;
+            transform: scale(1.05);
         }
-        .main-menu a:hover {
-            color: #2563eb;
+        .expand-button:hover {
+            background-color: #000;
+            color: #fff;
         }
-        .footer-menu a {
-            transition: color 0.3s;
+        .order-form input::placeholder, .order-form textarea::placeholder {
+            font-size: 4rem;
+            opacity: 1;
         }
-        .footer-menu a:hover {
-            color: #3b82f6;
+        .order-form input:focus, .order-form textarea:focus {
+            outline: none;
+        }
+        .glitch-title {
+            position: relative;
+            font-size: 4xl;
+        }
+        .glitch-title:before, .glitch-title:after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            color: #f00;
+            z-index: -1;
+            animation: glitch-animation 2s infinite;
+        }
+        .glitch-title:after {
+            color: #0f0;
+            z-index: -2;
+            animation: glitch-animation 2s infinite reverse;
+        }
+        @keyframes glitch-animation {
+            0% {
+                clip: rect(42px, 9999px, 44px, 0);
+                transform: translate(-3px, -3px);
+            }
+            20% {
+                clip: rect(8px, 9999px, 85px, 0);
+                transform: translate(3px, 3px);
+            }
+            40% {
+                clip: rect(85px, 9999px, 140px, 0);
+                transform: translate(-3px, 3px);
+            }
+            60% {
+                clip: rect(40px, 9999px, 90px, 0);
+                transform: translate(3px, -3px);
+            }
+            80% {
+                clip: rect(95px, 9999px, 100px, 0);
+                transform: translate(-3px, 3px);
+            }
+            100% {
+                clip: rect(12px, 9999px, 54px, 0);
+                transform: translate(3px, -3px);
+            }
+        }
+        .burger-menu {
+            display: none;
+        }
+        @media (max-width: 768px) {
+            .desktop-menu {
+                display: none;
+            }
+            .burger-menu {
+                display: block;
+                cursor: pointer;
+            }
         }
     </style>
+    <script>
+        function toggleCard(element) {
+            element.classList.toggle('open');
+        }
+
+        function startTypingEffect(element, text) {
+            let index = 0;
+            function type() {
+                if (index < text.length) {
+                    element.innerHTML += text.charAt(index);
+                    index++;
+                    setTimeout(type, 100);
+                }
+            }
+            type();
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.expandable-card');
+            cards.forEach(card => {
+                const titleElement = card.querySelector('.glitch-title');
+                const text = titleElement.getAttribute('data-text');
+                card.addEventListener('mouseenter', () => {
+                    if (!titleElement.innerHTML.trim()) {
+                        startTypingEffect(titleElement, text);
+                    }
+                });
+            });
+        });
+    </script>
 </head>
-<body class="bg-gray-100 text-gray-900">
+<body class="bg-purple-500 text-black">
     <!-- Header -->
-    <header class="bg-white shadow-md py-4">
-        <div class="container mx-auto flex items-center justify-between px-6">
-            <div class="logo text-2xl font-bold text-blue-600">Upliner</div>
-            <nav class="main-menu">
-                <ul class="flex space-x-6">
-                    <li><a href="#services" class="hover:text-blue-600">Наши услуги</a></li>
-                    <li><a href="#about" class="hover:text-blue-600">О нас</a></li>
-                    <li><a href="#news" class="hover:text-blue-600">Новости</a></li>
-                </ul>
-            </nav>
-            <div class="social-icons flex space-x-4">
-                <a href="#" class="hover:text-blue-600">Facebook</a>
-                <a href="#" class="hover:text-blue-600">Twitter</a>
-                <a href="#" class="hover:text-blue-600">Instagram</a>
+    <header class="flex items-center justify-between p-6">
+        <div class="text-2xl font-bold">Upliner</div>
+        <nav class="desktop-menu flex space-x-6">
+            <div class="relative group">
+                <a href="#" class="text-lg font-bold hover:underline">Наши услуги</a>
+                <div class="absolute right-0 hidden group-hover:block bg-white text-black mt-2 p-4 shadow-lg">
+                    <div class="mb-4">
+                        <div class="font-bold">Разработка и поддержка</div>
+                        <ul class="list-none">
+                            <li>Разработка SaaS решений</li>
+                            <li>Разработка e-Commerce платформ</li>
+                            <li>Интеграция платежных систем</li>
+                            <li>Разработка веб-платформ</li>
+                            <li>Разработка мобильных приложений</li>
+                            <li>Разработка и поддержка сайтов на WordPress</li>
+                            <li>Поддержка проектов</li>
+                            <li>Автоматизация процессов</li>
+                            <li>Разработка Telegram-ботов</li>
+                            <li>Разработка нейроконсультантов</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div class="font-bold">Маркетинговые услуги</div>
+                        <ul class="list-none">
+                            <li>SEO-оптимизация</li>
+                            <li>SMM (Маркетинг в соцсетях)</li>
+                            <li>Контекстная реклама</li>
+                            <li>UI/UX дизайн</li>
+                            <li>Экспертиза в AI</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <div class="language-switch ml-4">
-                <button class="mr-2">RU</button> / <button>EN</button>
+            <a href="#" class="text-lg font-bold hover:underline">О нас</a>
+            <a href="#" class="text-lg font-bold hover:underline">Новости</a>
+        </nav>
+        <div class="burger-menu" onclick="toggleMobileMenu()">
+            <i class="fas fa-bars text-3xl"></i>
+        </div>
+        <div id="mobileMenu" class="fixed top-0 left-0 w-full h-full bg-purple-500 text-white p-6 hidden">
+            <div class="flex justify-between mb-8">
+                <div class="text-2xl font-bold">Upliner</div>
+                <div onclick="toggleMobileMenu()">
+                    <i class="fas fa-times text-3xl"></i>
+                </div>
+            </div>
+            <div class="mb-4">
+                <div class="font-bold mb-2">Разработка и поддержка</div>
+                <ul class="list-none space-y-2">
+                    <li>Разработка SaaS решений</li>
+                    <li>Разработка e-Commerce платформ</li>
+                    <li>Интеграция платежных систем</li>
+                    <li>Разработка веб-платформ</li>
+                    <li>Разработка мобильных приложений</li>
+                    <li>Разработка и поддержка сайтов на WordPress</li>
+                    <li>Поддержка проектов</li>
+                    <li>Автоматизация процессов</li>
+                    <li>Разработка Telegram-ботов</li>
+                    <li>Разработка нейроконсультантов</li>
+                </ul>
+            </div>
+            <div>
+                <div class="font-bold mb-2">Маркетинговые услуги</div>
+                <ul class="list-none space-y-2">
+                    <li>SEO-оптимизация</li>
+                    <li>SMM (Маркетинг в соцсетях)</li>
+                    <li>Контекстная реклама</li>
+                    <li>UI/UX дизайн</li>
+                    <li>Экспертиза в AI</li>
+                </ul>
             </div>
         </div>
     </header>
 
-    <!-- Main Section -->
-    <main class="container mx-auto px-6 py-10">
-        <section class="intro text-center mb-16">
-            <h1 class="text-4xl font-bold mb-4">Проекты и решения Upliner</h1>
-            <p class="text-lg text-gray-700 mb-6">Мы помогаем крупным компаниям быть на шаг впереди в IT-сфере, создавая мобильные и веб-сервисы, которые увеличивают конверсию и оптимизируют бизнес-процессы.</p>
-            <div class="view-buttons flex justify-center space-x-4">
-                <button class="bg-blue-600 text-white py-2 px-6 rounded hover:bg-blue-700">List</button>
-                <button class="bg-blue-600 text-white py-2 px-6 rounded hover:bg-blue-700">Map</button>
+    <!-- Main Content -->
+    <main class="p-8">
+        <h1 class="text-6xl font-bold mb-4">Наши проекты</h1>
+        <p class="mb-6 max-w-2xl">Мы создаем мобильные и веб-сервисы для крупнейших компаний, помогая им оставаться конкурентоспособными в сфере технологий. Вот некоторые из наших успешных проектов:</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+            <!-- Project Cards -->
+            <div onclick="toggleCard(this)" class="expandable-card bg-pink-500 p-6 flex flex-col text-black cursor-pointer">
+                <div>
+                    <div class="text-2xl font-bold mb-2">Beethoven</div>
+                    <div class="text-lg font-semibold">Мобильное приложение</div>
+                    <button class="mt-4 border-2 border-black px-4 py-2 text-sm font-bold expand-button">Подробнее</button>
+                </div>
+                <div class="mt-4">
+                    <h2 class="text-4xl font-bold glitch-title" data-text="Увеличение конверсии в 3 раза"></h2>
+                    <p class="mt-2">Мы разработали мобильное приложение и увеличили конверсию из визита в покупку в три раза.</p>
+                </div>
             </div>
-        </section>
+            <div onclick="toggleCard(this)" class="expandable-card bg-black p-6 flex flex-col text-white cursor-pointer">
+                <div>
+                    <div class="text-2xl font-bold mb-2">Т-банк (Тинькофф)</div>
+                    <div class="text-lg font-semibold">Проект под NDA</div>
+                </div>
+                <div class="mt-4">
+                    <h2 class="text-4xl font-bold glitch-title" data-text="Развитие цифровых сервисов"></h2>
+                    <p class="mt-2">Мы помогли развивать цифровые сервисы банка, проект под NDA.</p>
+                </div>
+            </div>
+            <div onclick="toggleCard(this)" class="expandable-card bg-pink-500 p-6 flex flex-col text-black cursor-pointer">
+                <div>
+                    <div class="text-2xl font-bold mb-2">Rendez-Vous</div>
+                    <div class="text-lg font-semibold">Мобильный канал продаж</div>
+                    <button class="mt-4 border-2 border-black px-4 py-2 text-sm font-bold expand-button">Подробнее</button>
+                </div>
+                <div class="mt-4">
+                    <h2 class="text-4xl font-bold glitch-title" data-text="Увеличение конверсии"></h2>
+                    <p class="mt-2">Перезапустили мобильный канал продаж и увеличили конверсию клиентов в покупку.</p>
+                </div>
+            </div>
+            <div onclick="toggleCard(this)" class="expandable-card bg-black p-6 flex flex-col text-white cursor-pointer">
+                <div>
+                    <div class="text-2xl font-bold mb-2">Росбанк</div>
+                    <div class="text-lg font-semibold">Смарт-банк на Flutter</div>
+                </div>
+                <div class="mt-4">
+                    <h2 class="text-4xl font-bold glitch-title" data-text="Первый в России"></h2>
+                    <p class="mt-2">Создали первый в России смарт-банк на Flutter и передали разработку инхаус-команде.</p>
+                </div>
+            </div>
+        </div>
 
-        <!-- Project Cards -->
-        <section class="projects grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 mb-16">
-            <article class="project-card bg-white p-6 rounded shadow-md hover:shadow-lg">
-                <h2 class="text-2xl font-bold mb-2">Beethoven</h2>
-                <p class="text-gray-700">Мобильное приложение: Разработали мобильное приложение и увеличили конверсию из визита в покупку в три раза.</p>
-                <a href="#" class="text-blue-600 hover:underline mt-4 block">Подробнее</a>
-            </article>
-            <article class="project-card bg-white p-6 rounded shadow-md hover:shadow-lg">
-                <h2 class="text-2xl font-bold mb-2">Т-банк (Тинькофф)</h2>
-                <p class="text-gray-700">Проект под NDA: Помогли развивать цифровые сервисы банка, проект под NDA.</p>
-                <a href="#" class="text-blue-600 hover:underline mt-4 block">Подробнее</a>
-            </article>
-            <article class="project-card bg-white p-6 rounded shadow-md hover:shadow-lg">
-                <h2 class="text-2xl font-bold mb-2">Rendez-Vous</h2>
-                <p class="text-gray-700">Мобильный канал продаж: Перезапустили мобильный канал продаж и увеличили конверсию клиентов в покупку.</p>
-                <a href="#" class="text-blue-600 hover:underline mt-4 block">Подробнее</a>
-            </article>
-            <article class="project-card bg-white p-6 rounded shadow-md hover:shadow-lg">
-                <h2 class="text-2xl font-bold mb-2">Росбанк</h2>
-                <p class="text-gray-700">Смарт-банк на Flutter: Создали первый в России смарт-банк на Flutter и передали разработку инхаус-команде.</p>
-                <a href="#" class="text-blue-600 hover:underline mt-4 block">Подробнее</a>
-            </article>
-        </section>
-
-        <!-- Behind the Scenes Section -->
-        <section class="behind-the-scenes text-center mb-16 bg-blue-50 p-10 rounded">
-            <h2 class="text-3xl font-bold mb-4">Загляните за кулисы</h2>
-            <p class="text-lg text-gray-700 mb-6">Специально для наших клиентов и партнеров мы открываем двери, чтобы показать вам наши уникальные процессы создания цифровых решений и инноваций.</p>
-            <button class="bg-blue-600 text-white py-2 px-6 rounded hover:bg-blue-700">Подробнее</button>
-        </section>
-
-        <!-- Register Your Initiative Section -->
-        <section class="register-initiative bg-purple-700 text-white p-10 rounded mb-16">
-            <h2 class="text-3xl font-bold mb-6">Регистрация инициативы в рамках недели музыки</h2>
-            <form action="#" method="post" class="space-y-6">
+        <!-- Order Form Section -->
+        <div class="bg-purple-500 p-8 mt-16">
+            <h2 class="text-6xl font-bold mb-8 text-center text-white">Форма заявки</h2>
+            <form class="order-form max-w-full mx-auto space-y-12">
                 <div>
-                    <label for="title" class="block text-lg font-medium mb-2">Название</label>
-                    <input type="text" id="title" name="title" class="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-blue-600" required>
+                    <label for="project" class="block text-4xl font-bold mb-4 text-white">Опишите ваш проект</label>
+                    <textarea id="project" name="project" class="w-full border-b-4 border-black p-4 bg-purple-500 text-white text-5xl" rows="2" placeholder="Расскажите нам о вашем проекте..."></textarea>
                 </div>
                 <div>
-                    <label for="description" class="block text-lg font-medium mb-2">Краткое описание</label>
-                    <textarea id="description" name="description" class="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-blue-600" required></textarea>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                        <label for="date" class="block text-lg font-medium mb-2">Дата</label>
-                        <input type="date" id="date" name="date" class="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-blue-600" required>
-                    </div>
-                    <div>
-                        <label for="location" class="block text-lg font-medium mb-2">Локация</label>
-                        <input type="text" id="location" name="location" class="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-blue-600" required>
-                    </div>
+                    <label for="contact" class="block text-4xl font-bold mb-4 text-white">Ваш контакт</label>
+                    <input type="text" id="contact" name="contact" class="w-full border-b-4 border-black p-4 bg-purple-500 text-white text-5xl" placeholder="Ваш телефон...">
                 </div>
                 <div>
-                    <label for="event-link" class="block text-lg font-medium mb-2">Ссылка на мероприятие</label>
-                    <input type="url" id="event-link" name="event-link" class="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-blue-600">
+                    <label for="email" class="block text-4xl font-bold mb-4 text-white">Ваша почта</label>
+                    <input type="email" id="email" name="email" class="w-full border-b-4 border-black p-4 bg-purple-500 text-white text-5xl" placeholder="Ваш e-mail...">
                 </div>
                 <div>
-                    <label for="campaign-image" class="block text-lg font-medium mb-2">Загрузите изображение кампании</label>
-                    <input type="file" id="campaign-image" name="campaign-image" class="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-blue-600">
+                    <label for="name" class="block text-4xl font-bold mb-4 text-white">Ваше имя</label>
+                    <input type="text" id="name" name="name" class="w-full border-b-4 border-black p-4 bg-purple-500 text-white text-5xl" placeholder="Ваше имя...">
                 </div>
-                <button type="submit" class="bg-yellow-500 text-white py-3 px-8 rounded hover:bg-yellow-600">Следующий шаг</button>
+                <button type="submit" class="w-full bg-black text-white py-6 text-4xl font-bold hover:bg-purple-700 transition duration-300 transform hover:scale-105">Отправить</button>
             </form>
-        </section>
-
-        <!-- Contact Section -->
-        <section class="contact text-center mb-16">
-            <h2 class="text-3xl font-bold mb-6">Свяжитесь с нами</h2>
-            <p class="text-lg text-gray-700 mb-6">Если у вас есть вопросы или вы хотите обсудить ваш проект, мы всегда рады помочь!</p>
-            <ul class="text-lg space-y-4">
-                <li>Телефон: +7 (123) 456-78-90</li>
-                <li>Email: info@upliner.com</li>
-                <li>Адрес: г. Москва, ул. Примерная, 1</li>
-            </ul>
-        </section>
+        </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-10">
-        <div class="container mx-auto px-6">
-            <div class="footer-logo text-2xl font-bold mb-4">Upliner</div>
-            <p class="text-lg mb-6">Мы помогаем бизнесу расти, создавая цифровые решения, которые работают на вас. Свяжитесь с нами, чтобы узнать больше о наших услугах и успешных проектах!</p>
-            <div class="social-icons flex space-x-4 mb-6">
-                <a href="#" class="hover:text-blue-400">Facebook</a>
-                <a href="#" class="hover:text-blue-400">Twitter</a>
-                <a href="#" class="hover:text-blue-400">Instagram</a>
-            </div>
-            <nav class="footer-menu">
-                <ul class="flex space-x-6">
-                    <li><a href="#services" class="hover:text-blue-400">Наши услуги</a></li>
-                    <li><a href="#about" class="hover:text-blue-400">О нас</a></li>
-                    <li><a href="#news" class="hover:text-blue-400">Новости</a></li>
-                    <li><a href="#contact" class="hover:text-blue-400">Контакты</a></li>
-                </ul>
-            </nav>
+    <!-- Footer Section -->
+    <footer class="bg-black text-white p-12 mt-16 text-center">
+        <div class="text-2xl font-bold mb-4">Upliner</div>
+        <p class="text-lg">Мы помогаем бизнесу расти, создавая цифровые решения, которые работают на вас. Свяжитесь с нами, чтобы узнать больше о наших услугах и успешных проектах!</p>
+        <div class="flex justify-center space-x-8 mt-6">
+            <a href="#" class="hover:opacity-75"><i class="fab fa-facebook-square w-8 h-8"></i></a>
+            <a href="#" class="hover:opacity-75"><i class="fab fa-twitter-square w-8 h-8"></i></a>
+            <a href="#" class="hover:opacity-75"><i class="fab fa-instagram-square w-8 h-8"></i></a>
         </div>
     </footer>
 </body>
