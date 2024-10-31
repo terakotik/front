@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upliner - Проекты и решения</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/3.0.23/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.10.2/cdn.min.js" defer></script>
+</head>
+<body class="bg-gray-100 text-gray-900">
+    <!-- Header -->
+    <header class="bg-white shadow-md py-4">
+        <div class="container mx-auto flex items-center justify-between px-6">
+            <div class="logo text-2xl font-bold text-blue-600">Upliner</div>
+            <nav class="main-menu">
+                <ul class="flex space-x-6">
+                    <li><a href="#services" class="hover:text-blue-600">Наши услуги</a></li>
+                    <li><a href="#about" class="hover:text-blue-600">О нас</a></li>
+                    <li><a href="#news" class="hover:text-blue-600">Новости</a></li>
+                </ul>
+            </nav>
+            <div class="social-icons flex space-x-4">
+                <a href="#" class="hover:text-blue-600">Facebook</a>
+                <a href="#" class="hover:text-blue-600">Twitter</a>
+                <a href="#" class="hover:text-blue-600">Instagram</a>
+            </div>
+            <div class="language-switch ml-4">
+                <button class="mr-2">RU</button> / <button>EN</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Section -->
+    <main class="container mx-auto px-6 py-10">
+        <section class="intro text-center mb-16">
+            <h1 class="text-4xl font-bold mb-4">Проекты и решения Upliner</h1>
+            <p class="text-lg text-gray-700 mb-6">Мы помогаем крупным компаниям быть на шаг впереди в IT-сфере, создавая мобильные и веб-сервисы, которые увеличивают конверсию и оптимизируют бизнес-процессы.</p>
+            <div class="view-buttons flex justify-center space-x-4">
+                <button class="bg-blue-600 text-white py-2 px-6 rounded hover:bg-blue-700">List</button>
+                <button class="bg-blue-600 text-white py-2 px-6 rounded hover:bg-blue-700">Map</button>
+            </div>
+        </section>
+
+        <!-- Project Cards -->
+        <section class="projects grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 mb-16">
+            <article class="project-card bg-white p-6 rounded shadow-md hover:shadow-lg">
+                <h2 class="text-2xl font-bold mb-2">Beethoven</h2>
+                <p class="text-gray-700">Мобильное приложение: Разработали мобильное приложение и увеличили конверсию из визита в покупку в три раза.</p>
+                <a href="#" class="text-blue-600 hover:underline mt-4 block">Подробнее</a>
+            </article>
+            <article class="project-card bg-white p-6 rounded shadow-md hover:shadow-lg">
+                <h2 class="text-2xl font-bold mb-2">Т-банк (Тинькофф)</h2>
+                <p class="text-gray-700">Проект под NDA: Помогли развивать цифровые сервисы банка, проект под NDA.</p>
+                <a href="#" class="text-blue-600 hover:underline mt-4 block">Подробнее</a>
+            </article>
+            <article class="project-card bg-white p-6 rounded shadow-md hover:shadow-lg">
+                <h2 class="text-2xl font-bold mb-2">Rendez-Vous</h2>
+                <p class="text-gray-700">Мобильный канал продаж: Перезапустили мобильный канал продаж и увеличили конверсию клиентов в покупку.</p>
+                <a href="#" class="text-blue-600 hover:underline mt-4 block">Подробнее</a>
+            </article>
+            <article class="project-card bg-white p-6 rounded shadow-md hover:shadow-lg">
+                <h2 class="text-2xl font-bold mb-2">Росбанк</h2>
+                <p class="text-gray-700">Смарт-банк на Flutter: Создали первый в России смарт-банк на Flutter и передали разработку инхаус-команде.</p>
+                <a href="#" class="text-blue-600 hover:underline mt-4 block">Подробнее</a>
+            </article>
+        </section>
+
+        <!-- Behind the Scenes Section -->
+        <section class="behind-the-scenes text-center mb-16 bg-blue-50 p-10 rounded">
+            <h2 class="text-3xl font-bold mb-4">Загляните за кулисы</h2>
+            <p class="text-lg text-gray-700 mb-6">Специально для наших клиентов и партнеров мы открываем двери, чтобы показать вам наши уникальные процессы создания цифровых решений и инноваций.</p>
+            <button class="bg-blue-600 text-white py-2 px-6 rounded hover:bg-blue-700">Подробнее</button>
+        </section>
+
+        <!-- Register Your Initiative Section -->
+        <section class="register-initiative bg-purple-700 text-white p-10 rounded mb-16">
+            <h2 class="text-3xl font-bold mb-6">Регистрация инициативы в рамках недели музыки</h2>
+            <form action="#" method="post" class="space-y-6">
+                <div>
+                    <label for="title" class="block text-lg font-medium mb-2">Название</label>
+                    <input type="text" id="title" name="title" class="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-blue-600" required>
+                </div>
+                <div>
+                    <label for="description" class="block text-lg font-medium mb-2">Краткое описание</label>
+                    <textarea id="description" name="description" class="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-blue-600" required></textarea>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="date" class="block text-lg font-medium mb-2">Дата</label>
+                        <input type="date" id="date" name="date" class="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-blue-600" required>
+                    </div>
+                    <div>
+                        <label for="location" class="block text-lg font-medium mb-2">Локация</label>
+                        <input type="text" id="location" name="location" class="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-blue-600" required>
+                    </div>
+                </div>
+                <div>
+                    <label for="event-link" class="block text-lg font-medium mb-2">Ссылка на мероприятие</label>
+                    <input type="url" id="event-link" name="event-link" class="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-blue-600">
+                </div>
+                <div>
+                    <label for="campaign-image" class="block text-lg font-medium mb-2">Загрузите изображение кампании</label>
+                    <input type="file" id="campaign-image" name="campaign-image" class="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-blue-600">
+                </div>
+                <button type="submit" class="bg-yellow-500 text-white py-3 px-8 rounded hover:bg-yellow-600">Следующий шаг</button>
+            </form>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact text-center mb-16">
+            <h2 class="text-3xl font-bold mb-6">Свяжитесь с нами</h2>
+            <p class="text-lg text-gray-700 mb-6">Если у вас есть вопросы или вы хотите обсудить ваш проект, мы всегда рады помочь!</p>
+            <ul class="text-lg space-y-4">
+                <li>Телефон: +7 (123) 456-78-90</li>
+                <li>Email: info@upliner.com</li>
+                <li>Адрес: г. Москва, ул. Примерная, 1</li>
+            </ul>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-10">
+        <div class="container mx-auto px-6">
+            <div class="footer-logo text-2xl font-bold mb-4">Upliner</div>
+            <p class="text-lg mb-6">Мы помогаем бизнесу расти, создавая цифровые решения, которые работают на вас. Свяжитесь с нами, чтобы узнать больше о наших услугах и успешных проектах!</p>
+            <div class="social-icons flex space-x-4 mb-6">
+                <a href="#" class="hover:text-blue-400">Facebook</a>
+                <a href="#" class="hover:text-blue-400">Twitter</a>
+                <a href="#" class="hover:text-blue-400">Instagram</a>
+            </div>
+            <nav class="footer-menu">
+                <ul class="flex space-x-6">
+                    <li><a href="#services" class="hover:text-blue-400">Наши услуги</a></li>
+                    <li><a href="#about" class="hover:text-blue-400">О нас</a></li>
+                    <li><a href="#news" class="hover:text-blue-400">Новости</a></li>
+                    <li><a href="#contact" class="hover:text-blue-400">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+    </footer>
+</body>
+</html>
