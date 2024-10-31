@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Week van de Belgische Muziek</title>
+    <title>Upliner - Цифровое агентство</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -74,6 +74,18 @@
                 transform: translate(3px, -3px);
             }
         }
+        .burger-menu {
+            display: none;
+        }
+        @media (max-width: 768px) {
+            .desktop-menu {
+                display: none;
+            }
+            .burger-menu {
+                display: block;
+                cursor: pointer;
+            }
+        }
     </style>
     <script>
         function toggleCard(element) {
@@ -90,6 +102,11 @@
                 }
             }
             type();
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
         }
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -109,98 +126,143 @@
 <body class="bg-purple-500 text-black">
     <!-- Header -->
     <header class="flex items-center justify-between p-6">
-        <div class="text-2xl font-bold">Week van de Belgische Muziek</div>
-        <nav class="flex space-x-6">
-            <a href="#" class="text-lg font-bold hover:underline">Events</a>
-            <a href="#" class="text-lg font-bold hover:underline">Over</a>
-            <a href="#" class="text-lg font-bold hover:underline">Nieuws</a>
+        <div class="text-2xl font-bold">Upliner</div>
+        <nav class="desktop-menu flex space-x-6">
+            <div class="relative group">
+                <a href="#" class="text-lg font-bold hover:underline">Наши услуги</a>
+                <div class="absolute right-0 hidden group-hover:block bg-white text-black mt-2 p-4 shadow-lg">
+                    <div class="mb-4">
+                        <div class="font-bold">Разработка и поддержка</div>
+                        <ul class="list-none">
+                            <li>Разработка SaaS решений</li>
+                            <li>Разработка e-Commerce платформ</li>
+                            <li>Интеграция платежных систем</li>
+                            <li>Разработка веб-платформ</li>
+                            <li>Разработка мобильных приложений</li>
+                            <li>Разработка и поддержка сайтов на WordPress</li>
+                            <li>Поддержка проектов</li>
+                            <li>Автоматизация процессов</li>
+                            <li>Разработка Telegram-ботов</li>
+                            <li>Разработка нейроконсультантов</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div class="font-bold">Маркетинговые услуги</div>
+                        <ul class="list-none">
+                            <li>SEO-оптимизация</li>
+                            <li>SMM (Маркетинг в соцсетях)</li>
+                            <li>Контекстная реклама</li>
+                            <li>UI/UX дизайн</li>
+                            <li>Экспертиза в AI</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <a href="#" class="text-lg font-bold hover:underline">О нас</a>
+            <a href="#" class="text-lg font-bold hover:underline">Новости</a>
         </nav>
-        <div class="flex space-x-4">
-            <a href="#" class="hover:opacity-75"><i class="fab fa-facebook-square w-6 h-6"></i></a>
-            <a href="#" class="hover:opacity-75"><i class="fab fa-twitter-square w-6 h-6"></i></a>
-            <a href="#" class="hover:opacity-75"><i class="fab fa-instagram-square w-6 h-6"></i></a>
+        <div class="burger-menu" onclick="toggleMobileMenu()">
+            <i class="fas fa-bars text-3xl"></i>
+        </div>
+        <div id="mobileMenu" class="fixed top-0 left-0 w-full h-full bg-purple-500 text-white p-6 hidden">
+            <div class="flex justify-between mb-8">
+                <div class="text-2xl font-bold">Upliner</div>
+                <div onclick="toggleMobileMenu()">
+                    <i class="fas fa-times text-3xl"></i>
+                </div>
+            </div>
+            <div class="mb-4">
+                <div class="font-bold mb-2">Разработка и поддержка</div>
+                <ul class="list-none space-y-2">
+                    <li>Разработка SaaS решений</li>
+                    <li>Разработка e-Commerce платформ</li>
+                    <li>Интеграция платежных систем</li>
+                    <li>Разработка веб-платформ</li>
+                    <li>Разработка мобильных приложений</li>
+                    <li>Разработка и поддержка сайтов на WordPress</li>
+                    <li>Поддержка проектов</li>
+                    <li>Автоматизация процессов</li>
+                    <li>Разработка Telegram-ботов</li>
+                    <li>Разработка нейроконсультантов</li>
+                </ul>
+            </div>
+            <div>
+                <div class="font-bold mb-2">Маркетинговые услуги</div>
+                <ul class="list-none space-y-2">
+                    <li>SEO-оптимизация</li>
+                    <li>SMM (Маркетинг в соцсетях)</li>
+                    <li>Контекстная реклама</li>
+                    <li>UI/UX дизайн</li>
+                    <li>Экспертиза в AI</li>
+                </ul>
+            </div>
         </div>
     </header>
 
     <!-- Main Content -->
     <main class="p-8">
-        <h1 class="text-6xl font-bold mb-4">Events</h1>
-        <p class="mb-6 max-w-2xl">Op radio en tv, in lokale muziekwinkels, concertzalen en clubs tot in scholen, cultuur- en gemeenschapscentra, jeugdhuizen en bibliotheken: muziek van bij ons is van maandag 30 januari t.e.m. zondag 5 februari overal!</p>
+        <h1 class="text-6xl font-bold mb-4">Наши проекты</h1>
+        <p class="mb-6 max-w-2xl">Мы создаем мобильные и веб-сервисы для крупнейших компаний, помогая им оставаться конкурентоспособными в сфере технологий. Вот некоторые из наших успешных проектов:</p>
         <div class="flex space-x-4 mb-12">
-            <button class="border-4 border-black py-2 px-6 text-lg font-bold hover:bg-black hover:text-white transition duration-300 transform hover:scale-105">List</button>
-            <button class="border-4 border-black py-2 px-6 text-lg font-bold hover:bg-black hover:text-white transition duration-300 transform hover:scale-105">Map</button>
+            <button class="border-4 border-black py-2 px-6 text-lg font-bold hover:bg-black hover:text-white transition duration-300 transform hover:scale-105">Список</button>
+            <button class="border-4 border-black py-2 px-6 text-lg font-bold hover:bg-black hover:text-white transition duration-300 transform hover:scale-105">Карта</button>
         </div>
 
         <!-- Filter Section -->
         <div class="border-t border-black pt-6">
             <div class="flex space-x-8 text-lg font-bold">
-                <div>DATUM <span class="text-sm font-normal">alle</span></div>
-                <div>LOCATIE</div>
-                <div>ORGANISATOR</div>
+                <div>ДАТА <span class="text-sm font-normal">все</span></div>
+                <div>ЛОКАЦИЯ</div>
+                <div>ОРГАНИЗАТОР</div>
             </div>
         </div>
 
         <!-- Event Cards Section -->
         <div class="mt-8 space-y-8">
+            <!-- Project Card Example -->
             <div onclick="toggleCard(this)" class="expandable-card bg-pink-500 p-6 flex flex-col md:flex-row md:justify-between items-center text-black cursor-pointer">
                 <div>
-                    <div class="text-2xl font-bold mb-2">23 - 28 Apr</div>
-                    <div class="text-lg font-semibold">Alsemberg</div>
-                    <button class="mt-4 border-2 border-black px-4 py-2 text-sm font-bold expand-button">DE HELE WEEK</button>
+                    <div class="text-2xl font-bold mb-2">Beethoven</div>
+                    <div class="text-lg font-semibold">Мобильное приложение</div>
+                    <button class="mt-4 border-2 border-black px-4 py-2 text-sm font-bold expand-button">Подробнее</button>
                 </div>
                 <div class="mt-4 md:mt-0 md:ml-6">
-                    <h2 class="text-4xl font-bold glitch-title" data-text="GRAAF! en RE:LOVE breken het kot af!"></h2>
-                    <p class="mt-2">Altijd al gedroomd om een kijkje te kunnen nemen in de backstage van Lotto Arena, de studio van Lotto Arena, de studio...</p>
-                </div>
-                <div class="mt-4 md:mt-0 md:ml-6">
-                    <img src="/images/event-image-1.jpg" alt="Performer Image" class="w-48 h-48 object-cover">
+                    <h2 class="text-4xl font-bold glitch-title" data-text="Увеличение конверсии в 3 раза"></h2>
+                    <p class="mt-2">Мы разработали мобильное приложение и увеличили конверсию из визита в покупку в три раза.</p>
                 </div>
             </div>
-
-            <div onclick="toggleCard(this)" class="expandable-card bg-black p-6 flex flex-col md:flex-row md:justify-between items-center text-white cursor-pointer">
-                <div>
-                    <div class="text-2xl font-bold mb-2">23 - 28 Apr</div>
-                    <div class="text-lg font-semibold">Alsemberg</div>
-                </div>
-                <div class="mt-4 md:mt-0 md:ml-6">
-                    <h2 class="text-4xl font-bold glitch-title" data-text="Michael Moore: duiken"></h2>
-                    <p class="mt-2">Altijd al gedroomd om een kijkje te kunnen nemen in de backstage van Lotto Arena, de studio van Lotto Arena, de studio...</p>
-                </div>
-                <div class="mt-4 md:mt-0 md:ml-6">
-                    <img src="/images/event-image-2.jpg" alt="Performer Image" class="w-48 h-48 object-cover">
-                </div>
-            </div>
+            <!-- Add more project cards as needed -->
         </div>
 
         <!-- Order Form Section -->
         <div class="bg-purple-500 p-8 mt-16">
-            <h2 class="text-6xl font-bold mb-8 text-center text-white">Bestelformulier</h2>
+            <h2 class="text-6xl font-bold mb-8 text-center text-white">Форма заявки</h2>
             <form class="order-form max-w-full mx-auto space-y-12">
                 <div>
-                    <label for="project" class="block text-4xl font-bold mb-4 text-white">Op uw project</label>
-                    <textarea id="project" name="project" class="w-full border-b-4 border-black p-4 bg-purple-500 text-white text-5xl" rows="2" placeholder="Beschrijf uw project..."></textarea>
+                    <label for="project" class="block text-4xl font-bold mb-4 text-white">Опишите ваш проект</label>
+                    <textarea id="project" name="project" class="w-full border-b-4 border-black p-4 bg-purple-500 text-white text-5xl" rows="2" placeholder="Расскажите нам о вашем проекте..."></textarea>
                 </div>
                 <div>
-                    <label for="contact" class="block text-4xl font-bold mb-4 text-white">Uw contact</label>
-                    <input type="text" id="contact" name="contact" class="w-full border-b-4 border-black p-4 bg-purple-500 text-white text-5xl" placeholder="Uw telefoonnummer...">
+                    <label for="contact" class="block text-4xl font-bold mb-4 text-white">Ваш контакт</label>
+                    <input type="text" id="contact" name="contact" class="w-full border-b-4 border-black p-4 bg-purple-500 text-white text-5xl" placeholder="Ваш телефон...">
                 </div>
                 <div>
-                    <label for="email" class="block text-4xl font-bold mb-4 text-white">Uw e-mail</label>
-                    <input type="email" id="email" name="email" class="w-full border-b-4 border-black p-4 bg-purple-500 text-white text-5xl" placeholder="Uw e-mailadres...">
+                    <label for="email" class="block text-4xl font-bold mb-4 text-white">Ваша почта</label>
+                    <input type="email" id="email" name="email" class="w-full border-b-4 border-black p-4 bg-purple-500 text-white text-5xl" placeholder="Ваш e-mail...">
                 </div>
                 <div>
-                    <label for="name" class="block text-4xl font-bold mb-4 text-white">Uw naam</label>
-                    <input type="text" id="name" name="name" class="w-full border-b-4 border-black p-4 bg-purple-500 text-white text-5xl" placeholder="Uw naam...">
+                    <label for="name" class="block text-4xl font-bold mb-4 text-white">Ваше имя</label>
+                    <input type="text" id="name" name="name" class="w-full border-b-4 border-black p-4 bg-purple-500 text-white text-5xl" placeholder="Ваше имя...">
                 </div>
-                <button type="submit" class="w-full bg-black text-white py-6 text-4xl font-bold hover:bg-purple-700 transition duration-300 transform hover:scale-105">Verzend</button>
+                <button type="submit" class="w-full bg-black text-white py-6 text-4xl font-bold hover:bg-purple-700 transition duration-300 transform hover:scale-105">Отправить</button>
             </form>
         </div>
     </main>
 
     <!-- Footer Section -->
     <footer class="bg-black text-white p-12 mt-16 text-center">
-        <div class="text-2xl font-bold mb-4">Week van de Belgische Muziek</div>
-        <p class="text-lg">Op radio en tv, in lokale muziekwinkels, concertzalen en clubs tot in scholen, cultuur- en gemeenschapscentra, jeugdhuizen en bibliotheken. Kom en vier de Belgische muziek met ons!</p>
+        <div class="text-2xl font-bold mb-4">Upliner</div>
+        <p class="text-lg">Мы помогаем бизнесу расти, создавая цифровые решения, которые работают на вас. Свяжитесь с нами, чтобы узнать больше о наших услугах и успешных проектах!</p>
         <div class="flex justify-center space-x-8 mt-6">
             <a href="#" class="hover:opacity-75"><i class="fab fa-facebook-square w-8 h-8"></i></a>
             <a href="#" class="hover:opacity-75"><i class="fab fa-twitter-square w-8 h-8"></i></a>
