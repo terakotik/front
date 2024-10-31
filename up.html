@@ -202,4 +202,88 @@
     <!-- Main Content -->
     <main class="p-8">
         <h1 class="text-6xl font-bold mb-4">Наши проекты</h1>
-        <p class="mb-6 max-w-
+        <p class="mb-6 max-w-2xl">Мы создаем мобильные и веб-сервисы для крупнейших компаний, помогая им оставаться конкурентоспособными в сфере технологий. Вот некоторые из наших успешных проектов:</p>
+        <div class="mt-8 space-y-8">
+            <!-- Project Cards -->
+            <div onclick="toggleCard(this)" class="expandable-card bg-pink-500 p-6 flex flex-col md:flex-row md:justify-between items-center text-black cursor-pointer">
+                <div>
+                    <div class="text-2xl font-bold mb-2">Beethoven</div>
+                    <div class="text-lg font-semibold">Мобильное приложение</div>
+                    <button class="mt-4 border-2 border-black px-4 py-2 text-sm font-bold expand-button">Подробнее</button>
+                </div>
+                <div class="mt-4 md:mt-0 md:ml-6">
+                    <h2 class="text-4xl font-bold glitch-title" data-text="Увеличение конверсии в 3 раза"></h2>
+                    <p class="mt-2">Мы разработали мобильное приложение и увеличили конверсию из визита в покупку в три раза.</p>
+                </div>
+            </div>
+            <div onclick="toggleCard(this)" class="expandable-card bg-black p-6 flex flex-col md:flex-row md:justify-between items-center text-white cursor-pointer">
+                <div>
+                    <div class="text-2xl font-bold mb-2">Т-банк (Тинькофф)</div>
+                    <div class="text-lg font-semibold">Проект под NDA</div>
+                </div>
+                <div class="mt-4 md:mt-0 md:ml-6">
+                    <h2 class="text-4xl font-bold glitch-title" data-text="Развитие цифровых сервисов"></h2>
+                    <p class="mt-2">Мы помогли развивать цифровые сервисы банка, проект под NDA.</p>
+                </div>
+            </div>
+            <div onclick="toggleCard(this)" class="expandable-card bg-pink-500 p-6 flex flex-col md:flex-row md:justify-between items-center text-black cursor-pointer">
+                <div>
+                    <div class="text-2xl font-bold mb-2">Rendez-Vous</div>
+                    <div class="text-lg font-semibold">Мобильный канал продаж</div>
+                    <button class="mt-4 border-2 border-black px-4 py-2 text-sm font-bold expand-button">Подробнее</button>
+                </div>
+                <div class="mt-4 md:mt-0 md:ml-6">
+                    <h2 class="text-4xl font-bold glitch-title" data-text="Увеличение конверсии"></h2>
+                    <p class="mt-2">Перезапустили мобильный канал продаж и увеличили конверсию клиентов в покупку.</p>
+                </div>
+            </div>
+            <div onclick="toggleCard(this)" class="expandable-card bg-black p-6 flex flex-col md:flex-row md:justify-between items-center text-white cursor-pointer">
+                <div>
+                    <div class="text-2xl font-bold mb-2">Росбанк</div>
+                    <div class="text-lg font-semibold">Смарт-банк на Flutter</div>
+                </div>
+                <div class="mt-4 md:mt-0 md:ml-6">
+                    <h2 class="text-4xl font-bold glitch-title" data-text="Первый в России"></h2>
+                    <p class="mt-2">Создали первый в России смарт-банк на Flutter и передали разработку инхаус-команде.</p>
+                </div>
+            </div>
+            <!-- Add more project cards as needed -->
+        </div>
+
+        <!-- Order Form Section -->
+        <div class="bg-purple-500 p-8 mt-16">
+            <h2 class="text-6xl font-bold mb-8 text-center text-white">Форма заявки</h2>
+            <form class="order-form max-w-full mx-auto space-y-12">
+                <div>
+                    <label for="project" class="block text-4xl font-bold mb-4 text-white">Опишите ваш проект</label>
+                    <textarea id="project" name="project" class="w-full border-b-4 border-black p-4 bg-purple-500 text-white text-5xl" rows="2" placeholder="Расскажите нам о вашем проекте..."></textarea>
+                </div>
+                <div>
+                    <label for="contact" class="block text-4xl font-bold mb-4 text-white">Ваш контакт</label>
+                    <input type="text" id="contact" name="contact" class="w-full border-b-4 border-black p-4 bg-purple-500 text-white text-5xl" placeholder="Ваш телефон...">
+                </div>
+                <div>
+                    <label for="email" class="block text-4xl font-bold mb-4 text-white">Ваша почта</label>
+                    <input type="email" id="email" name="email" class="w-full border-b-4 border-black p-4 bg-purple-500 text-white text-5xl" placeholder="Ваш e-mail...">
+                </div>
+                <div>
+                    <label for="name" class="block text-4xl font-bold mb-4 text-white">Ваше имя</label>
+                    <input type="text" id="name" name="name" class="w-full border-b-4 border-black p-4 bg-purple-500 text-white text-5xl" placeholder="Ваше имя...">
+                </div>
+                <button type="submit" class="w-full bg-black text-white py-6 text-4xl font-bold hover:bg-purple-700 transition duration-300 transform hover:scale-105">Отправить</button>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="bg-black text-white p-12 mt-16 text-center">
+        <div class="text-2xl font-bold mb-4">Upliner</div>
+        <p class="text-lg">Мы помогаем бизнесу расти, создавая цифровые решения, которые работают на вас. Свяжитесь с нами, чтобы узнать больше о наших услугах и успешных проектах!</p>
+        <div class="flex justify-center space-x-8 mt-6">
+            <a href="#" class="hover:opacity-75"><i class="fab fa-facebook-square w-8 h-8"></i></a>
+            <a href="#" class="hover:opacity-75"><i class="fab fa-twitter-square w-8 h-8"></i></a>
+            <a href="#" class="hover:opacity-75"><i class="fab fa-instagram-square w-8 h-8"></i></a>
+        </div>
+    </footer>
+</body>
+</html>
