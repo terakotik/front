@@ -1,378 +1,211 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StartupHub - Найди свою команду мечты!</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Week van de Belgische Muziek</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            overflow-x: hidden;
+        .expandable-card {
+            transition: transform 0.3s ease, max-height 0.5s ease;
+            max-height: 200px;
+            overflow: hidden;
         }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+        .expandable-card.open {
+            max-height: 600px;
+            transform: scale(1.05);
         }
-        .navbar-brand img {
-            height: 40px;
+        .expand-button:hover {
+            background-color: #000;
+            color: #fff;
         }
-        .card {
-            margin-bottom: 20px;
+        .order-form input::placeholder, .order-form textarea::placeholder {
+            font-size: 4rem;
+            opacity: 1;
+        }
+        .order-form input:focus, .order-form textarea:focus {
+            outline: none;
+        }
+        .glitch-title {
             position: relative;
-            cursor: pointer;
-            border-radius: 8px;
-            border: 3px solid #000;
-            box-shadow: 8px 8px 0px #000;
-            background: #ffffff;
-            height: 100%;
+            font-size: 4xl;
         }
-        .card-body {
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .ceo-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
+        .glitch-title:before, .glitch-title:after {
+            content: attr(data-text);
             position: absolute;
-            top: -25px;
-            left: 20px;
-            background-color: #ffd700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #000;
-            font-weight: bold;
-            font-size: 1.5rem;
-            border: 3px solid #000;
-        }
-        .ceo-name {
-            font-size: 1rem;
-            margin-top: 10px;
-            font-weight: 700;
-        }
-        .btn-primary {
-            background-color: #000;
-            border-color: #000;
-            border-radius: 0;
-            font-weight: 700;
-            padding: 10px 20px;
-            box-shadow: 4px 4px 0px #000;
-            transition: all 0.3s ease;
-        }
-        .btn-primary:hover {
-            background-color: #007bff;
-            color: #fff;
-            box-shadow: 6px 6px 0px #000;
-        }
-        .modal-header {
-            background-color: #000;
-            color: white;
-            border-bottom: 3px solid #000;
-        }
-        .progress-bar-container {
+            top: 0;
+            left: 0;
             width: 100%;
-            background-color: #e0e0e0;
-            border-radius: 4px;
-            margin-top: 10px;
-            border: 2px solid #000;
+            height: 100%;
+            overflow: hidden;
+            color: #f00;
+            z-index: -1;
+            animation: glitch-animation 2s infinite;
         }
-        .progress-bar {
-            height: 10px;
-            background-color: #000;
-            border-radius: 4px;
-            transition: width 0.3s ease-in-out;
+        .glitch-title:after {
+            color: #0f0;
+            z-index: -2;
+            animation: glitch-animation 2s infinite reverse;
         }
-        .card-title {
-            font-weight: 700;
-        }
-        .card-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-        .col-md-4 {
-            flex: 1;
-            min-width: 300px;
-        }
-        .small-heading {
-            font-size: 1rem;
-            font-weight: bold;
-        }
-        .nav-item {
-            margin-right: 15px;
-        }
-        .navbar {
-            background-color: #2c3e50;
-        }
-        .navbar-nav .nav-link {
-            color: #ffffff;
-            font-weight: bold;
-        }
-        .navbar-nav .nav-link.active, .navbar-nav .nav-link:hover {
-            color: #ffd700;
-        }
-        .top-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-        }
-        .top-button {
-            background-color: #000;
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-weight: bold;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        .top-button:hover {
-            background-color: #007bff;
-        }
-        .navbar-nav {
-            display: flex;
-            flex-wrap: nowrap;
-            overflow-x: auto;
-            margin-top: 20px;
-        }
-        .navbar-nav .nav-link {
-            white-space: nowrap;
+        @keyframes glitch-animation {
+            0% {
+                clip: rect(42px, 9999px, 44px, 0);
+                transform: translate(-3px, -3px);
+            }
+            20% {
+                clip: rect(8px, 9999px, 85px, 0);
+                transform: translate(3px, 3px);
+            }
+            40% {
+                clip: rect(85px, 9999px, 140px, 0);
+                transform: translate(-3px, 3px);
+            }
+            60% {
+                clip: rect(40px, 9999px, 90px, 0);
+                transform: translate(3px, -3px);
+            }
+            80% {
+                clip: rect(95px, 9999px, 100px, 0);
+                transform: translate(-3px, 3px);
+            }
+            100% {
+                clip: rect(12px, 9999px, 54px, 0);
+                transform: translate(3px, -3px);
+            }
         }
     </style>
+    <script>
+        function toggleCard(element) {
+            element.classList.toggle('open');
+        }
+
+        function startTypingEffect(element, text) {
+            let index = 0;
+            function type() {
+                if (index < text.length) {
+                    element.innerHTML += text.charAt(index);
+                    index++;
+                    setTimeout(type, 100);
+                }
+            }
+            type();
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.expandable-card');
+            cards.forEach(card => {
+                const titleElement = card.querySelector('.glitch-title');
+                const text = titleElement.getAttribute('data-text');
+                card.addEventListener('mouseenter', () => {
+                    if (!titleElement.innerHTML.trim()) {
+                        startTypingEffect(titleElement, text);
+                    }
+                });
+            });
+        });
+    </script>
 </head>
-<body>
-<div id="app">
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <img src="logo.svg" alt="StartupHub Logo">
-            </a>
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">Линч</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Набор в тиму</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Стартуют</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">MVP</a>
-                    </li>
-                </ul>
+<body class="bg-purple-500 text-black">
+    <!-- Header -->
+    <header class="flex items-center justify-between p-6">
+        <div class="text-2xl font-bold">Week van de Belgische Muziek</div>
+        <nav class="flex space-x-6">
+            <a href="#" class="text-lg font-bold hover:underline">Events</a>
+            <a href="#" class="text-lg font-bold hover:underline">Over</a>
+            <a href="#" class="text-lg font-bold hover:underline">Nieuws</a>
+        </nav>
+        <div class="flex space-x-4">
+            <a href="#" class="hover:opacity-75"><i class="fab fa-facebook-square w-6 h-6"></i></a>
+            <a href="#" class="hover:opacity-75"><i class="fab fa-twitter-square w-6 h-6"></i></a>
+            <a href="#" class="hover:opacity-75"><i class="fab fa-instagram-square w-6 h-6"></i></a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="p-8">
+        <h1 class="text-6xl font-bold mb-4">Events</h1>
+        <p class="mb-6 max-w-2xl">Op radio en tv, in lokale muziekwinkels, concertzalen en clubs tot in scholen, cultuur- en gemeenschapscentra, jeugdhuizen en bibliotheken: muziek van bij ons is van maandag 30 januari t.e.m. zondag 5 februari overal!</p>
+        <div class="flex space-x-4 mb-12">
+            <button class="border-4 border-black py-2 px-6 text-lg font-bold hover:bg-black hover:text-white transition duration-300 transform hover:scale-105">List</button>
+            <button class="border-4 border-black py-2 px-6 text-lg font-bold hover:bg-black hover:text-white transition duration-300 transform hover:scale-105">Map</button>
+        </div>
+
+        <!-- Filter Section -->
+        <div class="border-t border-black pt-6">
+            <div class="flex space-x-8 text-lg font-bold">
+                <div>DATUM <span class="text-sm font-normal">alle</span></div>
+                <div>LOCATIE</div>
+                <div>ORGANISATOR</div>
+            </div>
+        </div>
+
+        <!-- Event Cards Section -->
+        <div class="mt-8 space-y-8">
+            <div onclick="toggleCard(this)" class="expandable-card bg-pink-500 p-6 flex flex-col md:flex-row md:justify-between items-center text-black cursor-pointer">
                 <div>
-                    <button class="btn btn-primary">Создать</button>
+                    <div class="text-2xl font-bold mb-2">23 - 28 Apr</div>
+                    <div class="text-lg font-semibold">Alsemberg</div>
+                    <button class="mt-4 border-2 border-black px-4 py-2 text-sm font-bold expand-button">DE HELE WEEK</button>
+                </div>
+                <div class="mt-4 md:mt-0 md:ml-6">
+                    <h2 class="text-4xl font-bold glitch-title" data-text="GRAAF! en RE:LOVE breken het kot af!"></h2>
+                    <p class="mt-2">Altijd al gedroomd om een kijkje te kunnen nemen in de backstage van Lotto Arena, de studio van Lotto Arena, de studio...</p>
+                </div>
+                <div class="mt-4 md:mt-0 md:ml-6">
+                    <img src="/images/event-image-1.jpg" alt="Performer Image" class="w-48 h-48 object-cover">
+                </div>
+            </div>
+
+            <div onclick="toggleCard(this)" class="expandable-card bg-black p-6 flex flex-col md:flex-row md:justify-between items-center text-white cursor-pointer">
+                <div>
+                    <div class="text-2xl font-bold mb-2">23 - 28 Apr</div>
+                    <div class="text-lg font-semibold">Alsemberg</div>
+                </div>
+                <div class="mt-4 md:mt-0 md:ml-6">
+                    <h2 class="text-4xl font-bold glitch-title" data-text="Michael Moore: duiken"></h2>
+                    <p class="mt-2">Altijd al gedroomd om een kijkje te kunnen nemen in de backstage van Lotto Arena, de studio van Lotto Arena, de studio...</p>
+                </div>
+                <div class="mt-4 md:mt-0 md:ml-6">
+                    <img src="/images/event-image-2.jpg" alt="Performer Image" class="w-48 h-48 object-cover">
                 </div>
             </div>
         </div>
-    </nav>
 
-    <div class="container mt-4">
-        <div class="text-center py-3">
-            <h1 class="small-heading">Создай свой стартап и воплоти идею в реальность!</h1>
-            <p class="lead">Найди команду, продемонстрируй результаты и привлекай инвесторов через нашу платформу.</p>
-            <button class="btn btn-primary btn-lg" onclick="openForm()">Начать сейчас</button>
-        </div>
-
-        <div id="startupForm" style="display:none;" class="my-5">
-            <h2 class="mb-4">Создание стартапа</h2>
-            <form onsubmit="addStartup(event)">
-                <div class="mb-3">
-                    <label for="startupName" class="form-label">Название стартапа</label>
-                    <input type="text" class="form-control" id="startupName" required>
+        <!-- Order Form Section -->
+        <div class="bg-purple-500 p-8 mt-16">
+            <h2 class="text-6xl font-bold mb-8 text-center text-white">Bestelformulier</h2>
+            <form class="order-form max-w-full mx-auto space-y-12">
+                <div>
+                    <label for="project" class="block text-4xl font-bold mb-4 text-white">Op uw project</label>
+                    <textarea id="project" name="project" class="w-full border-b-4 border-black p-4 bg-purple-500 text-white text-5xl" rows="2" placeholder="Beschrijf uw project..."></textarea>
                 </div>
-                <div class="mb-3">
-                    <label for="startupIndustry" class="form-label">Индустрия</label>
-                    <input type="text" class="form-control" id="startupIndustry" required>
+                <div>
+                    <label for="contact" class="block text-4xl font-bold mb-4 text-white">Uw contact</label>
+                    <input type="text" id="contact" name="contact" class="w-full border-b-4 border-black p-4 bg-purple-500 text-white text-5xl" placeholder="Uw telefoonnummer...">
                 </div>
-                <div class="mb-3">
-                    <label for="startupDescription" class="form-label">Описание</label>
-                    <textarea class="form-control" id="startupDescription" rows="3" required></textarea>
+                <div>
+                    <label for="email" class="block text-4xl font-bold mb-4 text-white">Uw e-mail</label>
+                    <input type="email" id="email" name="email" class="w-full border-b-4 border-black p-4 bg-purple-500 text-white text-5xl" placeholder="Uw e-mailadres...">
                 </div>
-                <div class="mb-3">
-                    <label for="startupSpecialists" class="form-label">Необходимые специалисты</label>
-                    <input type="text" class="form-control" id="startupSpecialists" required>
+                <div>
+                    <label for="name" class="block text-4xl font-bold mb-4 text-white">Uw naam</label>
+                    <input type="text" id="name" name="name" class="w-full border-b-4 border-black p-4 bg-purple-500 text-white text-5xl" placeholder="Uw naam...">
                 </div>
-                <div class="mb-3">
-                    <label for="startupCeoName" class="form-label">Имя руководителя</label>
-                    <input type="text" class="form-control" id="startupCeoName" required>
-                </div>
-                <button type="submit" class="btn btn-primary">Отправить</button>
+                <button type="submit" class="w-full bg-black text-white py-6 text-4xl font-bold hover:bg-purple-700 transition duration-300 transform hover:scale-105">Verzend</button>
             </form>
         </div>
+    </main>
 
-        <section id="about" class="my-5">
-            <h2 class="mb-4">Как работает наш сервис</h2>
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="card text-center p-3">
-                        <h5>Этап 1: Идея</h5>
-                        <p>Пройдите общественное одобрение и соберите первые баллы поддержки.</p>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card text-center p-3">
-                        <h5>Этап 2: Команда</h5>
-                        <p>Соберите команду единомышленников для реализации проекта.</p>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card text-center p-3">
-                        <h5>Этап 3: MVP</h5>
-                        <p>Создайте минимальный рабочий продукт и подготовьтесь к запуску.</p>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card text-center p-3">
-                        <h5>Этап 4: Инвестиции</h5>
-                        <p>Привлекай инвестиции и развивай свой стартап.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="startups" class="my-5">
-            <h2 class="mb-4">Популярные стартапы</h2>
-            <div class="card-row" id="startupCards">
-                <!-- Стартапы будут добавлены сюда -->
-            </div>
-        </section>
-
-        <section id="how-it-works" class="my-5">
-            <h2 class="mb-4">Как это работает</h2>
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="card text-center p-3">
-                        <h5>Создай карточку стартапа</h5>
-                        <p>Опиши свою идею и представь её сообществу.</p>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card text-center p-3">
-                        <h5>Найди команду</h5>
-                        <p>Ищите единомышленников и формируйте сильную команду.</p>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card text-center p-3">
-                        <h5>Запусти MVP</h5>
-                        <p>Представьте результаты и убедите инвесторов.</p>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card text-center p-3">
-                        <h5>Привлекай инвестиции</h5>
-                        <p>Получайте поддержку и развивайте проект.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <footer class="bg-dark text-white py-4">
-        <div class="container text-center">
-            <p>&copy; 2024 StartupHub. Все права защищены.</p>
+    <!-- Footer Section -->
+    <footer class="bg-black text-white p-12 mt-16 text-center">
+        <div class="text-2xl font-bold mb-4">Week van de Belgische Muziek</div>
+        <p class="text-lg">Op radio en tv, in lokale muziekwinkels, concertzalen en clubs tot in scholen, cultuur- en gemeenschapscentra, jeugdhuizen en bibliotheken. Kom en vier de Belgische muziek met ons!</p>
+        <div class="flex justify-center space-x-8 mt-6">
+            <a href="#" class="hover:opacity-75"><i class="fab fa-facebook-square w-8 h-8"></i></a>
+            <a href="#" class="hover:opacity-75"><i class="fab fa-twitter-square w-8 h-8"></i></a>
+            <a href="#" class="hover:opacity-75"><i class="fab fa-instagram-square w-8 h-8"></i></a>
         </div>
     </footer>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/vue@3.2.31/dist/vue.global.prod.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-const app = Vue.createApp({
-    data() {
-        return {
-            startups: [
-                { id: 1, name: 'TechInnovate', industry: 'Технологии', description: 'Инновационные решения для бизнеса', neededSpecialists: ['Разработчик', 'Дизайнер'], ceoName: 'Иван Петров', progress: 75, supportCount: 48 },
-                { id: 2, name: 'FinRevolution', industry: 'Финансы', description: 'Революция в мире финансов', neededSpecialists: ['Финансовый аналитик', 'Разработчик'], ceoName: 'Анна Сидорова', progress: 60, supportCount: 45 },
-                { id: 3, name: 'HealthTech', industry: 'Здравоохранение', description: 'Технологии для здоровья', neededSpecialists: ['Врач', 'Разработчик', 'Менеджер'], ceoName: 'Михаил Иванов', progress: 40, supportCount: 42 }
-            ]
-        }
-    },
-    methods: {
-        openStartupDetails(startup) {
-            alert('Открытие деталей стартапа: ' + startup.name);
-        },
-        addStartup(event) {
-            event.preventDefault();
-            const newStartup = {
-                id: this.startups.length + 1,
-                name: document.getElementById('startupName').value,
-                industry: document.getElementById('startupIndustry').value,
-                description: document.getElementById('startupDescription').value,
-                neededSpecialists: document.getElementById('startupSpecialists').value.split(','),
-                ceoName: document.getElementById('startupCeoName').value,
-                progress: 0,
-                supportCount: 0
-            };
-            this.startups.push(newStartup);
-            document.getElementById('startupForm').style.display = 'none';
-            this.updateStartupCards();
-        },
-        updateStartupCards() {
-            const startupCards = document.getElementById('startupCards');
-            startupCards.innerHTML = '';
-            this.startups.forEach(startup => {
-                const card = document.createElement('div');
-                card.className = 'col-md-4';
-                card.innerHTML = `
-                    <div class="card h-100">
-                        <div class="ceo-avatar">${startup.ceoName.charAt(0)}</div>
-                        <div class="card-body">
-                            <h5 class="card-title">${startup.name}</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">${startup.industry}</h6>
-                            <p class="card-text">${startup.description}</p>
-                            <p><strong>Нужны:</strong> ${startup.neededSpecialists.join(', ')}</p>
-                            <p><strong>Поддержка:</strong> ${startup.supportCount}</p>
-                            <div class="progress-bar-container">
-                                <div class="progress-bar" style="width: ${startup.progress}%"></div>
-                            </div>
-                            <p class="mt-1 mb-0"><small>Прогресс: ${startup.progress}%</small></p>
-                            <button class="btn btn-outline-primary mt-3" onclick="voteStartup(${startup.id}, 'up')">👍 Поддержать</button>
-                            <button class="btn btn-outline-secondary mt-3" onclick="voteStartup(${startup.id}, 'down')">👎 Отклонить</button>
-                        </div>
-                    </div>
-                `;
-                startupCards.appendChild(card);
-            });
-        }
-    },
-    mounted() {
-        this.updateStartupCards();
-    }
-});
-
-app.mount('#app');
-
-function openForm() {
-    document.getElementById('startupForm').style.display = 'block';
-}
-
-function voteStartup(id, voteType) {
-    const startup = app._instance.proxy.startups.find(s => s.id === id);
-    if (voteType === 'up') {
-        startup.supportCount++;
-        if (startup.supportCount >= 30) {
-            alert(`${startup.name} набрал 30 одобрений и переходит в песочницу!`);
-        }
-    } else if (voteType === 'down') {
-        startup.supportCount--;
-    }
-    app._instance.proxy.updateStartupCards();
-}
-</script>
 </body>
 </html>
