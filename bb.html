@@ -1,0 +1,1446 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #fff, #f8f8f8);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.quiz-container {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 400px;
+    padding: 30px;
+    text-align: center;
+    margin: 60px auto 0;
+}
+
+.logo {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 20px;
+}
+
+h1 {
+    color: #EF3124;
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.description {
+    color: #333;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.earnings {
+    color: #EF3124;
+    font-size: 20px;
+    font-weight: 600;
+    margin: 20px 0;
+}
+
+/* Общие стили для всех кнопок */
+.next-button,
+.action-button,
+.card-button,
+button[style*="background"],
+.registration-scheme button,
+#work-section button,
+.button-container button {
+    background: #EF3124 !important;
+    color: white !important;
+    border: none !important;
+    padding: 15px 40px !important;
+    border-radius: 30px !important;
+    font-size: 16px !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    width: 100% !important;
+    text-align: center !important;
+    line-height: 1.2 !important;
+    margin-bottom: 10px !important;
+}
+
+/* Эффект при наведении для всех кнопок */
+.next-button:hover,
+.action-button:hover,
+.card-button:hover,
+button[style*="background"]:hover,
+.registration-scheme button:hover,
+#work-section button:hover,
+.button-container button:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 5px 15px rgba(239, 49, 36, 0.3) !important;
+}
+
+.next-button:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, .5);
+    opacity: 0;
+    border-radius: 100%;
+    transform: scale(1, 1) translate(-50%);
+    transform-origin: 50% 50%;
+}
+
+.next-button:hover:after {
+    animation: ripple 1s ease-out;
+}
+
+@keyframes ripple {
+    0% {
+        transform: scale(0, 0);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(100, 100);
+        opacity: 0;
+    }
+}
+
+.alfa-icon {
+    fill: #EF3124;
+}
+
+/* Burger Menu Styles */
+.burger-menu {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    cursor: pointer;
+}
+
+.burger-icon {
+    width: 30px;
+    height: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.burger-line {
+    width: 100%;
+    height: 3px;
+    background-color: #EF3124;
+    transition: 0.3s;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -280px;
+    width: 280px;
+    height: 100vh;
+    background: white;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    transition: 0.3s;
+    z-index: 999;
+    padding: 80px 20px 20px;
+    overflow-y: auto;
+}
+
+.sidebar.active {
+    left: 0;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    margin-bottom: 5px;
+    color: #333;
+    text-decoration: none;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.menu-item:hover {
+    background: #f8f8f8;
+    color: #EF3124;
+}
+
+.menu-content {
+    display: none;
+    padding: 5px 0;
+}
+
+.sub-item {
+    padding-left: 35px;
+    font-size: 14px;
+    background: #f8f8f8;
+    margin: 5px 0;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.pulse {
+    animation: pulse 2s infinite;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    z-index: 998;
+}
+
+.overlay.active {
+    display: block;
+}
+
+/* Add new celebration animations */
+@keyframes confetti {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(100vh) rotate(360deg); }
+}
+
+@keyframes fade-in {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.celebration-logo {
+    animation: pulse 2s infinite;
+}
+
+.celebration-title {
+    animation: fade-in 1s ease-out;
+}
+
+.celebration-section {
+    opacity: 0;
+    animation: fade-in 1s ease-out forwards;
+}
+
+.fade-in {
+    opacity: 0;
+    animation: fade-in 1s ease-out forwards;
+}
+
+.confetti-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+.menu-icon {
+    display: inline-block;
+    width: 24px;
+    margin-right: 10px;
+    text-align: center;
+}
+
+/* Добавить новые стили для контейнера кнопок */
+.card-buttons-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.card-button {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: #EF3124;
+    color: white;
+    text-align: center;
+    line-height: 1.2;
+    height: 100%;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(239, 49, 36, 0.3);
+}
+
+/* Обновить стили для кнопок */
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.action-button {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: #EF3124;
+    color: white;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.action-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(239, 49, 36, 0.3);
+}
+
+/* Обновить стили для текста */
+.content-text {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+    text-align: left;
+    margin-bottom: 15px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+}
+
+/* Обновить стили для контейнера карточек */
+.card-buttons-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.card-button {
+    width: 100%;
+    padding: 15px;
+    min-height: 50px;
+    font-size: 16px;
+}
+
+/* Убрать все другие цвета кнопок */
+button[style*="background: #9C27B0"],
+button[style*="background: #2196F3"],
+button[style*="background: #4CAF50"],
+button[style*="background: #FF9800"] {
+    background: #EF3124 !important;
+}
+
+/* Обновить стили для блоков в схеме регистрации */
+.step-box {
+    background: white;
+    padding: 15px;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    max-width: 100%;
+}
+
+.step-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    gap: 12px;
+}
+
+.step-number {
+    background: #EF3124;
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.step-content {
+    margin-left: 36px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.work-option {
+    background: #f8f8f8;
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+}
+
+.work-option h4 {
+    color: #EF3124;
+    margin-bottom: 8px;
+    font-size: 16px;
+}
+
+.work-option ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.work-option li {
+    margin-bottom: 6px;
+    font-size: 14px;
+    line-height: 1.4;
+}
+</style>
+</head>
+<body>
+    <div class="burger-menu" onclick="toggleMenu()">
+        <div class="burger-icon">
+            <div class="burger-line"></div>
+            <div class="burger-line"></div>
+            <div class="burger-line"></div>
+        </div>
+    </div>
+
+    <div class="sidebar">
+        <a href="#" class="menu-item" onclick="toggleSubMenu('knowledge')">
+            <span class="menu-icon">📚</span> База знаний
+        </a>
+        <div id="knowledge" class="menu-content">
+            <a href="#" class="menu-item sub-item" onclick="showProjectInfo()">О проекте "Свой в Альфа"</a>
+            <a href="#" class="menu-item sub-item" onclick="showPointsInfo()">Система баллов</a>
+            <a href="#" class="menu-item sub-item" onclick="showBonusInfo()">Бонусная программа</a>
+            <a href="#" class="menu-item sub-item" onclick="showQuickStart()">Быстрый старт</a>
+        </div>
+
+        <a href="#" class="menu-item" onclick="toggleSubMenu('registration')">
+            <span class="menu-icon">📝</span> Регистрация
+        </a>
+        <div id="registration" class="menu-content">
+            <a href="#" class="menu-item sub-item" onclick="showRegistrationScheme()">Схема регистрации</a>
+            <a href="#" class="menu-item sub-item" onclick="showCardSelection()">Выбор карты</a>
+            <a href="#" class="menu-item sub-item" onclick="showBusinessRegistration()">Оформление ИП/СМЗ</a>
+            <a href="#" class="menu-item sub-item" onclick="showBPRegistration()">Оформление БП</a>
+        </div>
+
+        <a href="#" class="menu-item" onclick="toggleSubMenu('work')">
+            <span class="menu-icon">💼</span> Работа
+        </a>
+        <div id="work" class="menu-content">
+            <a href="#" class="menu-item sub-item" onclick="showCardSelection()">Оформление карт</a>
+            <a href="#" class="menu-item sub-item" onclick="showEarningScheme()">Схема заработка</a>
+            <a href="#" class="menu-item sub-item" onclick="showReferralSystem()">Реферальная система</a>
+            <a href="#" class="menu-item sub-item" onclick="showTeamBuilding()">Построение команды</a>
+        </div>
+
+        <a href="#" class="menu-item" onclick="toggleSubMenu('team')">
+            <span class="menu-icon">👥</span> Команда
+        </a>
+        <div id="team" class="menu-content">
+            <a href="#" class="menu-item sub-item" onclick="showTeamLevels()">Уровни команды</a>
+            <a href="#" class="menu-item sub-item" onclick="showTeamBonuses()">Командные бонусы</a>
+            <a href="#" class="menu-item sub-item" onclick="showLeadershipProgram()">Программа лидерства</a>
+        </div>
+
+        <a href="#" class="menu-item" onclick="toggleSubMenu('support')">
+            <span class="menu-icon">🆘</span> Поддержка
+        </a>
+        <div id="support" class="menu-content">
+            <a href="#" class="menu-item sub-item" onclick="showFAQ()">Частые вопросы</a>
+            <a href="#" class="menu-item sub-item" onclick="showTechnicalSupport()">Техническая поддержка</a>
+            <a href="#" class="menu-item sub-item" onclick="showContactInfo()">Контакты</a>
+        </div>
+    </div>
+
+    <div class="overlay" onclick="toggleMenu()"></div>
+
+    <div class="quiz-container" id="main-screen">
+        <svg class="logo" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="45" fill="#EF3124"></circle>
+            <text x="50" y="50" text-anchor="middle" dy=".3em" fill="white" font-size="40">A</text>
+        </svg>
+        
+        <h1>Привет! Это бот система заработка от Альфа Банка!</h1>
+        
+        <p class="description">
+            Я научу зарабатывать тебя и твоих друзей просто отправляя ссылку на продукты Альфа Банка!
+        </p>
+        
+        <div class="earnings pulse">
+            Узнай, как заработать от 5000 рублей до 5 миллионов!
+        </div>
+        
+        <p class="description">
+            Пройди обучение и только потом приступай к работе! Начни обучение нажав слева вверху <span style="color: #EF3124">≡</span> "База знаний" или просто нажми "Далее"
+        </p>
+        
+        <button class="next-button" onclick="nextStep()">
+            ДАЛЕЕ
+        </button>
+    </div>
+
+    <div class="quiz-container" id="project-info" style="display: none;">
+        <svg class="logo" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="45" fill="#EF3124"></circle>
+            <text x="50" y="50" text-anchor="middle" dy=".3em" fill="white" font-size="40">A</text>
+        </svg>
+
+        <h2 style="color: #EF3124; margin-bottom: 20px;">В ноябре 2023 года Альфа Банк впервые в России запустил проект по типу МЛМ</h2>
+
+        <h3 style="color: #333; margin: 20px 0;">Как это работает?</h3>
+
+        <ul style="list-style: none; text-align: left; margin-bottom: 20px;">
+            <li style="margin-bottom: 10px;">✓ Вы регистрируетесь в программе 'Свой в Альфа'</li>
+            <li style="margin-bottom: 10px;">✓ Получаете персональную ссылку для приглашений</li>
+            <li style="margin-bottom: 10px;">✓ Каждый, кто пройдет по вашей ссылке и оформит карту, принесет вам доход</li>
+            <li style="margin-bottom: 10px;">✓ Вы будете получать пассивный доход с покупок людей, которых привлекли вы и ваши приглашенные</li>
+        </ul>
+
+        <div style="background: #f8f8f8; padding: 20px; border-radius: 10px; margin: 20px 0;">
+            <h3 style="color: #EF3124; margin-bottom: 15px;">Система работает на три уровня в глубину:</h3>
+            <p style="margin-bottom: 10px;"><strong>1 поколение:</strong> люди, которых пригласили вы</p>
+            <p style="margin-bottom: 10px;"><strong>2 поколение:</strong> люди, приглашенные вашими участниками</p>
+            <p style="margin-bottom: 10px;"><strong>3 поколение:</strong> участники их сети</p>
+        </div>
+
+        <p class="description">Жми "Далее" чтобы узнать о начислении балов</p>
+
+        <button class="next-button" onclick="showPointsInfo()">
+            ДАЛЕЕ
+        </button>
+    </div>
+
+    <div class="quiz-container" id="points-info" style="display: none;">
+        <svg class="logo" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="45" fill="#EF3124"></circle>
+            <text x="50" y="50" text-anchor="middle" dy=".3em" fill="white" font-size="40">A</text>
+        </svg>
+
+        <h2 style="color: #EF3124; margin-bottom: 20px;">Система начисления баллов</h2>
+
+        <div style="text-align: left; padding: 20px;">
+            <p style="margin-bottom: 15px;">Баллы начисляются за активность клиентов, кот��рых вы привлекли, а также за действия их сети (вплоть до 3 поколений).</p>
+
+            <h3 style="color: #333; margin: 15px 0;">Баллы можно заработать за следующие действия:</h3>
+            <ul style="list-style: none; margin-bottom: 20px;">
+                <li style="margin-bottom: 8px;">✓ Оформление дебетовой или кредитной карты</li>
+                <li style="margin-bottom: 8px;">✓ Открытие вклада или брокерского счета</li>
+                <li style="margin-bottom: 8px;">✓ Расход по карте более 5000р в мес</li>
+                <li style="margin-bottom: 8px;">✓ Прохождение теста</li>
+                <li style="margin-bottom: 8px;">✓ Оплата ЖКХ</li>
+            </ul>
+
+            <div style="background: #f8f8f8; padding: 15px; border-radius: 10px; margin: 15px 0;">
+                <p>Общая сумма баллов, накопленных за месяц всей вашей сетью, определяет ваш текущий уровень квалификации. Чем выше уровень, тем больше ваш доход!</p>
+            </div>
+
+            <h3 style="color: #333; margin: 15px 0;">Стоимость баллов по уровням:</h3>
+            <p>Для каждого уровня (А1,А2,А3 и т.д.) стоимость баллов различается.</p>
+            <ul style="list-style: none; margin: 10px 0;">
+                <li>На уровне А1 ваши клиенты приносят 100 рублей за 1 балл.</li>
+                <li>На уровне А5 - уже 115 рублей за 1 балл.</li>
+            </ul>
+
+            <h3 style="color: #333; margin: 15px 0;">Разделение дохода по поколениям</h3>
+            <ul style="list-style: none; margin: 10px 0;">
+                <li style="margin-bottom: 10px;"><strong>1 поколение:</strong> это ваши клиенты. На их действия начисляется максимальная стоимость баллов.</li>
+                <li style="margin-bottom: 10px;"><strong>2 поколение:</strong> это клиенты ваших партнеров. Балы от их активности имеют меньшую стоимость.</li>
+                <li style="margin-bottom: 10px;"><strong>3 поколение:</strong> клиенты партнеров вашего второго уровня. Здесь стоимость баллов самая низкая.</li>
+            </ul>
+
+            <div style="background: #f8f8f8; padding: 15px; border-radius: 10px; margin: 15px 0;">
+                <p><strong>Например, на уровне А5:</strong></p>
+                <ul style="list-style: none; margin-top: 10px;">
+                    <li>1 поколение приносит 115 рублей за балл</li>
+                    <li>2 поколение - 27 рублей за балл</li>
+                    <li>3 поколение - 15 рублей за балл</li>
+                </ul>
+            </div>
+        </div>
+
+        <p class="description">Жми "Далее" чтобы узнать о начислении бонусов</p>
+
+        <button class="next-button" onclick="showBonusInfo()">
+            ДАЛЕЕ
+        </button>
+    </div>
+
+    <div class="quiz-container" id="bonus-info" style="display: none;">
+        <svg class="logo" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="45" fill="#EF3124"></circle>
+            <text x="50" y="50" text-anchor="middle" dy=".3em" fill="white" font-size="40">A</text>
+        </svg>
+
+        <h2 style="color: #EF3124; margin-bottom: 20px;">Бонусная программа</h2>
+
+        <div style="text-align: left; padding: 20px;">
+            <p style="margin-bottom: 15px;">В проекте "Свой в Альфа" предусмотрено множество бонусов, которые помогут вам зарабатывать больше. И сейчас вы узнаете о первом бонусе — "Бонусном дуэте".</p>
+
+            <h3 style="color: #333; margin: 15px 0;">Суть бонуса:</h3>
+            <p style="margin-bottom: 20px;">Когда ваш партнер из 1-го поколения достигает уровня A4 или выше, вы оба получаете разовую выплату. Это первая награда за командную работу и поддержку друг друга!</p>
+
+            <div style="background: #f8f8f8; padding: 15px; border-radius: 10px; margin: 15px 0;">
+                <h3 style="color: #333; margin-bottom: 10px;">Условия получения:</h3>
+                <ul style="list-style: none;">
+                    <li style="margin-bottom: 8px;">✓ У вас и у вашего партнера должно быть 40+ баллов за личных клиентов.</li>
+                </ul>
+            </div>
+
+            <p style="margin-top: 20px;">Этот бонус — только начало. Впереди вас ждут новые уровни, больше наград и рост доходов!</p>
+        </div>
+
+        <p class="description">Нажмите "Далее" и двигитесь к следующему шагу!</p>
+
+        <button class="next-button" onclick="showNextStep()">
+            ДАЛЕЕ
+        </button>
+    </div>
+
+    <div class="quiz-container" id="partner-bonus-info" style="display: none;">
+        <svg class="logo" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="45" fill="#EF3124"></circle>
+            <text x="50" y="50" text-anchor="middle" dy=".3em" fill="white" font-size="40">A</text>
+        </svg>
+
+        <h2 style="color: #EF3124; margin-bottom: 20px;">Партнерские бо��усы</h2>
+
+        <div style="text-align: left; padding: 20px;">
+            <p style="margin-bottom: 15px;">Это еще один важный шаг в развитии вашей команды! С этим бонусом вы получаете выплаты за привлечение и обучение новых партнеров в 1-м поколении.</p>
+
+            <h3 style="color: #333; margin: 15px 0;">Как это работает:</h3>
+            <p style="margin-bottom: 15px;">Вы получаете бонус за каждого нового квалифицированного партнера в вашей первой линии.</p>
+
+            <div style="background: #f8f8f8; padding: 15px; border-radius: 10px; margin: 15px 0;">
+                <h4 style="color: #333; margin-bottom: 10px;">Сумма бонуса увеличивается с количеством партнеров:</h4>
+                <ul style="list-style: none;">
+                    <li style="margin-bottom: 8px;">✓ 1 партнер — 2 000 руб.</li>
+                    <li style="margin-bottom: 8px;">✓ 2 партнера — 3 000 руб. за каждого</li>
+                    <li style="margin-bottom: 8px;">✓ 3-4 партнера — 4 000 руб. за каждого</li>
+                    <li style="margin-bottom: 8px;">✓ 5+ партнеров — 5 000 руб. за каждого</li>
+                </ul>
+            </div>
+
+            <h3 style="color: #333; margin: 15px 0;">Условия для получения бонуса:</h3>
+            <ul style="list-style: none;">
+                <li style="margin-bottom: 8px;">✓ Новый партнер должен набрать 40+ баллов за личных клиентов</li>
+                <li style="margin-bottom: 8px;">✓ Вы, как наставник, также должны набрать 40+ баллов за личных клиентов</li>
+            </ul>
+
+            <div style="background: #f8f8f8; padding: 15px; border-radius: 10px; margin: 20px 0;">
+                <h3 style="color: #333; margin-bottom: 10px;">Пример расчета бонуса:</h3>
+                <p>В марте вы привлекли 4 новых партнеров, которые выполнили условия (40+ баллов). Вы также набрали 40+ баллов.</p>
+                <p style="color: #EF3124; font-weight: bold; margin-top: 10px;">Ваш бонус составит 16 000 руб. (по 4 000 руб. за каждого).</p>
+            </div>
+
+            <p style="margin-top: 20px; font-weight: bold;">Развивайте свою команду — чем больше партнеров, тем больше ваш доход!</p>
+        </div>
+
+        <p class="description">Нажмите "Далее", чтобы рассмотреть пример быстрого старта</p>
+
+        <button class="next-button" onclick="showQuickStart()">
+            ДАЛЕЕ
+        </button>
+    </div>
+
+    <div class="quiz-container" id="generation-bonus-info" style="display: none;">
+        <svg class="logo" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="45" fill="#EF3124"></circle>
+            <text x="50" y="50" text-anchor="middle" dy=".3em" fill="white" font-size="40">A</text>
+        </svg>
+
+        <h2 style="color: #EF3124; margin-bottom: 20px;">Бонус за все поколения</h2>
+
+        <div style="text-align: left; padding: 20px;">
+            <p style="margin-bottom: 15px;">Это еще один значимый этап в системе бонусов проекта "Свой в Альфа". Он позволяет вам получать награды за привлечение новых клиентов в банк по всей вашей команде.</p>
+
+            <h3 style="color: #333; margin: 15px 0;">Как это работает:</h3>
+            <ul style="list-style: none;">
+                <li style="margin-bottom: 8px;">✓ Учитываются новые для банка клиенты по всем поколениям в течение трех месяцев.</li>
+                <li style="margin-bottom: 8px;">✓ Новый клиент — это человек, который никогда ранее не имел дебетовых карт или счетов в Альфа-Банке.</li>
+                <li style="margin-bottom: 8px;">✓ Претендовать на бонус могут партнеры, достигшие уровня A8 и выше.</li>
+            </ul>
+
+            <div style="background: #f8f8f8; padding: 15px; border-radius: 10px; margin: 20px 0;">
+                <h3 style="color: #333; margin-bottom: 10px;">Пример бонусов за квартал:</h3>
+                <ul style="list-style: none;">
+                    <li style="margin-bottom: 8px;">✓ Приведите 500 новых клиентов — получите 100 000 руб.</li>
+                    <li style="margin-bottom: 8px;">✓ Приведите 1 000 новых клиентов — получите 200 000 руб.</li>
+                    <li style="margin-bottom: 8px;">✓ Приведите 5 000 новых клиентов — получите 1 000 000 руб.</li>
+                    <li style="margin-bottom: 8px;">✓ За 20 000 новых клиентов бонус составит 5 000 000 руб.</li>
+                </ul>
+            </div>
+
+            <h3 style="color: #333; margin: 15px 0;">Почему это важно?</h3>
+            <p style="margin-bottom: 15px;">Бонус за все поколения стимулирует развитие команды и увеличение вашей структуры. Чем активнее работает ваша команда, тем больше ваш доход!</p>
+        </div>
+
+        <p class="description">Нажмите "Далее" и узнайте информацию о следующем бонусе</p>
+
+        <button class="next-button" onclick="showNextBonus()">
+            ДАЛЕЕ
+        </button>
+    </div>
+
+    <div class="quiz-container" id="quick-start" style="display: none;">
+        <svg class="logo" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="45" fill="#EF3124"></circle>
+            <text x="50" y="50" text-anchor="middle" dy=".3em" fill="white" font-size="40">A</text>
+        </svg>
+
+        <h2 style="color: #EF3124; margin-bottom: 20px;">Как заработать 55 000 рублей за месяц: простой пример</h2>
+
+        <div style="text-align: left; padding: 20px;">
+            <section style="margin-bottom: 20px;">
+                <h3 style="color: #333; margin-bottom: 15px;">1. Ваши клиенты (1 поколение)</h3>
+                <p>Вы лично привлекаете 5 клиентов. Каждый из них делает покупки на 200 баллов.</p>
+                <p style="color: #EF3124; font-weight: bold;">- 200 баллов × 115 рублей = 23 000 рублей дохода только с клиентов.</p>
+            </section>
+
+            <section style="margin-bottom: 20px;">
+                <h3 style="color: #333; margin-bottom: 15px;">2. Клиенты ваших агентов (2 поколение)</h3>
+                <p>Вы подключаете 5 человек в свою команду (это агенты уровня А1). Эти агенты тоже приводят клиентов, и вы получаете % от их покупок.</p>
+                <p style="color: #EF3124; font-weight: bold;">- 200 баллов × 25 рублей × 5 агентов = 5 000 рублей дополнительно.</p>
+            </section>
+
+            <section style="margin-bottom: 20px;">
+                <h3 style="color: #333; margin-bottom: 15px;">3. Бонус за новых агентов</h3>
+                <p>За каждого нового агента в вашей команде (5 человек) вы получаете бонус.</p>
+                <p style="color: #EF3124; font-weight: bold;">- 5 человек × 5 000 рублей = 25 000 рублей.</p>
+            </section>
+
+            <section style="margin-bottom: 20px;">
+                <h3 style="color: #333; margin-bottom: 15px;">4. Бонус за квалификацию</h3>
+                <p>Достигнув статуса А5, вы получаете фиксирванный бонус в размере 2 000 рублей.</p>
+            </section>
+
+            <div style="background: #f8f8f8; padding: 15px; border-radius: 10px; margin: 20px 0;">
+                <h3 style="color: #EF3124; margin-bottom: 10px;">Итог: 55 000 рублей за месяц.</h3>
+                <p>Но это только начало! Поднимаясь на следующий уровень, вы можете зарабатывать ещё больше: больше клиентов, больше агентов, больше бонусов. Действуйте уже сегодня, чтобы увеличить свой доход и достичь новых высот!</p>
+            </div>
+        </div>
+
+        <button class="next-button" onclick="nextFromQuickStart()">
+            ДАЛЕЕ
+        </button>
+    </div>
+
+    <div class="quiz-container" id="easy-points" style="display: none;">
+        <svg class="logo" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="45" fill="#EF3124"></circle>
+            <text x="50" y="50" text-anchor="middle" dy=".3em" fill="white" font-size="40">A</text>
+        </svg>
+
+        <h2 style="color: #EF3124; margin-bottom: 20px;">Как легко набирать баллы и строить команду</h2>
+
+        <div style="text-align: left; padding: 20px;">
+            <p style="margin-bottom: 15px;">Как видно из предыдущего примера, выйти на доход в 55 000 рублей за месяц легко, если выстроить команду и набирать баллы. А главное, баллы за новых клиентов собирать просто!</p>
+
+            <section style="margin-bottom: 20px;">
+                <h3 style="color: #333; margin-bottom: 15px;">Вот пример:</h3>
+                <div style="background: #f8f8f8; padding: 15px; border-radius: 10px;">
+                    <h4 style="color: #333; margin-bottom: 10px;">Каждый новый клиент приносит 17 баллов в первый месяц:</h4>
+                    <ul style="list-style: none;">
+                        <li style="margin-bottom: 8px;">✓ 8 + 5 баллов за активацию карты</li>
+                        <li style="margin-bottom: 8px;">✓ 1 балл за подключение Госуслуг</li>
+                        <li style="margin-bottom: 8px;">✓ 1 балл за выбор Альфа-Банка для СБП</li>
+                        <li style="margin-bottom: 8px;">✓ 1 балл за покупки от 5 000 ₽</li>
+                        <li style="margin-bottom: 8px;">✓ 1 балл за оплату ЖКУ или налогов</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section style="margin-bottom: 20px;">
+                <h3 style="color: #333; margin-bottom: 15px;">И это ещё не всё! Баллов можно набрать ещё больше, если клиент:</h3>
+                <ul style="list-style: none;">
+                    <li style="margin-bottom: 8px;">✓ Оформит бесплатную кредитную карту</li>
+                    <li style="margin-bottom: 8px;">✓ Откроет брокерский счёт</li>
+                    <li style="margin-bottom: 8px;">✓ Будет пользоваться дополнительными услугами банка</li>
+                </ul>
+            </section>
+
+            <div style="background: #f8f8f8; padding: 15px; border-radius: 10px; margin: 20px 0;">
+                <h3 style="color: #EF3124; margin-bottom: 10px;">Итог:</h3>
+                <p>Набирать баллы действительно легко, а чем больше баллов и клиентов, тем выше ваш доход и статус. Действуйте, чтобы выйти на новый уровень!</p>
+            </div>
+        </div>
+
+        <button class="next-button" onclick="finalStep()">
+            ДАЛЕЕ
+        </button>
+    </div>
+
+    <div class="quiz-container" id="celebration" style="display: none;">
+        <svg class="logo celebration-logo" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="45" fill="#EF3124"></circle>
+            <text x="50" y="50" text-anchor="middle" dy=".3em" fill="white" font-size="40">A</text>
+        </svg>
+
+        <div class="confetti-container"></div>
+        
+        <h2 style="color: #EF3124; margin-bottom: 20px;" class="celebration-title">Поздравляем! 🎉</h2>
+
+        <div style="text-align: left; padding: 20px;">
+            <p style="margin-bottom: 20px; font-size: 18px;">Вы успешно завершили раздел "База знаний"!</p>
+
+            <p style="margin-bottom: 20px;">Теперь вы обладаете всей необходимой информацией, чтобы стать частью проекта "Свой в Альфа" и начать зарабатывать вместе с нами.</p>
+
+            <section class="celebration-section">
+                <h3 style="color: #333; margin: 20px 0;">Что дальше?</h3>
+                <ul style="list-style: none;">
+                    <li class="fade-in">✓ Нажмите "Далее" или выберите пункт "Работа" в меню.</li>
+                    <li class="fade-in" style="animation-delay: 0.3s;">✓ Зарегистрируйтесь в проекте и начните свой путь к финансовой свободе!</li>
+                </ul>
+            </section>
+
+            <section class="celebration-section">
+                <h3 style="color: #333; margin: 20px 0;">Почему стоит продолжить?</h3>
+                <ul style="list-style: none;">
+                    <li class="fade-in" style="animation-delay: 0.6s;">✓ Уже на старте вы можете начать получать доходы.</li>
+                    <li class="fade-in" style="animation-delay: 0.9s;">✓ Возможность построить свою команду и увеличить заработок в несколько раз.</li>
+                    <li class="fade-in" style="animation-delay: 1.2s;">✓ Личные бонусы, пассивный доход и множество других привилегий ждут вас впереди!</li>
+                </ul>
+            </section>
+
+            <div style="background: #f8f8f8; padding: 15px; border-radius: 10px; margin: 20px 0;" class="celebration-box">
+                <p style="font-weight: bold; color: #EF3124;">Не упустите шанс изменить свою жизнь к лучшему!</p>
+                <p>Нажимайте "Далее" и сделайте первый шаг к своему успеху!</p>
+            </div>
+        </div>
+
+        <button class="next-button pulse" onclick="startWork()">
+            ДАЛЕЕ
+        </button>
+    </div>
+
+    <div class="quiz-container" id="work-section" style="display: none;">
+        <svg class="logo celebration-logo" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="45" fill="#EF3124"></circle>
+            <text x="50" y="50" text-anchor="middle" dy=".3em" fill="white" font-size="40">A</text>
+        </svg>
+
+        <h2 style="color: #EF3124; margin-bottom: 20px;" class="celebration-title">Добро пожаловать в раздел "Работа"!</h2>
+
+        <div style="text-align: left; padding: 20px;">
+            <p style="margin-bottom: 20px; font-size: 18px;">Здесь вы сможете подключиться к проекту "Свой в Альфа" и начать зарабатывать.</p>
+
+            <section class="fade-in">
+                <h3 style="color: #333; margin: 20px 0;">С чего начать?</h3>
+                <ol style="list-style-position: inside; margin-left: 20px;">
+                    <li style="margin-bottom: 15px;">Выберите нужный раздел из меню ниже</li>
+                    <li style="margin-bottom: 15px;">Следуйте инструкциям для успешной регистрации</li>
+                </ol>
+            </section>
+
+            <div style="display: flex; flex-direction: column; gap: 15px; margin-top: 30px;">
+                <!-- Add the Registration Scheme button first -->
+                <button class="next-button" onclick="showRegistrationScheme()" style="background: #9C27B0;">
+                    СХЕМА РЕГИСТРАЦИИ
+                </button>
+                
+                <!-- Keep existing buttons -->
+                <button class="next-button" onclick="showCardSelection()" style="background: #EF3124;">
+                    ОФОРМЛЕНИЕ КАРТ
+                </button>
+                
+                <button class="next-button" onclick="showBusinessRegistration()" style="background: #2196F3;">
+                    ОФОРМЛЕНИЕ ИП/СМЗ
+                </button>
+                
+                <button class="next-button" onclick="showBPRegistration()" style="background: #4CAF50;">
+                    ОФОРМЛЕНИЕ БП
+                </button>
+                
+                <button class="next-button" onclick="showEarningScheme()" style="background: #FF9800;">
+                    СХЕМА ЗАРАБОТКА
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="quiz-container" id="registration-scheme" style="display: none;">
+        <svg class="logo celebration-logo" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="45" fill="#EF3124"></circle>
+            <text x="50" y="50" text-anchor="middle" dy=".3em" fill="white" font-size="40">A</text>
+        </svg>
+
+        <h2 style="color: #EF3124; margin-bottom: 20px;" class="celebration-title">Схема регистрации: шаг за шагом</h2>
+
+        <div class="quick-info" style="background: #f8f8f8; padding: 15px; border-radius: 10px; margin: 20px 0; text-align: center;">
+            <svg style="width: 24px; height: 24px; margin-right: 10px;" viewBox="0 0 24 24">
+                <path fill="#EF3124" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"></path>
+            </svg>
+            <span style="font-weight: bold;">На оформление потребуется не более 5 минут!</span>
+        </div>
+
+        <div class="steps-container" style="text-align: left; padding: 20px;">
+            <!-- Шаг 1 -->
+            <div class="step-box fade-in">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <h3 style="color: #333; margin: 0; font-size: 16px;">Оформите дебетовую карту Альфа-Банка</h3>
+                </div>
+                <div class="step-content">
+                    <p>Для участия в проекте "Свой в Альфа" вам необходимо иметь хотя бы одну банковскую карту Альфа-Банка. Вы можете оформить бесплатную дебетовую карту, которая не только откроет вам доступ к проекту, но и предложит крутые кэшбеки на покупки. Карта будет доставлена курьером уже на следующий день.</p>
+                </div>
+            </div>
+
+            <!-- Шаг 2 -->
+            <div class="step-box fade-in">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <h3 style="color: #333; margin: 0; font-size: 16px;">Определитесь с формой работы</h3>
+                </div>
+                <div class="step-content">
+                    <div class="work-option">
+                        <h4>Физическое лицо</h4>
+                        <ul>
+                            <li>✓ Стоимость одного балла начинается от 77 рублей</li>
+                            <li>✓ Выплаты облагаются налогом НДФЛ в размере 13%</li>
+                        </ul>
+                    </div>
+
+                    <div class="work-option">
+                        <h4>Самозанятый (рекомендуется)</h4>
+                        <ul>
+                            <li>✓ Стоимость одного балла начинается от 100 рублей</li>
+                            <li>✓ Налог всего 4% на доход от физических лиц</li>
+                            <li>✓ Простая регистрация и ведение учета</li>
+                        </ul>
+                    </div>
+
+                    <div class="work-option">
+                        <h4>Индивидуальный предприниматель (ИП)</h4>
+                        <p>Вы можете перейти на этот статус в любой момент, когда объем доходов значительно вырастет.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Шаг 3 -->
+            <div class="step-box fade-in">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <h3 style="color: #333; margin: 0; font-size: 16px;">Зарегистрируйтесь в проекте "Свой в Альфа"</h3>
+                </div>
+                <div class="step-content">
+                    <p>После получения карты, подключитесь к проекту. Бот проведет вас через процесс регистрации, шаг за шагом.</p>
+                </div>
+            </div>
+
+            <!-- Шаг 4 -->
+            <div class="step-box fade-in">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <h3 style="color: #333; margin: 0; font-size: 16px;">Подтвердите действие в "Мой налог"</h3>
+                </div>
+                <div class="step-content">
+                    <p>Если вы выбрали статус самозанятого, потребуется подтвердить регистрацию через приложение "Мой налог". Бот подскажет, как это сделать быстро.</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="background: #f8f8f8; padding: 20px; border-radius: 15px; text-align: center; margin: 30px 0;">
+            <h3 style="color: #EF3124; margin-bottom: 15px;">Начнем?</h3>
+            <button class="next-button pulse" onclick="startRegistration()">
+                ДАЛЕЕ
+            </button>
+        </div>
+    </div>
+
+    <div class="quiz-container" id="card-selection" style="display: none;">
+        <svg class="logo celebration-logo" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="45" fill="#EF3124"></circle>
+            <text x="50" y="50" text-anchor="middle" dy=".3em" fill="white" font-size="40">A</text>
+        </svg>
+
+        <h2 style="color: #EF3124; margin-bottom: 20px;" class="celebration-title">
+            💳 Выберите свою карту Альфа-Банка
+        </h2>
+
+        <div style="text-align: left; padding: 20px;">
+            <div class="quick-info" style="background: #f8f8f8; padding: 15px; border-radius: 10px; margin-bottom: 30px; text-align: center;">
+                <span style="font-size: 20px;">🎁 Бонус 500₽ за траты от 3000₽ в первый месяц!</span>
+            </div>
+
+            <!-- Card 1 -->
+            <div class="card-option fade-in" style="background: white; padding: 20px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border: 2px solid #f0f0f0;">
+                <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                    <span style="font-size: 24px; margin-right: 15px;">💰</span>
+                    <h3 style="color: #333; margin: 0;">Дебетовая карта с любимым кэшбэком</h3>
+                </div>
+                <p style="margin-left: 45px;">Выбирайте категории кэшбэка и получайте повышенные бонусы за покупки в течение 3 месяцев.</p>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="card-option fade-in" style="background: white; padding: 20px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border: 2px solid #f0f0f0;">
+                <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                    <span style="font-size: 24px; margin-right: 15px;">🌟</span>
+                    <h3 style="color: #333; margin: 0;">Дебетовая карта для своих</h3>
+                </div>
+                <p style="margin-left: 45px;">5% кэшбэка от оплаты заказов любых МЛМ компаний!</p>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="card-option fade-in" style="background: white; padding: 20px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border: 2px solid #f0f0f0;">
+                <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                    <span style="font-size: 24px; margin-right: 15px;">✈️</span>
+                    <h3 style="color: #333; margin: 0;">Дебетовая карта Travel</h3>
+                </div>
+                <p style="margin-left: 45px;">2-3% кэшбэка на все покупки. Повышенный кэшбэк при тратах от 100 000₽ в месяц.</p>
+            </div>
+
+            <div class="button-container">
+                <button class="action-button" onclick="showCashbackCardInfo()">
+                    Карта с кэшбэком
+                </button>
+                <button class="action-button" onclick="selectCard('mlm')">
+                    Карта для своих
+                </button>
+                <button class="action-button" onclick="selectCard('travel')">
+                    Карта Travel
+                </button>
+                <button class="action-button" onclick="showComboCardInfo()">
+                    Комбо карта
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add new container for Cashback card details -->
+    <div class="quiz-container" id="cashback-card-info" style="display: none;">
+        <svg class="logo celebration-logo" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="45" fill="#EF3124"></circle>
+            <text x="50" y="50" text-anchor="middle" dy=".3em" fill="white" font-size="40">A</text>
+        </svg>
+
+        <h2 style="color: #EF3124; margin-bottom: 20px;" class="celebration-title">
+            Дебетовая карта с любимым кэшбэком
+        </h2>
+
+        <div style="text-align: left; padding: 20px;">
+            <p style="margin-bottom: 20px; font-size: 16px; line-height: 1.6;">
+                Вы выбрали карту, которая позволяет вам самостоятельно выбирать, за какие покупки вы будете получать повышенный кэшбэк. Это отличный вариант для тех, кто хочет максимально эффективно использовать свои деньги!
+            </p>
+
+            <div class="feature-box fade-in" style="background: #f8f8f8; padding: 20px; border-radius: 15px; margin-bottom: 20px;">
+                <h3 style="color: #333; margin-bottom: 15px;">Что вы получите?</h3>
+                <ul style="list-style: none;">
+                    <li style="margin-bottom: 10px;">✓ Кэшбэк до 5% в выбранных категориях</li>
+                    <li style="margin-bottom: 10px;">✓ Базовый кэшбэк 1% на все остальные покупки</li>
+                </ul>
+            </div>
+
+            <div class="categories-box fade-in" style="background: #f8f8f8; padding: 20px; border-radius: 15px; margin-bottom: 20px;">
+                <h3 style="color: #333; margin-bottom: 15px;">Возможные категории кэшбэка:</h3>
+                <ul style="list-style: none;">
+                    <li style="margin-bottom: 8px;">🛒 Супермаркеты</li>
+                    <li style="margin-bottom: 8px;">🍽️ Рестораны и кафе</li>
+                    <li style="margin-bottom: 8px;">⛽ Заправки</li>
+                </ul>
+                <p style="margin-top: 15px;">Категории можно выбрать заранее, и они будут действовать в течение 3 месяцев, после чего их можно изменить.</p>
+            </div>
+
+            <div class="steps-box fade-in" style="background: #f8f8f8; padding: 20px; border-radius: 15px; margin-bottom: 20px;">
+                <h3 style="color: #333; margin-bottom: 15px;">Как оформить карту?</h3>
+                <ol style="margin-left: 20px;">
+                    <li style="margin-bottom: 8px;">Нажмите кнопку "Оформить карту"</li>
+                    <li style="margin-bottom: 8px;">Заполните короткую заявку на сайте Альфа-Банка</li>
+                    <li style="margin-bottom: 8px;">Возвращайтесь в бот и начните регистрацию в "Свой Альфа"</li>
+                </ol>
+            </div>
+
+            <div class="button-container">
+                <button class="action-button" onclick="window.location.href='https://alfabank.ru/everyday/debit-cards/'">
+                    Оформить
+                </button>
+                <button class="action-button" onclick="startRegistrationProcess()">
+                    Продолжить
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add new container for Travel card details -->
+    <div class="quiz-container" id="travel-card-info" style="display: none;">
+        <svg class="logo celebration-logo" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="45" fill="#EF3124"></circle>
+            <text x="50" y="50" text-anchor="middle" dy=".3em" fill="white" font-size="40">A</text>
+        </svg>
+
+        <h2 style="color: #EF3124; margin-bottom: 20px;" class="celebration-title">
+            Дебетовая карта Travel
+        </h2>
+
+        <div style="text-align: left; padding: 20px;">
+            <p style="margin-bottom: 20px; font-size: 16px; line-height: 1.6;">
+                Вы выбрали карту, которая идеально подходит для путешественников и тех, кто любит совершать покупки с максимальной выгодой.
+            </p>
+
+            <div class="benefits-box fade-in" style="background: #f8f8f8; padding: 20px; border-radius: 15px; margin-bottom: 20px;">
+                <h3 style="color: #333; margin-bottom: 15px;">Что вы получите?</h3>
+                <ul style="list-style: none;">
+                    <li style="margin-bottom: 10px;">✈️ 2% кэшбэка на все покупки без ограничений</li>
+                    <li style="margin-bottom: 10px;">🌟 Увеличенный 3% кэшбэк при тратах от 100 000₽ в месяц</li>
+                    <li style="margin-bottom: 10px;">💳 Бесплатное обслуживание карты</li>
+                </ul>
+            </div>
+
+            <div class="info-box fade-in" style="background: #f8f8f8; padding: 20px; border-radius: 15px; margin-bottom: 20px;">
+                <p>Эта карта — идеальный выбор для тех, кто часто путешествует, покупает билеты, бронирует отели или просто совершает крупные покупки.</p>
+            </div>
+
+            <div class="steps-box fade-in" style="background: #f8f8f8; padding: 20px; border-radius: 15px; margin-bottom: 20px;">
+                <h3 style="color: #333; margin-bottom: 15px;">Как оформить карту?</h3>
+                <ol style="margin-left: 20px;">
+                    <li style="margin-bottom: 8px;">Нажмите кнопку "Оформить карту"</li>
+                    <li style="margin-bottom: 8px;">Заполните короткую заявку на сайте Альфа-Банка</li>
+                    <li style="margin-bottom: 8px;">Ожидайте карту уже через 1 день с доставкой курьером</li>
+                </ol>
+            </div>
+
+            <div class="button-container">
+                <button class="action-button" onclick="window.location.href='https://alfabank.ru/everyday/debit-cards/'">
+                    Оформить
+                </button>
+                <button class="action-button" onclick="startRegistrationProcess()">
+                    Продолжить
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Добавить новый контейнер для Комбо карты -->
+    <div class="quiz-container" id="combo-card-info" style="display: none;">
+        <svg class="logo celebration-logo" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="45" fill="#EF3124"></circle>
+            <text x="50" y="50" text-anchor="middle" dy=".3em" fill="white" font-size="40">A</text>
+        </svg>
+
+        <h2 style="color: #EF3124; margin-bottom: 20px;" class="celebration-title">
+            Альфа-Карта с Комбо счетом
+        </h2>
+
+        <div style="text-align: left; padding: 20px;">
+            <p style="margin-bottom: 20px; font-size: 16px; line-height: 1.6;">
+                Эта карта сочетает возможности дебетового и кредитного счетов, предоставляя гибкость в управлении финансами. Вы сами выбираете, как оплачивать покупки: своими средствами или деньгами банка, с легкостью переключаясь между счетами.
+            </p>
+
+            <div class="feature-box fade-in" style="background: #f8f8f8; padding: 20px; border-radius: 15px; margin-bottom: 20px;">
+                <h3 style="color: #333; margin-bottom: 15px;">Два счета в одной карте:</h3>
+                <ul style="list-style: none;">
+                    <li style="margin-bottom: 10px;">✓ Дебетовый счет для оплаты своими деньгами</li>
+                    <li style="margin-bottom: 10px;">✓ Кредитный счет с льготным периодом до 60 дней</li>
+                </ul>
+            </div>
+
+            <div class="modes-box fade-in" style="background: #f8f8f8; padding: 20px; border-radius: 15px; margin-bottom: 20px;">
+                <h3 style="color: #333; margin-bottom: 15px;">Три режима списания на выбор:</h3>
+                <ul style="list-style: none;">
+                    <li style="margin-bottom: 10px;">🔵 Только своими деньгами</li>
+                    <li style="margin-bottom: 10px;">🔴 Только кредитными средствами</li>
+                    <li style="margin-bottom: 10px;">🟣 Своими, затем кредитными</li>
+                </ul>
+                <p style="margin-top: 15px; font-style: italic;">Переключение между счетами в мобильном приложении без ограничений</p>
+            </div>
+
+            <div class="cashback-box fade-in" style="background: #f8f8f8; padding: 20px; border-radius: 15px; margin-bottom: 20px;">
+                <h3 style="color: #333; margin-bottom: 15px;">Программа лояльности:</h3>
+                <ul style="list-style: none;">
+                    <li style="margin-bottom: 8px;">💰 Кэшбэк до 30% на 3 категории на выбор</li>
+                    <li style="margin-bottom: 8px;">💸 1% на все покупки</li>
+                    <li style="margin-bottom: 8px;">🎰 Барабан суперкэшбэка: до 100% на случайную категорию</li>
+                    <li style="margin-bottom: 8px;">🤝 Партнерский кэшбэк до 50% без лимита</li>
+                </ul>
+            </div>
+
+            <div class="steps-box fade-in" style="background: #f8f8f8; padding: 20px; border-radius: 15px; margin-bottom: 20px;">
+                <h3 style="color: #333; margin-bottom: 15px;">Как оформить карту?</h3>
+                <ol style="margin-left: 20px;">
+                    <li style="margin-bottom: 8px;">Нажмите кнопку "Оформить карту"</li>
+                    <li style="margin-bottom: 8px;">Заполните короткую заявку на сайте Альфа-Банка</li>
+                    <li style="margin-bottom: 8px;">Ожидайте карту уже через 1 день с доставкой курьером</li>
+                </ol>
+            </div>
+
+            <div style="background: #ffebee; padding: 15px; border-radius: 10px; margin: 20px 0;">
+                <p style="color: #EF3124; font-weight: bold; margin-bottom: 10px;">Важно!</p>
+                <p>При получении Альфа карты с комбо счетом, важно сказать курьеру, что вы хотите именно КОМБО карту.</p>
+            </div>
+
+            <div class="button-container">
+                <button class="action-button" onclick="window.location.href='https://alfabank.ru/everyday/debit-cards/'">
+                    Оформить
+                </button>
+                <button class="action-button" onclick="startRegistrationProcess()">
+                    Продолжить
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+function toggleMenu() {
+    document.querySelector('.sidebar').classList.toggle('active');
+    document.querySelector('.overlay').classList.toggle('active');
+}
+
+function toggleSubMenu(id) {
+    const content = document.getElementById(id);
+    const allContents = document.querySelectorAll('.menu-content');
+    
+    allContents.forEach(item => {
+        if (item !== content) {
+            item.style.display = 'none';
+        }
+    });
+    
+    content.style.display = content.style.display === 'block' ? 'none' : 'block';
+}
+
+function showProjectInfo() {
+    hideAllContainers();
+    document.getElementById('project-info').style.display = 'block';
+    window.scrollTo(0, 0);
+}
+
+function showPointsInfo() {
+    hideAllContainers();
+    document.getElementById('points-info').style.display = 'block';
+    window.scrollTo(0, 0);
+}
+
+function showContent(contentType) {
+    if (contentType === 'quick-start') {
+        showQuickStart();
+        return;
+    }
+}
+
+function hideAllContainers() {
+    const containers = [
+        'main-screen', 
+        'project-info', 
+        'points-info', 
+        'bonus-info', 
+        'partner-bonus-info', 
+        'generation-bonus-info',
+        'quick-start',
+        'easy-points',
+        'celebration',
+        'work-section',
+        'registration-scheme',
+        'card-selection',
+        'cashback-card-info',
+        'mlm-card-info',  
+        'travel-card-info',
+        'combo-card-info'
+    ];
+    containers.forEach(id => {
+        const element = document.getElementById(id);
+        if (element) element.style.display = 'none';
+    });
+}
+
+function showQuickStart() {
+    hideAllContainers();
+    document.getElementById('quick-start').style.display = 'block';
+    window.scrollTo(0, 0);
+}
+
+function nextStep() {
+    hideAllContainers();
+    document.getElementById('project-info').style.display = 'block';
+    window.scrollTo(0, 0);
+}
+
+function toggleContent(id) {
+    const content = document.getElementById(id);
+    content.style.display = content.style.display === 'block' ? 'none' : 'block';
+}
+
+function showBonusInfo() {
+    hideAllContainers();
+    document.getElementById('bonus-info').style.display = 'block';
+    window.scrollTo(0, 0);
+}
+
+function showNextStep() {
+    hideAllContainers();
+    document.getElementById('partner-bonus-info').style.display = 'block';
+    window.scrollTo(0, 0);
+}
+
+function nextFromQuickStart() {
+    hideAllContainers();
+    document.getElementById('easy-points').style.display = 'block';
+    window.scrollTo(0, 0);
+}
+
+function finalStep() {
+    hideAllContainers();
+    document.getElementById('celebration').style.display = 'block';
+    window.scrollTo(0, 0);
+    createConfetti();
+}
+
+function createConfetti() {
+    const container = document.querySelector('.confetti-container');
+    const colors = ['#EF3124', '#FFD700', '#FF69B4', '#4169E1'];
+    
+    for(let i = 0; i < 50; i++) {
+        const confetti = document.createElement('div');
+        confetti.style.cssText = `
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: ${colors[Math.floor(Math.random() * colors.length)]};
+            left: ${Math.random() * 100}%;
+            opacity: ${Math.random()};
+            animation: confetti ${1 + Math.random() * 2}s linear forwards;
+        `;
+        container.appendChild(confetti);
+        
+        setTimeout(() => confetti.remove(), 3000);
+    }
+}
+
+function startWork() {
+    hideAllContainers();
+    document.getElementById('work-section').style.display = 'block';
+    window.scrollTo(0, 0);
+}
+
+function showRegistrationScheme() {
+    hideAllContainers();
+    document.getElementById('registration-scheme').style.display = 'block';
+    window.scrollTo(0, 0);
+}
+
+function startRegistration() {
+    showCardSelection();
+}
+
+function showCardSelection() {
+    hideAllContainers();
+    document.getElementById('card-selection').style.display = 'block';
+    window.scrollTo(0, 0);
+}
+
+function selectCard(type) {
+    hideAllContainers();
+    if (type === 'mlm') {
+        document.getElementById('mlm-card-info').style.display = 'block';
+    } else if (type === 'travel') {
+        document.getElementById('travel-card-info').style.display = 'block';
+    }
+    window.scrollTo(0, 0);
+}
+
+function showCashbackCardInfo() {
+    hideAllContainers();
+    document.getElementById('cashback-card-info').style.display = 'block';
+    window.scrollTo(0, 0);
+}
+
+function showComboCardInfo() {
+    hideAllContainers();
+    document.getElementById('combo-card-info').style.display = 'block';
+    window.scrollTo(0, 0);
+}
+
+function startRegistrationProcess() {
+    alert('Переход к регистрации в проекте "Свой в Альфа"');
+    // Add registration process logic here
+}
+
+function showNextBonus() {
+    document.getElementById('generation-bonus-info').style.display = 'none';
+    alert('Информация о следующем бонусе будет доступна в следующем обновлении!');
+}
+
+function showBusinessRegistration() {
+    alert('Переход к разделу оформления ИП/Самозанятости');
+    // Add implementation for business registration section
+}
+
+function showBPRegistration() {
+    alert('Переход к разделу оформления БП');
+    // Add implementation for BP registration section
+}
+
+function showEarningScheme() {
+    alert('Переход к схеме заработка');
+    // Add implementation for earning scheme section
+}
+
+function registerAsSelfEmployed() {
+    alert('Переход к регистрации самозанятого');
+    // Add implementation for self-employed registration
+}
+
+function skipStep() {
+    alert('Переход к следующему шагу регистрации');
+    // Add implementation for skipping this step
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const button = document.querySelector('.next-button');
+    setTimeout(() => {
+        button.classList.add('pulse');
+    }, 1000);
+});
+
+function showReferralSystem() {
+    alert('Переход к разделу реферальной системы');
+}
+
+function showTeamBuilding() {
+    alert('Переход к разделу построения команды');
+}
+
+function showTeamLevels() {
+    alert('Переход к разделу уровней команды');
+}
+
+function showTeamBonuses() {
+    alert('Переход к разделу командных бонусов');
+}
+
+function showLeadershipProgram() {
+    alert('Переход к программе лидерства');
+}
+
+function showFAQ() {
+    alert('Переход к частым вопросам');
+}
+
+function showTechnicalSupport() {
+    alert('Переход к технической поддержке');
+}
+function showContactInfo() {
+    alert('Переход к контактной информации');
+}
+</script>
+</body></html>
