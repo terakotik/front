@@ -1,4 +1,3 @@
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 * {
@@ -244,6 +243,38 @@ h1 {
     margin-right: 10px;
     text-align: center;
 }
+
+/* Добавить новые стили для контейнера кнопок */
+.card-buttons-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.card-button {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: #EF3124;
+    color: white;
+    text-align: center;
+    line-height: 1.2;
+    height: 100%;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(239, 49, 36, 0.3);
+}
 </style>
 </head>
 <body>
@@ -280,6 +311,7 @@ h1 {
             <span class="menu-icon">💼</span> Работа
         </a>
         <div id="work" class="menu-content">
+            <a href="#" class="menu-item sub-item" onclick="showCardSelection()">Оформление карт</a>
             <a href="#" class="menu-item sub-item" onclick="showEarningScheme()">Схема заработка</a>
             <a href="#" class="menu-item sub-item" onclick="showReferralSystem()">Реферальная система</a>
             <a href="#" class="menu-item sub-item" onclick="showTeamBuilding()">Построение команды</a>
@@ -351,7 +383,7 @@ h1 {
         <div style="background: #f8f8f8; padding: 20px; border-radius: 10px; margin: 20px 0;">
             <h3 style="color: #EF3124; margin-bottom: 15px;">Система работает на три уровня в глубину:</h3>
             <p style="margin-bottom: 10px;"><strong>1 поколение:</strong> люди, которых пригласили вы</p>
-            <p style="margin-bottom: 10px;"><strong>2 поколение:</strong> люди, приглашенные вашими участниками</p>
+            <p style="margin-bottom: 10px;"><strong>2 поколение:</strong> люди, приглаше��ные вашими участниками</p>
             <p style="margin-bottom: 10px;"><strong>3 поколение:</strong> участники их сети</p>
         </div>
 
@@ -395,7 +427,7 @@ h1 {
 
             <h3 style="color: #333; margin: 15px 0;">Разделение дохода по поколениям</h3>
             <ul style="list-style: none; margin: 10px 0;">
-                <li style="margin-bottom: 10px;"><strong>1 поколение:</strong> это ваши клиенты. На их действия начисляется максимальная стоимость баллов.</li>
+                <li style="margin-bottom: 10px;"><strong>1 поколение:</strong> это ваши клиенты. На их действи�� начисляется максимальная стоимость баллов.</li>
                 <li style="margin-bottom: 10px;"><strong>2 поколение:</strong> это клиенты ваших партнеров. Балы от их активности имеют меньшую стоимость.</li>
                 <li style="margin-bottom: 10px;"><strong>3 поколение:</strong> клиенты партнеров вашего второго уровня. Здесь стоимость баллов самая низкая.</li>
             </ul>
@@ -612,7 +644,7 @@ h1 {
 
             <div style="background: #f8f8f8; padding: 15px; border-radius: 10px; margin: 20px 0;">
                 <h3 style="color: #EF3124; margin-bottom: 10px;">Итог:</h3>
-                <p>Набирать баллы действительно легко, а чем больше баллов и клиентов, тем выше ваш доход и статус. Действуйте, чтобы выйти на новый уровень!</p>
+                <p>Набирать баллы действительно легко, а чем больше баллов и клиентов, тем выше ваш доход и статус. Действуйте, чтобы выйт�� на новый уровень!</p>
             </div>
         </div>
 
@@ -834,17 +866,17 @@ h1 {
                 <p style="margin-left: 45px;">2-3% кэшбэка на все покупки. Повышенный кэшбэк при тратах от 100 000₽ в месяц.</p>
             </div>
 
-            <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 30px;">
-                <button class="next-button" style="width: auto; flex: 1; min-width: 200px;" onclick="showCashbackCardInfo()">
+            <div class="card-buttons-container">
+                <button class="card-button" onclick="showCashbackCardInfo()">
                     Карта с любимым кэшбэком
                 </button>
-                <button class="next-button" style="width: auto; flex: 1; min-width: 200px;" onclick="selectCard('mlm')">
+                <button class="card-button" onclick="selectCard('mlm')">
                     Карта для своих
                 </button>
-                <button class="next-button" style="width: auto; flex: 1; min-width: 200px;" onclick="selectCard('travel')">
+                <button class="card-button" onclick="selectCard('travel')">
                     Карта Travel
                 </button>
-                <button class="next-button" style="width: auto; flex: 1; min-width: 200px;" onclick="showComboCardInfo()">
+                <button class="card-button" onclick="showComboCardInfo()">
                     Комбо карта
                 </button>
             </div>
@@ -864,7 +896,7 @@ h1 {
 
         <div style="text-align: left; padding: 20px;">
             <p style="margin-bottom: 20px; font-size: 16px; line-height: 1.6;">
-                Вы выбрали карту, которая позволяет вам самостоятельно выбирать, за какие покупки вы будете получать повышенный кэшбэк. Это отличный вариант для тех, кто хочет максимально эффективно использовать свои деньги!
+                Вы выбрали карту, которая позволяет вам самостоятельно выбирать, за какие покупки вы будете получать повышенный кэшбэк. Это отличный ��ариант для тех, кто хочет максимально эффективно использовать свои деньги!
             </p>
 
             <div class="feature-box fade-in" style="background: #f8f8f8; padding: 20px; border-radius: 15px; margin-bottom: 20px;">
@@ -954,6 +986,75 @@ h1 {
         </div>
     </div>
 
+    <!-- Добавить новый контейнер для Комбо карты -->
+    <div class="quiz-container" id="combo-card-info" style="display: none;">
+        <svg class="logo celebration-logo" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="45" fill="#EF3124"></circle>
+            <text x="50" y="50" text-anchor="middle" dy=".3em" fill="white" font-size="40">A</text>
+        </svg>
+
+        <h2 style="color: #EF3124; margin-bottom: 20px;" class="celebration-title">
+            Альфа-Карта с Комбо счетом
+        </h2>
+
+        <div style="text-align: left; padding: 20px;">
+            <p style="margin-bottom: 20px; font-size: 16px; line-height: 1.6;">
+                Эта карта сочетает возможности дебетового и кредитного счетов, предоставляя гибкость в управлении финансами. Вы сами выбираете, как оплачивать покупки: своими средствами или деньгами банка, с легкостью переключаясь между счетами.
+            </p>
+
+            <div class="feature-box fade-in" style="background: #f8f8f8; padding: 20px; border-radius: 15px; margin-bottom: 20px;">
+                <h3 style="color: #333; margin-bottom: 15px;">Два счета в одной карте:</h3>
+                <ul style="list-style: none;">
+                    <li style="margin-bottom: 10px;">✓ Дебетовый счет для оплаты своими деньгами</li>
+                    <li style="margin-bottom: 10px;">✓ Кредитный счет с льготным периодом до 60 дней</li>
+                </ul>
+            </div>
+
+            <div class="modes-box fade-in" style="background: #f8f8f8; padding: 20px; border-radius: 15px; margin-bottom: 20px;">
+                <h3 style="color: #333; margin-bottom: 15px;">Три режима списания на выбор:</h3>
+                <ul style="list-style: none;">
+                    <li style="margin-bottom: 10px;">🔵 Только своими деньгами</li>
+                    <li style="margin-bottom: 10px;">🔴 Только кредитными средствами</li>
+                    <li style="margin-bottom: 10px;">🟣 Своими, затем кредитными</li>
+                </ul>
+                <p style="margin-top: 15px; font-style: italic;">Переключение между счетами в мобильном приложении без ограничений</p>
+            </div>
+
+            <div class="cashback-box fade-in" style="background: #f8f8f8; padding: 20px; border-radius: 15px; margin-bottom: 20px;">
+                <h3 style="color: #333; margin-bottom: 15px;">Программа лояльности:</h3>
+                <ul style="list-style: none;">
+                    <li style="margin-bottom: 8px;">💰 Кэшбэк до 30% на 3 категории на выбор</li>
+                    <li style="margin-bottom: 8px;">💸 1% на все покупки</li>
+                    <li style="margin-bottom: 8px;">🎰 Барабан суперкэшбэка: до 100% на случайную категорию</li>
+                    <li style="margin-bottom: 8px;">🤝 Партнерский кэшбэк до 50% без лимита</li>
+                </ul>
+            </div>
+
+            <div class="steps-box fade-in" style="background: #f8f8f8; padding: 20px; border-radius: 15px; margin-bottom: 20px;">
+                <h3 style="color: #333; margin-bottom: 15px;">Как оформить карту?</h3>
+                <ol style="margin-left: 20px;">
+                    <li style="margin-bottom: 8px;">Нажмите кнопку "Оформить карту"</li>
+                    <li style="margin-bottom: 8px;">Заполните короткую заявку на сайте Альфа-Банка</li>
+                    <li style="margin-bottom: 8px;">Ожидайте карту уже через 1 день с доставкой курьером</li>
+                </ol>
+            </div>
+
+            <div style="background: #ffebee; padding: 15px; border-radius: 10px; margin: 20px 0;">
+                <p style="color: #EF3124; font-weight: bold; margin-bottom: 10px;">Важно!</p>
+                <p>При получении Альфа карты с комбо счетом, важно сказать курьеру, что вы хотите именно КОМБО карту.</p>
+            </div>
+
+            <div style="display: flex; gap: 10px; margin-top: 30px;">
+                <button class="next-button" style="flex: 1;" onclick="window.location.href='https://alfabank.ru/everyday/debit-cards/'">
+                    ОФОРМИТЬ КАРТУ
+                </button>
+                <button class="next-button" style="flex: 1;" onclick="startRegistrationProcess()">
+                    ПРОДОЛЖИТЬ РЕГИСТРАЦИЮ
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script>
 function toggleMenu() {
     document.querySelector('.sidebar').classList.toggle('active');
@@ -974,13 +1075,15 @@ function toggleSubMenu(id) {
 }
 
 function showProjectInfo() {
-    document.getElementById('main-screen').style.display = 'none';
+    hideAllContainers();
     document.getElementById('project-info').style.display = 'block';
+    window.scrollTo(0, 0);
 }
 
 function showPointsInfo() {
-    document.getElementById('project-info').style.display = 'none';
+    hideAllContainers();
     document.getElementById('points-info').style.display = 'block';
+    window.scrollTo(0, 0);
 }
 
 function showContent(contentType) {
@@ -1018,10 +1121,13 @@ function hideAllContainers() {
 function showQuickStart() {
     hideAllContainers();
     document.getElementById('quick-start').style.display = 'block';
+    window.scrollTo(0, 0);
 }
 
 function nextStep() {
-    alert('Переходим к следующему шагу обучения!');
+    hideAllContainers();
+    document.getElementById('project-info').style.display = 'block';
+    window.scrollTo(0, 0);
 }
 
 function toggleContent(id) {
@@ -1030,23 +1136,27 @@ function toggleContent(id) {
 }
 
 function showBonusInfo() {
-    document.getElementById('points-info').style.display = 'none';
+    hideAllContainers();
     document.getElementById('bonus-info').style.display = 'block';
+    window.scrollTo(0, 0);
 }
 
 function showNextStep() {
-    document.getElementById('bonus-info').style.display = 'none';
+    hideAllContainers();
     document.getElementById('partner-bonus-info').style.display = 'block';
+    window.scrollTo(0, 0);
 }
 
 function nextFromQuickStart() {
-    document.getElementById('quick-start').style.display = 'none';
+    hideAllContainers();
     document.getElementById('easy-points').style.display = 'block';
+    window.scrollTo(0, 0);
 }
 
 function finalStep() {
-    document.getElementById('easy-points').style.display = 'none';
+    hideAllContainers();
     document.getElementById('celebration').style.display = 'block';
+    window.scrollTo(0, 0);
     createConfetti();
 }
 
@@ -1072,13 +1182,15 @@ function createConfetti() {
 }
 
 function startWork() {
-    document.getElementById('celebration').style.display = 'none';
+    hideAllContainers();
     document.getElementById('work-section').style.display = 'block';
+    window.scrollTo(0, 0);
 }
 
 function showRegistrationScheme() {
     hideAllContainers();
     document.getElementById('registration-scheme').style.display = 'block';
+    window.scrollTo(0, 0);
 }
 
 function startRegistration() {
@@ -1088,6 +1200,7 @@ function startRegistration() {
 function showCardSelection() {
     hideAllContainers();
     document.getElementById('card-selection').style.display = 'block';
+    window.scrollTo(0, 0);
 }
 
 function selectCard(type) {
@@ -1097,16 +1210,19 @@ function selectCard(type) {
     } else if (type === 'travel') {
         document.getElementById('travel-card-info').style.display = 'block';
     }
+    window.scrollTo(0, 0);
 }
 
 function showCashbackCardInfo() {
     hideAllContainers();
     document.getElementById('cashback-card-info').style.display = 'block';
+    window.scrollTo(0, 0);
 }
 
 function showComboCardInfo() {
     hideAllContainers();
     document.getElementById('combo-card-info').style.display = 'block';
+    window.scrollTo(0, 0);
 }
 
 function startRegistrationProcess() {
