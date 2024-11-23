@@ -1,4 +1,4 @@
-<html><head><base href="https://www.example.com">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 * {
@@ -140,6 +140,7 @@ h1 {
     transition: 0.3s;
     z-index: 999;
     padding: 80px 20px 20px;
+    overflow-y: auto;
 }
 
 .sidebar.active {
@@ -147,9 +148,10 @@ h1 {
 }
 
 .menu-item {
-    display: block;
-    padding: 15px;
-    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    margin-bottom: 5px;
     color: #333;
     text-decoration: none;
     border-radius: 10px;
@@ -163,20 +165,14 @@ h1 {
 
 .menu-content {
     display: none;
-    padding: 10px;
-    margin-top: 5px;
-    background: #f8f8f8;
-    border-radius: 10px;
-    font-size: 14px;
-    line-height: 1.5;
+    padding: 5px 0;
 }
 
 .sub-item {
-    padding: 10px;
-    margin: 5px 0;
-    background: white;
-    border-radius: 5px;
+    padding-left: 35px;
     font-size: 14px;
+    background: #f8f8f8;
+    margin: 5px 0;
 }
 
 @keyframes pulse {
@@ -241,6 +237,13 @@ h1 {
     left: 0;
     pointer-events: none;
 }
+
+.menu-icon {
+    display: inline-block;
+    width: 24px;
+    margin-right: 10px;
+    text-align: center;
+}
 </style>
 </head>
 <body>
@@ -253,22 +256,51 @@ h1 {
     </div>
 
     <div class="sidebar">
-        <a href="#" class="menu-item" onclick="toggleSubMenu('knowledge')">База знаний</a>
+        <a href="#" class="menu-item" onclick="toggleSubMenu('knowledge')">
+            <span class="menu-icon">📚</span> База знаний
+        </a>
         <div id="knowledge" class="menu-content">
-            <a href="#" class="menu-item sub-item" onclick="showProjectInfo()">Информация о проекте</a>
-            <a href="#" class="menu-item sub-item" onclick="showContent('points-info')">Как начисляются баллы</a>
-            <a href="#" class="menu-item sub-item" onclick="showContent('bonus-info')">Начисление бонусов</a>
-            <a href="#" class="menu-item sub-item" onclick="showContent('quick-start')">Пример быстрого старта</a>
+            <a href="#" class="menu-item sub-item" onclick="showProjectInfo()">О проекте "Свой в Альфа"</a>
+            <a href="#" class="menu-item sub-item" onclick="showPointsInfo()">Система баллов</a>
+            <a href="#" class="menu-item sub-item" onclick="showBonusInfo()">Бонусная программа</a>
+            <a href="#" class="menu-item sub-item" onclick="showQuickStart()">Быстрый старт</a>
         </div>
 
-        <a href="#" class="menu-item" onclick="toggleContent('work')">Работа</a>
+        <a href="#" class="menu-item" onclick="toggleSubMenu('registration')">
+            <span class="menu-icon">📝</span> Регистрация
+        </a>
+        <div id="registration" class="menu-content">
+            <a href="#" class="menu-item sub-item" onclick="showRegistrationScheme()">Схема регистрации</a>
+            <a href="#" class="menu-item sub-item" onclick="showCardSelection()">Выбор карты</a>
+            <a href="#" class="menu-item sub-item" onclick="showBusinessRegistration()">Оформление ИП/СМЗ</a>
+            <a href="#" class="menu-item sub-item" onclick="showBPRegistration()">Оформление БП</a>
+        </div>
+
+        <a href="#" class="menu-item" onclick="toggleSubMenu('work')">
+            <span class="menu-icon">💼</span> Работа
+        </a>
         <div id="work" class="menu-content">
-            После обучения, пройди все этапы бота и начни зарабатывать
+            <a href="#" class="menu-item sub-item" onclick="showEarningScheme()">Схема заработка</a>
+            <a href="#" class="menu-item sub-item" onclick="showReferralSystem()">Реферальная система</a>
+            <a href="#" class="menu-item sub-item" onclick="showTeamBuilding()">Построение команды</a>
         </div>
 
-        <a href="#" class="menu-item" onclick="toggleContent('team')">Команда</a>
+        <a href="#" class="menu-item" onclick="toggleSubMenu('team')">
+            <span class="menu-icon">👥</span> Команда
+        </a>
         <div id="team" class="menu-content">
-            Присоединяйся к команде лидеров и стань лидером сам
+            <a href="#" class="menu-item sub-item" onclick="showTeamLevels()">Уровни команды</a>
+            <a href="#" class="menu-item sub-item" onclick="showTeamBonuses()">Командные бонусы</a>
+            <a href="#" class="menu-item sub-item" onclick="showLeadershipProgram()">Программа лидерства</a>
+        </div>
+
+        <a href="#" class="menu-item" onclick="toggleSubMenu('support')">
+            <span class="menu-icon">🆘</span> Поддержка
+        </a>
+        <div id="support" class="menu-content">
+            <a href="#" class="menu-item sub-item" onclick="showFAQ()">Частые вопросы</a>
+            <a href="#" class="menu-item sub-item" onclick="showTechnicalSupport()">Техническая поддержка</a>
+            <a href="#" class="menu-item sub-item" onclick="showContactInfo()">Контакты</a>
         </div>
     </div>
 
@@ -447,7 +479,7 @@ h1 {
             </ul>
 
             <div style="background: #f8f8f8; padding: 15px; border-radius: 10px; margin: 20px 0;">
-                <h3 style="color: #333; margin-bottom: 10px;">Пример расчета бонуса:</h3>
+                <h3 style="color: #333; margin-bottom: 10px;">П��имер расчета бонуса:</h3>
                 <p>В марте вы привлекли 4 новых партнеров, которые выполнили условия (40+ баллов). Вы также набрали 40+ баллов.</p>
                 <p style="color: #EF3124; font-weight: bold; margin-top: 10px;">Ваш бонус составит 16 000 руб. (по 4 000 руб. за каждого).</p>
             </div>
@@ -713,7 +745,7 @@ h1 {
                         <h4 style="color: #EF3124; margin-bottom: 10px;">Физическое лицо</h4>
                         <ul style="list-style: none;">
                             <li>✓ Стоимость одного балла начинается от 77 рублей</li>
-                            <li>✓ Выплаты облагаются налогом НДФЛ в размере 13%</li>
+                            <li>✓ ��ыплаты облагаются налогом НДФЛ в размере 13%</li>
                         </ul>
                     </div>
 
@@ -1084,7 +1116,7 @@ function startRegistrationProcess() {
 
 function showNextBonus() {
     document.getElementById('generation-bonus-info').style.display = 'none';
-    alert('Информация о следующем бонусе будет доступна в следующем обновлении!');
+    alert('Информация о следующем бонусе будет доступна в следую��ем обновлении!');
 }
 
 function showBusinessRegistration() {
@@ -1118,5 +1150,37 @@ document.addEventListener('DOMContentLoaded', function() {
         button.classList.add('pulse');
     }, 1000);
 });
+
+function showReferralSystem() {
+    alert('Переход к разделу реферальной системы');
+}
+
+function showTeamBuilding() {
+    alert('Переход к разделу построения команды');
+}
+
+function showTeamLevels() {
+    alert('Переход к разделу уровней команды');
+}
+
+function showTeamBonuses() {
+    alert('Переход к разделу командных бонусов');
+}
+
+function showLeadershipProgram() {
+    alert('Переход к программе лидерства');
+}
+
+function showFAQ() {
+    alert('Переход к частым вопросам');
+}
+
+function showTechnicalSupport() {
+    alert('Переход к технической поддержке');
+}
+
+function showContactInfo() {
+    alert('Переход к контактной информации');
+}
 </script>
 </body></html>
