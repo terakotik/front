@@ -424,6 +424,7 @@ button[style*="background: #FF9800"] {
     height: 2px;
     background: rgba(239, 49, 36, 0.1);
     z-index: 1000;
+    display: none; /* Скрыт по умолчанию */
 }
 
 .progress-bar {
@@ -435,7 +436,7 @@ button[style*="background: #FF9800"] {
 }
 
 .progress-steps {
-    display: flex;
+    display: none; /* Скрыт по умолчанию */
     justify-content: center;
     gap: 15px;
     padding: 5px 10px;
@@ -458,6 +459,222 @@ button[style*="background: #FF9800"] {
     color: #EF3124;
     font-weight: bold;
     background: rgba(239, 49, 36, 0.1);
+}
+
+/* Добавить стили для выделения пункта меню */
+.highlight-item {
+    position: relative;
+    animation: pulse-highlight 2s infinite;
+    background: rgba(239, 49, 36, 0.1);
+    border-radius: 10px;
+}
+
+.highlight-item::after {
+    content: '←';
+    position: absolute;
+    right: 15px;
+    color: #EF3124;
+    font-size: 20px;
+    font-weight: bold;
+    animation: arrow-bounce 1s infinite;
+}
+
+@keyframes pulse-highlight {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+}
+
+@keyframes arrow-bounce {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(5px); }
+}
+}
+
+/* Добавить медиа-запросы для десктопной версии */
+@media screen and (min-width: 1024px) {
+    .quiz-container {
+        max-width: 800px;
+        padding: 40px;
+        margin: 40px auto;
+    }
+
+    .logo {
+        width: 150px;
+        height: 150px;
+        margin: 0 auto 30px;
+    }
+
+    .description {
+        font-size: 18px;
+        max-width: 600px;
+        margin: 0 auto 30px;
+    }
+
+    .button-container {
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    .next-button, 
+    .action-button {
+        max-width: 400px;
+        margin: 20px auto;
+    }
+
+    /* Оптимизация бургер-меню */
+    .burger-menu {
+        top: 30px;
+        left: 30px;
+    }
+
+    .sidebar {
+        width: 320px;
+        padding: 100px 30px 30px;
+    }
+
+    /* Оптимизация текстов��х блоков */
+    h1 {
+        font-size: 32px;
+        max-width: 600px;
+        margin: 0 auto 30px;
+    }
+
+    h2 {
+        font-size: 28px;
+        max-width: 600px;
+        margin: 0 auto 25px;
+    }
+
+    /* Оптимизация карточек и блоков */
+    .step-box,
+    .feature-box,
+    .categories-box,
+    .benefits-box,
+    .info-box,
+    .steps-box {
+        max-width: 700px;
+        margin: 20px auto;
+        padding: 25px;
+    }
+
+    /* Оптимизация сетки для карточек */
+    .card-buttons-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        max-width: 700px;
+        margin: 30px auto;
+    }
+
+    /* Улучшение читаемости текста */
+    .content-text {
+        font-size: 18px;
+        line-height: 1.8;
+        max-width: 700px;
+        margin: 0 auto 20px;
+    }
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(2px); }
+    75% { transform: translateX(-2px); }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+@keyframes slideUpDown {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+}
+
+/* Обновить стили для кнопок */
+.action-button,
+.next-button {
+    width: 80% !important; /* Уменьшаем ширину */
+    max-width: 300px !important;
+    padding: 12px 25px !important;
+    border: none !important;
+    border-radius: 15px !important;
+    font-size: 14px !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    background: linear-gradient(45deg, #EF3124, #ff6b6b) !important;
+    color: white !important;
+    text-align: center !important;
+    line-height: 1.2 !important;
+    margin: 10px auto !important;
+    box-shadow: 0 4px 15px rgba(239, 49, 36, 0.2) !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.action-button:hover,
+.next-button:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 20px rgba(239, 49, 36, 0.3) !important;
+    background: linear-gradient(45deg, #ff6b6b, #EF3124) !important;
+}
+
+.action-button:active,
+.next-button:active {
+    transform: translateY(1px) !important;
+    box-shadow: 0 2px 10px rgba(239, 49, 36, 0.2) !important;
+}
+
+/* Добавляем эффект свечения при наведении */
+.action-button::after,
+.next-button::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
+    transform: scale(0);
+    opacity: 0;
+    transition: transform 0.5s, opacity 0.3s;
+}
+
+.action-button:hover::after,
+.next-button:hover::after {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* Стили для кнопок в нижней части экрана */
+.button-container {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 0 20px;
+    background: linear-gradient(to top, white, transparent);
+    padding-top: 20px;
 }
 </style>
 </head>
@@ -495,10 +712,12 @@ button[style*="background: #FF9800"] {
             <span class="menu-icon">📝</span> Регистрация
         </a>
         <div id="registration" class="menu-content">
-            <a href="#" class="menu-item sub-item" onclick="showRegistrationScheme()">Схема регистрации</a>
+            <a href="#" class="menu-item sub-item highlight-item" onclick="showRegistrationScheme()">Схема регистрации</a>
             <a href="#" class="menu-item sub-item" onclick="showCardSelection()">Выбор карты</a>
             <a href="#" class="menu-item sub-item" onclick="showBusinessRegistration()">Оформление ИП/СМЗ</a>
-            <a href="#" class="menu-item sub-item" onclick="showBPRegistration()">Оформление БП</a>
+            <a href="#" class="menu-item sub-item" onclick="showBPRegistration()" style="color: #EF3124; background: rgba(239, 49, 36, 0.1);">
+                РЕГИСТРАЦИЯ<br>СВОЙ В АЛЬФА
+            </a>
         </div>
 
         <a href="#" class="menu-item" onclick="toggleSubMenu('team')">
@@ -515,7 +734,6 @@ button[style*="background: #FF9800"] {
         <div id="support" class="menu-content">
             <a href="#" class="menu-item sub-item" onclick="showFAQ()">Частые вопросы</a>
             <a href="#" class="menu-item sub-item" onclick="showTechnicalSupport()">Техническая поддержка</a>
-            <a href="#" class="menu-item sub-item" onclick="showContactInfo()">Контакты</a>
         </div>
     </div>
 
@@ -523,11 +741,11 @@ button[style*="background: #FF9800"] {
 
     <div class="quiz-container" id="main-screen">
         <svg class="logo" viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="45" fill="#EF3124"></circle>
+            <rect x="10" y="10" width="80" height="80" rx="20" fill="#EF3124"/>
             <text x="50" y="50" text-anchor="middle" dy=".3em" fill="white" font-size="40">A</text>
         </svg>
         
-        <h1>Привет! Это бот для заработка от Альфа Банка!</h1>
+        <h1>��ривет! Это бот для заработка от Альфа Банка!</h1>
         
         <p class="description">
             Я научу зарабатывать тебя и твоих друзей просто отправляя ссылку на продукты Альфа Банка!
@@ -548,7 +766,7 @@ button[style*="background: #FF9800"] {
 
     <div class="quiz-container" id="project-info" style="display: none;">
         <svg class="logo" viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="45" fill="#EF3124"></circle>
+            <rect x="10" y="10" width="80" height="80" rx="20" fill="#EF3124"/>
             <text x="50" y="50" text-anchor="middle" dy=".3em" fill="white" font-size="40">A</text>
         </svg>
 
@@ -557,17 +775,84 @@ button[style*="background: #FF9800"] {
         <h3 style="color: #333; margin: 20px 0;">Как это работает?</h3>
 
         <ul style="list-style: none; text-align: left; margin-bottom: 20px;">
-            <li style="margin-bottom: 10px;">✓ Вы регистрируетесь в программе 'Свой в Альфа'</li>
-            <li style="margin-bottom: 10px;">✓ Получаете персональную ссылку для приглашений</li>
-            <li style="margin-bottom: 10px;">✓ Каждый, кто пройдет по вашей ссылке и оформит карту, принесет вам доход</li>
-            <li style="margin-bottom: 10px;">✓ Вы будете получать пассивный доход с покупок людей, которых привлекли вы и ваши приглашенные</li>
+            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                <div style="width: 48px; height: 48px; flex-shrink: 0;">
+                    <svg viewBox="0 0 48 48">
+                        <rect width="48" height="48" rx="10" fill="#f8f8f8"/>
+                        <path d="M24 12c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm0 18c-3.314 0-6-2.686-6-6s2.686-6 6-6 6 2.686 6 6-2.686 6-6 6z" fill="#EF3124"/>
+                    </svg>
+                </div>
+                <li>Вы регистрируетесь в программе 'Свой в Альфа'</li>
+            </div>
+            
+            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                <div style="width: 48px; height: 48px; flex-shrink: 0;">
+                    <svg viewBox="0 0 48 48">
+                        <rect width="48" height="48" rx="10" fill="#f8f8f8"/>
+                        <path d="M12 24c0-6.627 5.373-12 12-12s12 5.373 12 12-5.373 12-12 12-12-5.373-12-12zm13-5v4h4v2h-4v4h-2v-4h-4v-2h4v-4h2z" fill="#EF3124"/>
+                    </svg>
+                </div>
+                <li>Получаете персональную ссылку для приглашений</li>
+            </div>
+            
+            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                <div style="width: 48px; height: 48px; flex-shrink: 0;">
+                    <svg viewBox="0 0 48 48">
+                        <rect width="48" height="48" rx="10" fill="#f8f8f8"/>
+                        <path d="M24 12c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12h-12v-12z" fill="#EF3124"/>
+                    </svg>
+                </div>
+                <li>Каждый, кто пройдет по вашей ссылке и оформит карту, принесет вам доход</li>
+            </div>
+            
+            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                <div style="width: 48px; height: 48px; flex-shrink: 0;">
+                    <svg viewBox="0 0 48 48">
+                        <rect width="48" height="48" rx="10" fill="#f8f8f8"/>
+                        <path d="M12 24a12 12 0 1 1 24 0 12 12 0 0 1-24 0zm14-4l-6 6-2-2" stroke="#EF3124" stroke-width="2" fill="none"/>
+                    </svg>
+                </div>
+                <li>Вы будете получать пассивный доход с покупок людей, которых привлекли вы и ваши приглашенные</li>
+            </div>
         </ul>
 
-        <div style="background: #f8f8f8; padding: 20px; border-radius: 10px; margin: 20px 0;">
-            <h3 style="color: #EF3124; margin-bottom: 15px;">Система работает на три уровня в глубину:</h3>
-            <p style="margin-bottom: 10px;"><strong>1 поколение:</strong> люди, которых пригласили вы</p>
-            <p style="margin-bottom: 10px;"><strong>2 поколение:</strong> люди, приглашенные вашими участниками</p>
-            <p style="margin-bottom: 10px;"><strong>3 поколение:</strong> участники их сети</p>
+        <div style="background: #f8f8f8; padding: 25px; border-radius: 15px; margin: 25px 0;">
+            <h3 style="color: #EF3124; margin-bottom: 20px; text-align: center;">Система работает на три уровня в глубину</h3>
+            
+            <div style="display: flex; flex-direction: column; gap: 15px;">
+                <!-- 1 поколение -->
+                <div style="position: relative; background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div style="background: #EF3124; color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">1</div>
+                        <div>
+                            <h4 style="color: #333; margin: 0;">Первое поколение</h4>
+                            <p style="margin: 5px 0 0 0; color: #666;">Люди, которых вы лично пригласили в проект</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2 поколение -->
+                <div style="position: relative; background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div style="background: #FF6B6B; color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">2</div>
+                        <div>
+                            <h4 style="color: #333; margin: 0;">Второе поколение</h4>
+                            <p style="margin: 5px 0 0 0; color: #666;">Люди, приглашенные вашими партнёрами</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3 поколение -->
+                <div style="position: relative; background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div style="background: #FF9F9F; color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">3</div>
+                        <div>
+                            <h4 style="color: #333; margin: 0;">Третье поколение</h4>
+                            <p style="margin: 5px 0 0 0; color: #666;">Люди, приглашенные партнёрами второго поколения</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <p class="description">Жми "Далее" чтобы узнать о начислении балов</p>
@@ -579,22 +864,99 @@ button[style*="background: #FF9800"] {
 
     <div class="quiz-container" id="points-info" style="display: none;">
         <svg class="logo" viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="45" fill="#EF3124"></circle>
+            <rect x="10" y="10" width="80" height="80" rx="20" fill="#EF3124"/>
             <text x="50" y="50" text-anchor="middle" dy=".3em" fill="white" font-size="40">A</text>
         </svg>
 
         <h2 style="color: #EF3124; margin-bottom: 20px;">Система начисления баллов</h2>
 
         <div style="text-align: left; padding: 20px;">
-            <p style="margin-bottom: 15px;">Баллы начисляются за активность клиентов, которых вы привлекли, а также за действия их сети (впл  ть до 3 поколений).</p>
+            <p style="margin-bottom: 15px;">Баллы начисляются за активность клиентов, которых вы привлекли, а также за действия их сети (вплоть до 3 поколений).</p>
 
             <h3 style="color: #333; margin: 15px 0;">Баллы можно заработать за следующие действия:</h3>
             <ul style="list-style: none; margin-bottom: 20px;">
-                <li style="margin-bottom: 8px;">✓ Оформле  ие дебетовой или кредитной карты</li>
-                <li style="margin-bottom: 8px;">✓ Открытие вклада или брокерского счета</li>
-                <li style="margin-bottom: 8px;">✓ Расход по карте более 5000р в мес</li>
-                <li style="margin-bottom: 8px;">✓ Прохождение теста</li>
-                <li style="margin-bottom: 8px;">✓ Оплата ЖКХ</li>
+                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                    <div style="width: 48px; height: 48px; flex-shrink: 0; animation: bounce 2s infinite;">
+                        <svg viewBox="0 0 48 48">
+                            <rect width="48" height="48" rx="10" fill="#f8f8f8"/>
+                            <path d="M14 24c0-5.523 4.477-10 10-10s10 4.477 10 10h-6l-4 8-4-8h-6z" fill="#EF3124">
+                                <animate attributeName="d" dur="1.5s" repeatCount="indefinite"
+                                    values="M14 24c0-5.523 4.477-10 10-10s10 4.477 10 10h-6l-4 8-4-8h-6z;
+                                            M14 24c0-5.523 4.477-10 10-10s10 4.477 10 10h-6l-4 4-4-4h-6z;
+                                            M14 24c0-5.523 4.477-10 10-10s10 4.477 10 10h-6l-4 8-4-8h-6z"/>
+                                </animate>
+                            </path>
+                        </svg>
+                    </div>
+                    <li>Оформление дебетовой или кредитной карты</li>
+                </div>
+                
+                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                    <div style="width: 48px; height: 48px; flex-shrink: 0; animation: pulse 2s infinite;">
+                        <svg viewBox="0 0 48 48">
+                            <rect width="48" height="48" rx="10" fill="#f8f8f8"/>
+                            <path d="M16 16h16v16H16z" fill="#EF3124">
+                                <animate attributeName="transform" attributeType="XML"
+                                    dur="2s"
+                                    repeatCount="indefinite"
+                                    type="scale"
+                                    values="1;1.1;1"
+                                    calcMode="spline"
+                                    keySplines="0.4 0 0.2 1; 0.4 0 0.2 1"/>
+                            </path>
+                        </svg>
+                    </div>
+                    <li>Открытие вклада или брокерского счета</li>
+                </div>
+                
+                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                    <div style="width: 48px; height: 48px; flex-shrink: 0; animation: slideUpDown 2s infinite ease-in-out;">
+                        <svg viewBox="0 0 48 48">
+                            <rect width="48" height="48" rx="10" fill="#f8f8f8"/>
+                            <path d="M24 12v24M16 28l8 8l8-8" stroke="#EF3124" stroke-width="2" fill="none">
+                                <animate attributeName="stroke-dasharray" 
+                                    dur="2s" 
+                                    values="0,24;24,0" 
+                                    repeatCount="indefinite"/>
+                            </path>
+                            <text x="24" y="20" text-anchor="middle" fill="#EF3124" font-size="12">5K</text>
+                        </svg>
+                    </div>
+                    <li>Расход по карте более 5000р в месяц</li>
+                </div>
+                
+                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                    <div style="width: 48px; height: 48px; flex-shrink: 0; animation: shake 2s infinite;">
+                        <svg viewBox="0 0 48 48">
+                            <rect width="48" height="48" rx="10" fill="#f8f8f8"/>
+                            <path d="M16 16l16 0l0 16l-16 0z" fill="#EF3124">
+                                <animate attributeName="d" dur="1s" repeatCount="indefinite"
+                                    values="M16 16l16 0l0 16l-16 0z;
+                                            M14 14l20 0l0 20l-20 0z;
+                                            M16 16l16 0l0 16l-16 0z"/>
+                                </animate>
+                            </path>
+                        </svg>
+                    </div>
+                    <li>Прохождение теста</li>
+                </div>
+                
+                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                    <div style="width: 48px; height: 48px; flex-shrink: 0; animation: float 3s infinite ease-in-out;">
+                        <svg viewBox="0 0 48 48">
+                            <rect width="48" height="48" rx="10" fill="#f8f8f8"/>
+                            <path d="M14 24a10 10 0 1 0 20 0a10 10 0 1 0 -20 0" fill="#EF3124">
+                                <animateTransform attributeName="transform"
+                                    type="rotate"
+                                    from="0 24 24"
+                                    to="360 24 24"
+                                    dur="3s"
+                                    repeatCount="indefinite"/>
+                            </path>
+                        </svg>
+                    </div>
+                    <li>Оплата ЖКХ</li>
+                </div>
             </ul>
 
             <div style="background: #f8f8f8; padding: 15px; border-radius: 10px; margin: 15px 0;">
@@ -602,7 +964,7 @@ button[style*="background: #FF9800"] {
             </div>
 
             <h3 style="color: #333; margin: 15px 0;">Стоимость баллов по уровням:</h3>
-            <p>Для каждого уровня (А1,А2,А3 и т.д.) стоимость баллов различается.</p>
+            <p>Для ��аждого уровня (А1,А2,А3 и т.д.) стоимость балло�� раз��ичается.</p>
             <ul style="list-style: none; margin: 10px 0;">
                 <li>На уровне А1 ваши клиенты приносят 100 рублей за 1 балл.</li>
                 <li>На уровне А5 - уже 115 рублей за 1 балл.</li>
@@ -611,21 +973,21 @@ button[style*="background: #FF9800"] {
             <h3 style="color: #333; margin: 15px 0;">Разделение дохода по поколениям</h3>
             <ul style="list-style: none; margin: 10px 0;">
                 <li style="margin-bottom: 10px;"><strong>1 поколение:</strong> это ваши клиенты. На их действия начисляется максимальная стоимость баллов.</li>
-                <li style="margin-bottom: 10px;"><strong>2 поколение:</strong> это клиенты ваших партнеров. Балы от их активности имеют меньшую стоимость.</li>
-                <li style="margin-bottom: 10px;"><strong>3 поколение:</strong> клиенты партнеров вашег   второго уровня. Здесь стоимость баллов самая низкая.</li>
+                <li style="margin-bottom: 10px;"><strong>2 поколение:</strong> это клиенты ваших партнеров. Балы от их активности имеют меньшую стоиость.</li>
+                <li style="margin-bottom: 10px;"><strong>3 поколение:</strong> клиенты партнеров вашег второго уровня. Здесь стоимость баллов самая низкая.</li>
             </ul>
 
             <div style="background: #f8f8f8; padding: 15px; border-radius: 10px; margin: 15px 0;">
                 <p><strong>Например, на уровне А5:</strong></p>
                 <ul style="list-style: none; margin-top: 10px;">
-                    <li>1 поколение приносит 115 рублей за балл</li>
+                    <li>1 поколение приносит 115 р��блей за балл</li>
                     <li>2 поколение - 27 рублей за балл</li>
                     <li>3 поколение - 15 рублей за балл</li>
                 </ul>
             </div>
         </div>
 
-        <p class="description">Жми "Далее" чтобы узнать о начислении бонусов</p>
+        <p class="description">Жми "Далее" чтобы узнать о начислении бон��сов</p>
 
         <button class="next-button" onclick="showBonusInfo()">
             ДАЛЕЕ
@@ -634,7 +996,7 @@ button[style*="background: #FF9800"] {
 
     <div class="quiz-container" id="bonus-info" style="display: none;">
         <svg class="logo" viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="45" fill="#EF3124"></circle>
+            <rect x="10" y="10" width="80" height="80" rx="20" fill="#EF3124"/>
             <text x="50" y="50" text-anchor="middle" dy=".3em" fill="white" font-size="40">A</text>
         </svg>
 
@@ -665,7 +1027,7 @@ button[style*="background: #FF9800"] {
 
     <div class="quiz-container" id="partner-bonus-info" style="display: none;">
         <svg class="logo" viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="45" fill="#EF3124"></circle>
+            <rect x="10" y="10" width="80" height="80" rx="20" fill="#EF3124"/>
             <text x="50" y="50" text-anchor="middle" dy=".3em" fill="white" font-size="40">A</text>
         </svg>
 
@@ -689,20 +1051,20 @@ button[style*="background: #FF9800"] {
 
             <h3 style="color: #333; margin: 15px 0;">Условия для получения бонуса:</h3>
             <ul style="list-style: none;">
-                <li style="margin-bottom: 8px;">✓ Новый партнер должен набрать 40+ баллов за личных клиентов</li>
-                <li style="margin-bottom: 8px;">✓ Вы, как наставник, также должны набрать 40+ б  ллов за личных клиентов</li>
+                <li style="margin-bottom: 8px;">✓ Новый партнер должен набрать 40+ балов за личных клиентов</li>
+                <li style="margin-bottom: 8px;">✓ Вы, как наставник, также должны набрать 40+ бллов за личных клиентов</li>
             </ul>
 
             <div style="background: #f8f8f8; padding: 15px; border-radius: 10px; margin: 20px 0;">
                 <h3 style="color: #333; margin-bottom: 10px;">Пример расчета бонуса:</h3>
-                <p>В марте в   привлекли 4 новых партнеров, которые выполнили условия (40+ баллов). Вы также набрали 40+ баллов.</p>
+                <p>В марте в привлекли 4 новых партнеров, которые выполнили условия (40+ баллов). Вы также набрали 40+ баллов.</p>
                 <p style="color: #EF3124; font-weight: bold; margin-top: 10px;">Ваш бонус составит 16 000 руб. (по 4 000 руб. за каждого).</p>
             </div>
 
             <p style="margin-top: 20px; font-weight: bold;">Развивайте свою команду — чем больше партнеров, тем больше ваш доход!</p>
         </div>
 
-        <p class="description">Нажмите "Далее", чтобы рассмотреть пример быстрого старта</p>
+        <p class="description">Нажмите "Далее", чтобы рассмотреть пример бстрого старта</p>
 
         <button class="next-button" onclick="showQuickStart()">
             ДАЛЕЕ
@@ -711,7 +1073,7 @@ button[style*="background: #FF9800"] {
 
     <div class="quiz-container" id="generation-bonus-info" style="display: none;">
         <svg class="logo" viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="45" fill="#EF3124"></circle>
+            <rect x="10" y="10" width="80" height="80" rx="20" fill="#EF3124"/>
             <text x="50" y="50" text-anchor="middle" dy=".3em" fill="white" font-size="40">A</text>
         </svg>
 
@@ -723,7 +1085,7 @@ button[style*="background: #FF9800"] {
             <h3 style="color: #333; margin: 15px 0;">Как это работает:</h3>
             <ul style="list-style: none;">
                 <li style="margin-bottom: 8px;">✓ Учитываются новые для банка клиенты по всем поколениям в течение трех месяцев.</li>
-                <li style="margin-bottom: 8px;">✓ Новый клиент — это человек, который никогда ранее не имел дебетовых к  рт или счетов в Альфа-Банке.</li>
+                <li style="margin-bottom: 8px;">✓ Нов��й клент — это человек, который никогда ранее не имел дебетовых крт или счетов в Альфа-Банке.</li>
                 <li style="margin-bottom: 8px;">✓ Претендовать на бонус могут партнеры, достигшие уровня A8 и выше.</li>
             </ul>
 
@@ -750,7 +1112,7 @@ button[style*="background: #FF9800"] {
 
     <div class="quiz-container" id="quick-start" style="display: none;">
         <svg class="logo" viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="45" fill="#EF3124"></circle>
+            <rect x="10" y="10" width="80" height="80" rx="20" fill="#EF3124"/>
             <text x="50" y="50" text-anchor="middle" dy=".3em" fill="white" font-size="40">A</text>
         </svg>
 
@@ -759,14 +1121,14 @@ button[style*="background: #FF9800"] {
         <div style="text-align: left; padding: 20px;">
             <section style="margin-bottom: 20px;">
                 <h3 style="color: #333; margin-bottom: 15px;">1. Ваши клиенты (1 поколение)</h3>
-                <p>Вы лично привлекаете 5 клиентов. Каждый из них дела  т покупки на 200 баллов.</p>
+                <p>Вы лично привлекаете 5 клиентов. Каждый из них делат покупки на 200 баллов.</p>
                 <p style="color: #EF3124; font-weight: bold;">200 баллов × 115 рублей = 23 000 рублей дохода только с клиентов</p>
             </section>
 
             <section style="margin-bottom: 20px;">
                 <h3 style="color: #333; margin-bottom: 15px;">2. Клиенты ваших агентов (2 поколение)</h3>
-                <p>Вы подключаете 5 человек в свою команду (это агенты уровня А1). Эти агенты тоже приводят клиентов, и вы получаете % от их покупок.</p>
-                <p style="color: #EF3124; font-weight: bold;">200 баллов × 25 рублей × 5 агентов = 5 000 рублей дополнительно</p>
+                <p>Вы подключаете 5 человек в свою команду (это агенты уровня А1). Эти аенты тоже приводят клиентов, и вы получаете % от их покупок.</p>
+                <p style="color: #EF3124; font-weight: bold;">200 баллов × 25 рубле × 5 агентов = 5 000 рублей дополнительно</p>
             </section>
 
             <section style="margin-bottom: 20px;">
@@ -776,13 +1138,13 @@ button[style*="background: #FF9800"] {
             </section>
 
             <section style="margin-bottom: 20px;">
-                <h3 style="color: #333; margin-bottom: 15px;">4. Бонус за квалификацию</h3>
+                <h3 style="color: #333; margin-bottom: 15px;">4. Бонус ��а квалификацию</h3>
                 <p>Достигнув статуса А5, вы получаете фиксирванный бонус в размере 2 000 рублей.</p>
             </section>
 
             <div style="background: #f8f8f8; padding: 15px; border-radius: 10px; margin: 20px 0;">
                 <h3 style="color: #EF3124; margin-bottom: 10px;">Итог: 55 000 рублей за месяц.</h3>
-                <p>Но это только начало! Поднимаясь на следующий уровень, вы можете зарабатывать ещё больше: больше клиентов, больше агентов, больше бонусов. Действуйте уже сегодня, чтобы увеличить свой доход и достичь новых высот!</p>
+                <p>Но это только начало! Поднимаясь на следующий уровень, вы можете зарабатывать ещё больше: больше клиентов, больше агентов, больше бонус��в. Действуйте уже сегодня, чтобы увеличить свой доход и достичь новых высот!</p>
             </div>
         </div>
 
@@ -793,7 +1155,7 @@ button[style*="background: #FF9800"] {
 
     <div class="quiz-container" id="easy-points" style="display: none;">
         <svg class="logo" viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="45" fill="#EF3124"></circle>
+            <rect x="10" y="10" width="80" height="80" rx="20" fill="#EF3124"/>
             <text x="50" y="50" text-anchor="middle" dy=".3em" fill="white" font-size="40">A</text>
         </svg>
 
@@ -809,7 +1171,7 @@ button[style*="background: #FF9800"] {
                     <ul style="list-style: none;">
                         <li style="margin-bottom: 8px;">✓ 8 + 5 баллов за активацию карты</li>
                         <li style="margin-bottom: 8px;">✓ 1 балл за подключение Госуслуг</li>
-                        <li style="margin-bottom: 8px;">✓ 1 балл за выбор Альфа-Банка для СБП</li>
+                        <li style="margin-bottom: 8px;">✓ 1 балл за выбор Альфа-Банка для С��П</li>
                         <li style="margin-bottom: 8px;">✓ 1 балл за покупки от 5 000 ₽</li>
                         <li style="margin-bottom: 8px;">✓ 1 балл за оплату ЖКУ или налогов</li>
                     </ul>
@@ -827,29 +1189,29 @@ button[style*="background: #FF9800"] {
 
             <div style="background: #f8f8f8; padding: 15px; border-radius: 10px; margin: 20px 0;">
                 <h3 style="color: #EF3124; margin-bottom: 10px;">Итог:</h3>
-                <p>Набирать баллы действительно легко, а чем больше баллов и клиентов, тем выше ваш доход и статус. Действуйте, чтобы выйти на новый уровень!</p>
+                <p>Набирать бал��ы действительно легко, а чем больше баллов и клиентов, тем выше ваш доход и статус. Действуйте, чтобы выйти на новый уровень!</p>
             </div>
         </div>
 
         <button class="next-button" onclick="finalStep()">
-            ДАЛ  Е
+            ДАЛЕЕ
         </button>
     </div>
 
     <div class="quiz-container" id="celebration" style="display: none;">
         <svg class="logo celebration-logo" viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="45" fill="#EF3124"></circle>
+            <rect x="10" y="10" width="80" height="80" rx="20" fill="#EF3124"/>
             <text x="50" y="50" text-anchor="middle" dy=".3em" fill="white" font-size="40">A</text>
         </svg>
 
         <div class="confetti-container"></div>
         
-        <h2 style="color: #EF3124; margin-bottom: 20px;" class="celebration-title">Добро пожаловать в раздел "Регистрация"!</h2>
+        <h2 style="color: #EF3124; margin-bottom: 20;" class="celebration-title">Добро пожаловать в раздел "Регистрация"!</h2>
 
         <div style="text-align: left; padding: 20px;">
             <p style="margin-bottom: 20px; font-size: 18px;">Вы успешно завершили раздел "База знаний"!</p>
 
-            <p style="margin-bottom: 20px;">Теперь вы обладаете всей необходимой информацией, чтобы стать частью проекта "Свой в Альфа" и начать зарабатывать вместе с нами.</p>
+            <p style="margin-bottom: 20px;">Теперь вы обладаете всей нобходимой информацией, чтобы стать частью проекта "Свой в Альфа" и начать зарабатывать вместе с нами.</p>
 
             <section class="celebration-section">
                 <h3 style="color: #333; margin: 20px 0;">Что дальше?</h3>
@@ -863,7 +1225,7 @@ button[style*="background: #FF9800"] {
                 <h3 style="color: #333; margin: 20px 0;">Почему стоит продолжить?</h3>
                 <ul style="list-style: none;">
                     <li class="fade-in" style="animation-delay: 0.6s;">✓ Уже на старте вы можете начать получать доходы.</li>
-                    <li class="fade-in" style="animation-delay: 0.9s;">✓ Возможность построить свою команду и увеличить за  аботок в несколько раз.</li>
+                    <li class="fade-in" style="animation-delay: 0.9s;">✓ Возможность построить свою команду и увеличить зааботок в несколько раз.</li>
                     <li class="fade-in" style="animation-delay: 1.2s;">✓ Личные бонусы, пассивный доход и множество других привилегий ждут вас впереди!</li>
                 </ul>
             </section>
@@ -881,11 +1243,11 @@ button[style*="background: #FF9800"] {
 
     <div class="quiz-container" id="work-section" style="display: none;">
         <svg class="logo celebration-logo" viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="45" fill="#EF3124"></circle>
+            <rect x="10" y="10" width="80" height="80" rx="20" fill="#EF3124"/>
             <text x="50" y="50" text-anchor="middle" dy=".3em" fill="white" font-size="40">A</text>
         </svg>
 
-        <h2 style="color: #EF3124; margin-bottom: 20px;" class="celebration-title">Добро пожаловать в раздел "Работа"!</h2>
+        <h2 style="color: #EF3124; margin-bottom: 20;" class="celebration-title">Добро пожаловать в раздел "Работа"!</h2>
 
         <div style="text-align: left; padding: 20px;">
             <p style="margin-bottom: 20px; font-size: 18px;">Здесь вы сможете подключиться к проекту "Свой в Альфа" и начать зарабатывать.</p>
@@ -893,7 +1255,7 @@ button[style*="background: #FF9800"] {
             <section class="fade-in">
                 <h3 style="color: #333; margin: 20px 0;">С чего начать?</h3>
                 <ol style="list-style-position: inside; margin-left: 20px;">
-                    <li style="margin-bottom: 15px;">Рекомендуем начать со схемы регистрации</li>
+                    <li style="margin-bottom: 15px;">Рекомендуе�� начать со схемы регистрации</li>
                     <li style="margin-bottom: 15px;">Выберите нужный раздел из меню ниже</li>
                     <li style="margin-bottom: 15px;">Следуйте инструкциям для успешной регистрации</li>
                 </ol>
@@ -914,8 +1276,8 @@ button[style*="background: #FF9800"] {
                     ОФОРМЛЕНИЕ ИП/СМЗ
                 </button>
                 
-                <button class="next-button" onclick="showBPRegistration()" style="background: #4CAF50;">
-                    ОФОРМЛЕНИЕ БП
+                <button class="next-button" onclick="showBPRegistration()" style="background: #EF3124;">
+                    РЕГИСТРАЦИЯ<br>СВОЙ В АЛЬФА
                 </button>
                 
                 <button class="next-button" onclick="showEarningScheme()" style="background: #FF9800;">
@@ -927,11 +1289,11 @@ button[style*="background: #FF9800"] {
 
     <div class="quiz-container" id="registration-scheme" style="display: none;">
         <svg class="logo celebration-logo" viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="45" fill="#EF3124"></circle>
+            <rect x="10" y="10" width="80" height="80" rx="20" fill="#EF3124"/>
             <text x="50" y="50" text-anchor="middle" dy=".3em" fill="white" font-size="40">A</text>
         </svg>
 
-        <h2 style="color: #EF3124; margin-bottom: 20px;" class="celebration-title">Схема регистрации: шаг за шагом</h2>
+        <h2 style="color: #EF3124; margin-bottom: 20;" class="celebration-title">Схема регистрации: шаг за шагом</h2>
 
         <div class="quick-info" style="background: #f8f8f8; padding: 15px; border-radius: 10px; margin: 20px 0; text-align: center; width: 100%; max-width: 100%;">
             <svg style="width: 24px; height: 24px; margin-right: 10px;" viewBox="0 0 24 24">
@@ -948,7 +1310,7 @@ button[style*="background: #FF9800"] {
                     <h3 style="color: #333; margin: 0; font-size: 16px;">Оформите дебетовую карту Альфа-Банка</h3>
                 </div>
                 <div class="step-content">
-                    <p>Для участия в проекте "Свой в Альфа" вам необходимо иметь хотя бы одну банковскую карту Альфа-Банка. Вы можете оформить бесплатную дебетовую карту, которая не только откроет вам доступ к проекту, но и предложит крутые кэшбеки на покупки. Карта будет доставлена курьером уже на следующий день.</p>
+                    <p>Для участия в проекте "Свой в Альфа" вам необходимо иметь хотя бы одну бан��овскую карту Альфа-Банка. Вы можете оформить бесплатную дебетовую карту, которая не только откроет вам доступ к проекту, но и предложит крутые кэшбеки на покупки. Карта будет доставлена курьером уже на следующий день.</p>
                 </div>
             </div>
 
@@ -960,7 +1322,7 @@ button[style*="background: #FF9800"] {
                 </div>
                 <div class="step-content">
                     <div class="work-option">
-                        <h4>Физическое лицо</h4>
+                        <h4>Физическ��е лицо</h4>
                         <ul>
                             <li>✓ Стоимость одного балла начинается от 77 рублей</li>
                             <li>✓ Выплаты облагаются налогом НДФЛ в размере 13%</li>
@@ -1016,7 +1378,7 @@ button[style*="background: #FF9800"] {
 
     <div class="quiz-container" id="card-selection" style="display: none;">
         <svg class="logo celebration-logo" viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="45" fill="#EF3124"></circle>
+            <rect x="10" y="10" width="80" height="80" rx="20" fill="#EF3124"/>
             <text x="50" y="50" text-anchor="middle" dy=".3em" fill="white" font-size="40">A</text>
         </svg>
 
@@ -1050,7 +1412,7 @@ button[style*="background: #FF9800"] {
             <!-- Card 3 -->
             <div class="card-option fade-in" style="background: white; padding: 20px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border: 2px solid #f0f0f0;">
                 <div style="display: flex; align-items: center; margin-bottom: 15px;">
-                    <span style="font-size: 24px; margin-right: 15px;">✈️</span>
+                    <span style="font-size: 24px; margin-right: 15px;">��️</span>
                     <h3 style="color: #333; margin: 0;">Дебетовая карта Travel</h3>
                 </div>
                 <p style="margin-left: 45px;">2-3% кэшбэка на все покупки. Повышенный кэшбэк при тратах от 100 000₽ в месяц.</p>
@@ -1070,24 +1432,24 @@ button[style*="background: #FF9800"] {
     <!-- Add new container for Cashback card details -->
     <div class="quiz-container" id="cashback-card-info" style="display: none;">
         <svg class="logo celebration-logo" viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="45" fill="#EF3124"></circle>
+            <rect x="10" y="10" width="80" height="80" rx="20" fill="#EF3124"/>
             <text x="50" y="50" text-anchor="middle" dy=".3em" fill="white" font-size="40">A</text>
         </svg>
 
-        <h2 style="color: #EF3124; margin-bottom: 20px;" class="celebration-title">
-            Дебетовая карта с любимым кэшбэком
+        <h2 style="color: #EF3124; margin-bottom: 20;" class="celebration-title">
+            Дебетовая карта с любимым кэшб��ком
         </h2>
 
         <div style="text-align: left; padding: 20px;">
             <p style="margin-bottom: 20px; font-size: 16px; line-height: 1.6;">
-                Вы выбрали карту, которая позволяет вам самостоятельно выбирать, за какие покупки вы будете получать повышенный кэшбэк. Это отличный вариант для тех, кто хочет максимально эффективно использовать свои деньги!
+                Вы выбрали карту, которая позволяет вам самостоятельно выбирать, за какие покупки вы будете получать повышенный кэшбэк. Это отличный вариант для тех, кто хочет максимально эффективно использовать ��вои деньги!
             </p>
 
             <div class="feature-box fade-in" style="background: #f8f8f8; padding: 20px; border-radius: 15px; margin-bottom: 20px;">
                 <h3 style="color: #333; margin-bottom: 15px;">Что вы получите?</h3>
                 <ul style="list-style: none;">
                     <li style="margin-bottom: 10px;">✓ Кэшбэк до 5% в выбранных категориях</li>
-                    <li style="margin-bottom: 10px;">✓ Базовый кэшбэк 1% на все остальные покупки</li>
+                    <li style="margin-bottom: 10px;">✓ Базовый кэш��э 1% на все остальные покупки</li>
                 </ul>
             </div>
 
@@ -1098,13 +1460,13 @@ button[style*="background: #FF9800"] {
                     <li style="margin-bottom: 8px;">🍽️ Рестораны и кафе</li>
                     <li style="margin-bottom: 8px;">⛽ Заправки</li>
                 </ul>
-                <p style="margin-top: 15px;">Категории можно выбрать заранее, и они будут действовать в течение 3 месяцев, после чего их можно изменить.</p>
+                <p style="margin-top: 15px;">Категории ��ожно выбрать заранее, и они будут действовать в течение 3 месяцев, после чего их можно изменить.</p>
             </div>
 
             <div class="steps-box fade-in" style="background: #f8f8f8; padding: 20px; border-radius: 15px; margin-bottom: 20px;">
-                <h3 style="color: #333; margin-bottom: 15px;">Как оформить карту?</h3>
+                <h3 style="color: #333; margin-bottom: 15px;">Как оормить карту?</h3>
                 <ol style="margin-left: 20px;">
-                    <li style="margin-bottom: 8px;">Нажмите к  опку "Оформить карту"</li>
+                    <li style="margin-bottom: 8px;">Нажмите копку "Оформить карту"</li>
                     <li style="margin-bottom: 8px;">Заполните короткую заявку на сайте Альфа-Банка</li>
                     <li style="margin-bottom: 8px;">Возвращайтесь в бот и начните регистрацию в "Свой Альфа"</li>
                 </ol>
@@ -1124,17 +1486,17 @@ button[style*="background: #FF9800"] {
     <!-- Add new container for Travel card details -->
     <div class="quiz-container" id="travel-card-info" style="display: none;">
         <svg class="logo celebration-logo" viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="45" fill="#EF3124"></circle>
+            <rect x="10" y="10" width="80" height="80" rx="20" fill="#EF3124"/>
             <text x="50" y="50" text-anchor="middle" dy=".3em" fill="white" font-size="40">A</text>
         </svg>
 
-        <h2 style="color: #EF3124; margin-bottom: 20px;" class="celebration-title">
+        <h2 style="color: #EF3124; margin-bottom: 20;" class="celebration-title">
             Дебетовая карта Travel
         </h2>
 
         <div style="text-align: left; padding: 20px;">
             <p style="margin-bottom: 20px; font-size: 16px; line-height: 1.6;">
-                Вы выбрали карту, которая идеально подходит для путешественников и тех, кто любит совершать покупки с максимальной выгодой.
+                Вы выбрали карту, которая идеально подходит для путешественников и тех, кто любит соершать покупки с максимальной выгодой.
             </p>
 
             <div class="benefits-box fade-in" style="background: #f8f8f8; padding: 20px; border-radius: 15px; margin-bottom: 20px;">
@@ -1147,7 +1509,7 @@ button[style*="background: #FF9800"] {
             </div>
 
             <div class="info-box fade-in" style="background: #f8f8f8; padding: 20px; border-radius: 15px; margin-bottom: 20px;">
-                <p>Эта карта — идеальный выбор для тех, кто часто путешествует, по  упает билеты, бронирует отели или просто совершает крупные покупки.</p>
+                <p>Эта карта — идеальный выбор для тех, кто часто путешествует, поупает билеты, бронирует отели или просто совершает крупные покупки.</p>
             </div>
 
             <div class="steps-box fade-in" style="background: #f8f8f8; padding: 20px; border-radius: 15px; margin-bottom: 20px;">
@@ -1173,11 +1535,11 @@ button[style*="background: #FF9800"] {
     <!-- Добавить новый контейнер для Комбо карты -->
     <div class="quiz-container" id="combo-card-info" style="display: none;">
         <svg class="logo celebration-logo" viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="45" fill="#EF3124"></circle>
+            <rect x="10" y="10" width="80" height="80" rx="20" fill="#EF3124"/>
             <text x="50" y="50" text-anchor="middle" dy=".3em" fill="white" font-size="40">A</text>
         </svg>
 
-        <h2 style="color: #EF3124; margin-bottom: 20px;" class="celebration-title">
+        <h2 style="color: #EF3124; margin-bottom: 20;" class="celebration-title">
             Альфа-Карта с Комбо счетом
         </h2>
 
@@ -1197,11 +1559,11 @@ button[style*="background: #FF9800"] {
             <div class="modes-box fade-in" style="background: #f8f8f8; padding: 20px; border-radius: 15px; margin-bottom: 20px;">
                 <h3 style="color: #333; margin-bottom: 15px;">Три режима списания на выбор:</h3>
                 <ul style="list-style: none;">
-                    <li style="margin-bottom: 10px;">🔵 Только своими деньгами</li>
+                    <li style="margin-bottom: 10px;">🔵 Только своим�� деньгами</li>
                     <li style="margin-bottom: 10px;">🔴 Только кредитными средствами</li>
                     <li style="margin-bottom: 10px;">🟣 Своими, затем кредитными</li>
                 </ul>
-                <p style="margin-top: 15px; font-style: italic;">Переключение между счетами в мобильном п  иложении без ограничений</p>
+                <p style="margin-top: 15px; font-style: italic;">Переключение между счетами в мобильном пиложении без ограничений</p>
             </div>
 
             <div class="cashback-box fade-in" style="background: #f8f8f8; padding: 20px; border-radius: 15px; margin-bottom: 20px;">
@@ -1218,14 +1580,14 @@ button[style*="background: #FF9800"] {
                 <h3 style="color: #333; margin-bottom: 15px;">Как оформить карту?</h3>
                 <ol style="margin-left: 20px;">
                     <li style="margin-bottom: 8px;">Нажмите кнопку "Оформить карту"</li>
-                    <li style="margin-bottom: 8px;">Заполните короткую заявку на сайте Альфа-Банка</li>
+                    <li style="margin-bottom: 8px;">Заполните короткую заявку на сайте А��ьфа-Банка</li>
                     <li style="margin-bottom: 8px;">Ожидайте карту уже через 1 день с доставкой курьером</li>
                 </ol>
             </div>
 
             <div style="background: #ffebee; padding: 15px; border-radius: 10px; margin: 20px 0;">
                 <p style="color: #EF3124; font-weight: bold; margin-bottom: 10px;">Важно!</p>
-                <p>При получении Альфа карты с комбо счетом, важно сказать курьеру, что вы хотите именно КОМБО карту.</p>
+                <p>При получении Альфа карты с комбо счетом, важно сказать курьер��, что вы хотите именно КОМБО карту.</p>
             </div>
 
             <div class="button-container">
@@ -1239,323 +1601,709 @@ button[style*="background: #FF9800"] {
         </div>
     </div>
 
+    <!-- Добавить новый контейнер для информации о регистрации самозанятого -->
+    <div class="quiz-container" id="self-employed-info" style="display: none;">
+        <svg class="logo" viewBox="0 0 100 100">
+            <rect x="10" y="10" width="80" height="80" rx="20" fill="#EF3124"/>
+            <text x="50" y="50" text-anchor="middle" dy=".3em" fill="white" font-size="40">A</text>
+        </svg>
+
+        <h2 style="color: #EF3124; margin-bottom: 20;">Регистрация самозанятого</h2>
+
+        <div style="text-align: left; padding: 20px;">
+            <p style="margin-bottom: 20px; font-size: 16px; line-height: 1.6;">
+                Этот раздел поможет вам быстро и бесплатно оформить статус самозанятого. Процедура займет всего одну минуту, а мы подробно объясним каждый шаг.
+            </p>
+
+            <div style="background: #f8f8f8; padding: 20px; border-radius: 15px; margin: 25px 0;">
+                <p style="margin-bottom: 15px;">
+                    Если вы попали сюда после оформления карты, то поздравляем — первый шаг уже сделан! Теперь определитесь, в каком статусе вы хотите работать:
+                </p>
+
+                <div style="display: flex; flex-direction: column; gap: 15px;">
+                    <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <div style="width: 48px; height: 48px; flex-shrink: 0;">
+                                <svg viewBox="0 0 48 48">
+                                    <rect width="48" height="48" rx="10" fill="#f8f8f8"/>
+                                    <path d="M12 24c0-6.627 5.373-12 12-12s12 5.373 12 12-5.373 12-12 12-12-5.373-12-12zm13-5v4h4v2h-4v4h-2v-4h-4v-2h4v-4h2z" fill="#EF3124"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 style="color: #333; margin: 0;">1. ИП</h4>
+                                <p style="margin: 5px 0 0 0; color: #666;">Если вы уже зарегистрированы или планируете работать с крупными суммами.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <div style="width: 48px; height: 48px; flex-shrink: 0;">
+                                <svg viewBox="0 0 48 48">
+                                    <rect width="48" height="48" rx="10" fill="#f8f8f8"/>
+                                    <path d="M24 12c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12h-12v-12z" fill="#EF3124"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 style="color: #EF3124; margin: 0;">2. Самозанятый</h4>
+                                <p style="margin: 5px 0 0 0; color: #666;">Самый выгодный и удобный вариант, если вы только начинаете.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <div style="width: 48px; height: 48px; flex-shrink: 0;">
+                                <svg viewBox="0 0 48 48">
+                                    <rect width="48" height="48" rx="10" fill="#f8f8f8"/>
+                                    <path d="M24 12c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm0 18c-3.314 0-6-2.686-6-6s2.686-6 6-6 6 2.686 6 6-2.686 6-6 6z" fill="#EF3124"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 style="color: #333; margin: 0;">3. Физическое лицо</h4>
+                                <p style="margin: 5px 0 0 0; color: #666;">Подходит для работы без регистрации, но выплаты меньше из-за НДФЛ 13%.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: #f8f8f8; padding: 20px; border-radius: 15px; margin: 25px 0;">
+                <p style="margin-bottom: 15px;">
+                    Если у вас уже есть статус самозанятого или ИП, или вы решили работать как физическое лицо, нажмите "Пропустить шаг" и приступайте к регистрации в проекте "Свой в Альфа"
+                </p>
+                <p style="margin-bottom: 15px;">
+                    Если хотите зарегистрироваться как самозанятый, нажмите "Регистрация самозанятого" — это легко, а мы вам во всем поможем!
+                </p>
+                <p style="font-weight: bold; color: #EF3124;">
+                    Давайте сделаем это вместе!
+                </p>
+            </div>
+
+            <div class="button-container" style="display: flex; flex-direction: column; gap: 15px; margin-top: 30px;">
+                <button class="action-button" onclick="startSelfEmployedRegistration()" style="background: #EF3124;">
+                    РЕГИСТРАЦИЯ САМОЗАНЯТОГО
+                </button>
+                <button class="action-button" onclick="skipRegistration()" style="background: #666;">
+                    ПРОПУСТИТЬ РЕГИСТРАЦИЮ
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Добавить новый контейнер для инструкции по самозанятости -->
+    <div class="quiz-container" id="self-employed-steps" style="display: none;">
+        <svg class="logo" viewBox="0 0 100 100">
+            <rect x="10" y="10" width="80" height="80" rx="20" fill="#EF3124"/>
+            <text x="50" y="50" text-anchor="middle" dy=".3em" fill="white" font-size="40">A</text>
+        </svg>
+
+        <h2 style="color: #EF3124; margin-bottom: 20px;">Пошаговая инструкция оформления самозанятости</h2>
+
+        <div style="text-align: left; padding: 20px;">
+            <!-- Шаг 1 -->
+            <div style="background: white; padding: 20px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                <div style="display: flex; align-items: flex-start; gap: 15px;">
+                    <div style="background: #EF3124; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0;">1</div>
+                    <div>
+                        <p style="margin: 0;">Если вы уже клиент Альфа-Банка и у вас есть дебетовая карта, можно приступать к регистрации самозанятости прямо сейчас.</p>
+                        <p style="margin-top: 10px; color: #666;">Если карты нет, нужно дождаться доставки карты курьером, а затем, скорее всего, уже на следующий день, в приложении Альфа-Банка нажать на меню, выбрать раздел «Рабо��а», а затем «Оформление ИП/Самозанятый».</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Шаг 2 -->
+            <div style="background: white; padding: 20px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                <div style="display: flex; align-items: flex-start; gap: 15px;">
+                    <div style="background: #EF3124; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0;">2</div>
+                    <div>
+                        <p style="margin: 0;">Если вы уже получили карту, откройте приложение Альфа-Банка, в поиске введите слово «самозанятость» и выберите опцию для регистрации самозанятого.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Шаг 3 -->
+            <div style="background: white; padding: 20px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                <div style="display: flex; align-items: flex-start; gap: 15px;">
+                    <div style="background: #EF3124; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0;">3</div>
+                    <div>
+                        <p style="margin: 0;">Заполните необходимые данные:</p>
+                        <ul style="list-style: none; padding: 0; margin-top: 10px;">
+                            <li style="margin-bottom: 5px;">• Укажите паспортные данные и ИНН</li>
+                            <li style="margin-bottom: 5px;">• Выберите регион, в котором будете вести деятельность</li>
+                            <li style="margin-bottom: 5px;">• Укажите до 5 видов деятельности</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Шаг 4 -->
+            <div style="background: white; padding: 20px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                <div style="display: flex; align-items: flex-start; gap: 15px;">
+                    <div style="background: #EF3124; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0;">4</div>
+                    <div>
+                        <p style="margin: 0;">Отправьте заявление и дождитесь подтверждения вашего статуса.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Бонус -->
+            <div style="background: #ffebee; padding: 20px; border-radius: 15px; margin: 25px 0; box-shadow: 0 2px 4px rgba(239, 49, 36, 0.1);">
+                <h3 style="color: #EF3124; margin: 0 0 10px 0;">Бонус:</h3>
+                <p style="margin: 0;">При первом оформлении самозанятости вы получаете бонус в размере 10 000 рублей, который можно использовать для снижения налога.</p>
+            </div>
+
+            <!-- Особенности -->
+            <div style="background: #f8f8f8; padding: 20px; border-radius: 15px; margin: 25px 0;">
+                <h3 style="color: #333; margin: 0 0 10px 0;">Особенности:</h3>
+                <p style="margin: 0;">Налоги будут рассчитываться автоматически в проекте «Свой Альфа», а оформление самозанятости — бесплатное.</p>
+            </div>
+
+            <div class="button-container" style="margin-top: 30px;">
+                <button class="action-button" onclick="startRegistrationProcess()" style="background: #EF3124;">
+                    ПРОДОЛЖИТЬ РЕГИСТРАЦИЮ
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="quiz-container" id="alfa-registration" style="display: none;">
+        <svg class="logo" viewBox="0 0 100 100">
+            <rect x="10" y="10" width="80" height="80" rx="20" fill="#EF3124"/>
+            <text x="50" y="50" text-anchor="middle" dy=".3em" fill="white" font-size="40">A</text>
+        </svg>
+
+        <h2 style="color: #EF3124; margin-bottom: 20;">Регистрация в проекте "Свой Альфа"</h2>
+
+        <div style="text-align: left; padding: 20px;">
+            <div style="background: #ffebee; padding: 20px; border-radius: 15px; margin-bottom: 25px;">
+                <h3 style="color: #EF3124; margin-bottom: 10px;">Поздравляем!</h3>
+                <p>Вы прошли все подготовительные этапы и готовы стать агентом проекта "Свой Альфа".</p>
+            </div>
+
+            <div style="background: #f8f8f8; padding: 20px; border-radius: 15px; margin-bottom: 25px;">
+                <h3 style="color: #333; margin-bottom: 15px;">Проверьте, что у вас есть:</h3>
+                <ul style="list-style: none; margin: 0; padding: 0;">
+                    <li style="display: flex; align-items: center; margin-bottom: 10px;">
+                        <span style="color: #EF3124; margin-right: 10px;">✓</span>
+                        Карта Альфа-Банка
+                    </li>
+                    <li style="display: flex; align-items: center; margin-bottom: 10px;">
+                        <span style="color: #EF3124; margin-right: 10px;">✓</span>
+                        Выбранный статус (Самозанятый/ИП/Физлицо)
+                    </li>
+                </ul>
+            </div>
+
+            <div style="background: white; padding: 20px; border-radius: 15px; margin-bottom: 25px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                <h3 style="color: #333; margin-bottom: 15px;">Что дальше?</h3>
+                <p>Нажмите кнопку "Стать агентом" и мы поможем вам:</p>
+                <ul style="list-style: none; margin: 15px 0; padding: 0;">
+                    <li style="margin-bottom: 10px;">1. Заполнить анкету агента</li>
+                    <li style="margin-bottom: 10px;">2. Подключиться к системе начисления баллов</li>
+                    <li style="margin-bottom: 10px;">3. Получить персональную реферальную ссылку</li>
+                    <li style="margin-bottom: 10px;">4. Присоединиться к команде профессионалов</li>
+                </ul>
+            </div>
+
+            <div style="background: #f8f8f8; padding: 20px; border-radius: 15px; margin-bottom: 25px;">
+                <p style="color: #EF3124; font-weight: bold;">Важно!</p>
+                <p>После регистрации вы сразу ��можете начать привлекать клиентов и зарабатывать.</p>
+            </div>
+
+            <div class="button-container" style="margin-top: 30px;">
+                <button class="action-button" onclick="startAlfaRegistration()" style="background: #EF3124;">
+                    СТАТЬ АГЕНТОМ
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="quiz-container" id="faq-section" style="display: none;">
+        <svg class="logo" viewBox="0 0 100 100">
+            <rect x="10" y="10" width="80" height="80" rx="20" fill="#EF3124"/>
+            <text x="50" y="50" text-anchor="middle" dy=".3em" fill="white" font-size="40">A</text>
+        </svg>
+
+        <h2 style="color: #EF3124; margin-bottom: 20px;">Частые вопросы</h2>
+
+        <div style="text-align: left; padding: 20px;">
+            <div class="faq-item" style="margin-bottom: 20px;">
+                <h3 style="color: #333; margin-bottom: 10px;">Как быстро приходят выплаты?</h3>
+                <p style="color: #666;">Выплаты производятся автоматически каждый понедельник за предыдущую неделю.</p>
+            </div>
+
+            <div class="faq-item" style="margin-bottom: 20px;">
+                <h3 style="color: #333; margin-bottom: 10px;">Какой минимальный порог для вывода средств?</h3>
+                <p style="color: #666;">Минимальная сумма для вывода - 1000 рублей.</p>
+            </div>
+
+            <div class="faq-item" style="margin-bottom: 20px;">
+                <h3 style="color: #333; margin-bottom: 10px;">Как начисляются баллы за клиентов?</h3>
+                <p style="color: #666;">Баллы начисляются автоматически после выполнения клиентом целевого действия (оформление карты, совершение покупок и т.д.).</p>
+            </div>
+
+            <div class="faq-item" style="margin-bottom: 20px;">
+                <h3 style="color: #333; margin-bottom: 10px;">Можно ли работать из другого региона?</h3>
+                <p style="color: #666;">Да, вы можете работать из любого региона России.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="quiz-container" id="support-section" style="display: none;">
+        <svg class="logo" viewBox="0 0 100 100">
+            <rect x="10" y="10" width="80" height="80" rx="20" fill="#EF3124"/>
+            <text x="50" y="50" text-anchor="middle" dy=".3em" fill="white" font-size="40">A</text>
+        </svg>
+
+        <h2 style="color: #EF3124; margin-bottom: 20px;">Техническая поддержка</h2>
+
+        <div style="text-align: left; padding: 20px;">
+            <p style="margin-bottom: 20px;">Опишите вашу проблему, и мы поможем её решить:</p>
+            
+            <textarea id="support-message" 
+                style="width: 100%; min-height: 150px; padding: 15px; border: 1px solid #ddd; border-radius: 10px; margin-bottom: 20px; font-size: 16px;"
+                placeholder="Опишите вашу проблему..."></textarea>
+
+            <button onclick="sendSupportMessage()" class="action-button" style="background: #EF3124;">
+                ОТПРАВИТЬ
+            </button>
+        </div>
+    </div>
+
+    <div class="button-container">
+        <button class="action-button" onclick="showProjectInfo()" style="background: #9C27B0;">
+            О проекте
+        </button>
+        <button class="action-button" onclick="showPointsInfo()" style="background: #EF3124;">
+            Баллы
+        </button>
+        <button class="action-button" onclick="showBonusInfo()" style="background: #2196F3;">
+            Бонусы
+        </button>
+        <button class="action-button" onclick="showQuickStart()" style="background: #FF9800;">
+            Быстрый старт
+        </button>
+    </div>
+
     <script>
-function toggleMenu() {
-    document.querySelector('.sidebar').classList.toggle('active');
-    document.querySelector('.overlay').classList.toggle('active');
-}
-
-function toggleSubMenu(id) {
-    const content = document.getElementById(id);
-    const allContents = document.querySelectorAll('.menu-content');
-    
-    allContents.forEach(item => {
-        if (item !== content) {
-            item.style.display = 'none';
-        }
-    });
-    
-    content.style.display = content.style.display === 'block' ? 'none' : 'block';
-}
-
-// Добавить функцию для управления видимостью прогресс-бара
-function toggleProgressBar(show) {
-    const progressContainer = document.querySelector('.progress-container');
-    if (progressContainer) {
-        progressContainer.style.display = show ? 'block' : 'none';
+    function toggleMenu() {
+        document.querySelector('.sidebar').classList.toggle('active');
+        document.querySelector('.overlay').classList.toggle('active');
     }
-}
 
-// Обновить функции навигации
-function showProjectInfo() {
-    hideAllContainers();
-    document.getElementById('project-info').style.display = 'block';
-    toggleProgressBar(true); // Показываем прогресс-бар
-    updateProgress(0);
-    window.scrollTo(0, 0);
-}
-
-function showPointsInfo() {
-    hideAllContainers();
-    document.getElementById('points-info').style.display = 'block';
-    toggleProgressBar(true);
-    updateProgress(1);
-    window.scrollTo(0, 0);
-}
-
-function showContent(contentType) {
-    if (contentType === 'quick-start') {
-        showQuickStart();
-        return;
-    }
-}
-
-function hideAllContainers() {
-    const containers = [
-        'main-screen', 
-        'project-info', 
-        'points-info', 
-        'bonus-info', 
-        'partner-bonus-info', 
-        'generation-bonus-info',
-        'quick-start',
-        'easy-points',
-        'celebration',
-        'work-section',
-        'registration-scheme',
-        'card-selection',
-        'cashback-card-info',
-        'mlm-card-info',  
-        'travel-card-info',
-        'combo-card-info'
-    ];
-    containers.forEach(id => {
-        const element = document.getElementById(id);
-        if (element) element.style.display = 'none';
-    });
-}
-
-function showQuickStart() {
-    hideAllContainers();
-    document.getElementById('quick-start').style.display = 'block';
-    toggleProgressBar(true);
-    updateProgress(3);
-    window.scrollTo(0, 0);
-}
-
-function nextStep() {
-    hideAllContainers();
-    document.getElementById('project-info').style.display = 'block';
-    window.scrollTo(0, 0);
-}
-
-function toggleContent(id) {
-    const content = document.getElementById(id);
-    content.style.display = content.style.display === 'block' ? 'none' : 'block';
-}
-
-function showBonusInfo() {
-    hideAllContainers();
-    document.getElementById('bonus-info').style.display = 'block';
-    toggleProgressBar(true);
-    updateProgress(2);
-    window.scrollTo(0, 0);
-}
-
-function showNextStep() {
-    hideAllContainers();
-    document.getElementById('partner-bonus-info').style.display = 'block';
-    window.scrollTo(0, 0);
-}
-
-function nextFromQuickStart() {
-    hideAllContainers();
-    document.getElementById('easy-points').style.display = 'block';
-    window.scrollTo(0, 0);
-}
-
-function finalStep() {
-    hideAllContainers();
-    document.getElementById('celebration').style.display = 'block';
-    window.scrollTo(0, 0);
-    createConfetti();
-}
-
-function createConfetti() {
-    const container = document.querySelector('.confetti-container');
-    const colors = ['#EF3124', '#FFD700', '#FF69B4', '#4169E1'];
-    
-    for(let i = 0; i < 50; i++) {
-        const confetti = document.createElement('div');
-        confetti.style.cssText = `
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background: ${colors[Math.floor(Math.random() * colors.length)]};
-            left: ${Math.random() * 100}%;
-            opacity: ${Math.random()};
-            animation: confetti ${1 + Math.random() * 2}s linear forwards;
-        `;
-        container.appendChild(confetti);
+    function toggleSubMenu(id) {
+        const content = document.getElementById(id);
+        const allContents = document.querySelectorAll('.menu-content');
         
-        setTimeout(() => confetti.remove(), 3000);
+        allContents.forEach(item => {
+            if (item !== content) {
+                item.style.display = 'none';
+            }
+        });
+        
+        content.style.display = content.style.display === 'block' ? 'none' : 'block';
     }
-}
 
-function startWork() {
-    hideAllContainers();
-    document.getElementById('work-section').style.display = 'block';
-    window.scrollTo(0, 0);
-}
-
-function showRegistrationScheme() {
-    hideAllContainers();
-    document.getElementById('registration-scheme').style.display = 'block';
-    toggleProgressBar(false); // Скрываем прогресс-бар
-    window.scrollTo(0, 0);
-}
-
-function startRegistration() {
-    showCardSelection();
-}
-
-function showCardSelection() {
-    hideAllContainers();
-    document.getElementById('card-selection').style.display = 'block';
-    toggleProgressBar(false);
-    window.scrollTo(0, 0);
-}
-
-function selectCard(type) {
-    hideAllContainers();
-    if (type === 'mlm') {
-        document.getElementById('mlm-card-info').style.display = 'block';
-    } else if (type === 'travel') {
-        document.getElementById('travel-card-info').style.display = 'block';
+    // Добавить функцию для управления видимостью прогресс-бара
+    function toggleProgressBar(show) {
+        const progressContainer = document.querySelector('.progress-container');
+        const progressSteps = document.querySelector('.progress-steps');
+        if (progressContainer && progressSteps) {
+            progressContainer.style.display = show ? 'block' : 'none';
+            progressSteps.style.display = show ? 'flex' : 'none';
+        }
     }
-    window.scrollTo(0, 0);
-}
 
-function showCashbackCardInfo() {
-    hideAllContainers();
-    document.getElementById('cashback-card-info').style.display = 'block';
-    window.scrollTo(0, 0);
-}
+    // Обновить функции навигации
+    function showProjectInfo() {
+        hideAllContainers();
+        document.getElementById('project-info').style.display = 'block';
+        toggleProgressBar(true); // Показываем прогресс-бар
+        updateProgress(0);
+        window.scrollTo(0, 0);
+    }
 
-function showComboCardInfo() {
-    hideAllContainers();
-    document.getElementById('combo-card-info').style.display = 'block';
-    window.scrollTo(0, 0);
-}
+    function showPointsInfo() {
+        hideAllContainers();
+        document.getElementById('points-info').style.display = 'block';
+        toggleProgressBar(true);
+        updateProgress(1);
+        window.scrollTo(0, 0);
+    }
 
-function startRegistrationProcess() {
-    alert('Переход к регистрации в проекте "Свой в Альфа"');
-    // Add registration process logic here
-}
+    function showContent(contentType) {
+        if (contentType === 'quick-start') {
+            showQuickStart();
+            return;
+        }
+    }
 
-function showNextBonus() {
-    document.getElementById('generation-bonus-info').style.display = 'none';
-    alert('Информация о следующем бонусе будет доступна в следующем обновлении!');
-}
+    function hideAllContainers() {
+        const containers = [
+            'main-screen', 
+            'project-info', 
+            'points-info', 
+            'bonus-info', 
+            'partner-bonus-info', 
+            'generation-bonus-info',
+            'quick-start',
+            'easy-points',
+            'celebration',
+            'work-section',
+            'registration-scheme',
+            'card-selection',
+            'cashback-card-info',
+            'mlm-card-info',  
+            'travel-card-info',
+            'combo-card-info',
+            'self-employed-info',
+            'self-employed-steps'
+        ];
+        containers.forEach(id => {
+            const element = document.getElementById(id);
+            if (element) element.style.display = 'none';
+        });
+    }
 
-function showBusinessRegistration() {
-    alert('Переход к разделу оформления ИП/Самозанятости');
-    // Add implementation for business registration section
-}
+    function showQuickStart() {
+        hideAllContainers();
+        document.getElementById('quick-start').style.display = 'block';
+        toggleProgressBar(true);
+        updateProgress(3);
+        window.scrollTo(0, 0);
+    }
 
-function showBPRegistration() {
-    alert('Переход к разделу оформления БП');
-    // Add implementation for BP registration section
-}
+    function nextStep() {
+        hideAllContainers();
+        document.getElementById('project-info').style.display = 'block';
+        toggleProgressBar(true); // Теперь это покажет и прогресс-бар, и текст
+        updateProgress(0);
+        window.scrollTo(0, 0);
+    }
 
-function showEarningScheme() {
-    alert('Переход к схеме заработка');
-    // Add implementation for earning scheme section
-}
+    function toggleContent(id) {
+        const content = document.getElementById(id);
+        content.style.display = content.style.display === 'block' ? 'none' : 'block';
+    }
 
-function registerAsSelfEmployed() {
-    alert('Переход к регистрации самозанятого');
-    // Add implementation for self-employed registration
-}
+    function showBonusInfo() {
+        hideAllContainers();
+        document.getElementById('bonus-info').style.display = 'block';
+        toggleProgressBar(true);
+        updateProgress(2);
+        window.scrollTo(0, 0);
+    }
 
-function skipStep() {
-    alert('Переход к следующему шагу регистрации');
-    // Add implementation for skipping this step
-}
+    function showNextStep() {
+        hideAllContainers();
+        document.getElementById('partner-bonus-info').style.display = 'block';
+        window.scrollTo(0, 0);
+    }
 
-document.addEventListener('DOMContentLoaded', function() {
-    const button = document.querySelector('.next-button');
-    setTimeout(() => {
-        button.classList.add('pulse');
-    }, 1000);
-});
+    function nextFromQuickStart() {
+        hideAllContainers();
+        document.getElementById('easy-points').style.display = 'block';
+        window.scrollTo(0, 0);
+    }
 
-function showReferralSystem() {
-    alert('Переход к разделу реферальной системы');
-}
+    function finalStep() {
+        hideAllContainers();
+        document.getElementById('celebration').style.display = 'block';
+        window.scrollTo(0, 0);
+        createConfetti();
+    }
 
-function showTeamBuilding() {
-    alert('Переход к разделу построения команды');
-}
+    function createConfetti() {
+        const container = document.querySelector('.confetti-container');
+        const colors = ['#EF3124', '#FFD700', '#FF69B4', '#4169E1'];
+        
+        for(let i = 0; i < 50; i++) {
+            const confetti = document.createElement('div');
+            confetti.style.cssText = `
+                position: absolute;
+                width: 10px;
+                height: 10px;
+                background: ${colors[Math.floor(Math.random() * colors.length)]};
+                left: ${Math.random() * 100}%;
+                opacity: ${Math.random()};
+                animation: confetti ${1 + Math.random() * 2}s linear forwards;
+            `;
+            container.appendChild(confetti);
+            
+            setTimeout(() => confetti.remove(), 3000);
+        }
+    }
 
-function showTeamChat() {
-    window.location.href = 'https://t.me/+0zXPi-8URHw5YjFi'; // Ссылка на группу "Новичок АЛЬФА"
-}
+    function startWork() {
+        hideAllContainers();
+        document.getElementById('work-section').style.display = 'block';
+        window.scrollTo(0, 0);
+    }
 
-function showLeader() {
-    alert('Связываемся с вашим наставником...'); // Здесь можно будет добавить реальную логику связи с наставником
-}
+    function showRegistrationScheme() {
+        hideAllContainers();
+        document.getElementById('registration-scheme').style.display = 'block';
+        toggleProgressBar(false); // Скрываем прогресс-бар
+        window.scrollTo(0, 0);
+    }
 
-function showFAQ() {
-    alert('Переход к частым вопросам');
-}
+    function startRegistration() {
+        showCardSelection();
+    }
 
-function showTechnicalSupport() {
-    alert('Переход к технической поддержке');
-}
+    function showCardSelection() {
+        hideAllContainers();
+        document.getElementById('card-selection').style.display = 'block';
+        toggleProgressBar(false);
+        window.scrollTo(0, 0);
+    }
 
-function showContactInfo() {
-    alert('Переход к контактной информации');
-}
+    function showCashbackCardInfo() {
+        hideAllContainers();
+        document.getElementById('cashback-card-info').style.display = 'block';
+        window.scrollTo(0, 0);
+    }
 
-function handleCardRegistration() {
-    window.location.href = 'https://alfabank.ru/everyday/debit-cards/';
-    setTimeout(() => {
-        alert("Благодарим вас за оформление банковской карты! Карта будет доставлена в течение одного дня. После получения карты, пожалуйста, продолжите регистрацию в проекте 'Свой в Альфа'.");
-    }, 1000);
-}
+    function showComboCardInfo() {
+        hideAllContainers();
+        document.getElementById('combo-card-info').style.display = 'block';
+        window.scrollTo(0, 0);
+    }
 
-function updateProgress(step) {
-    const progressBar = document.getElementById('progressBar');
-    const steps = document.querySelectorAll('.progress-step');
-    const progress = (step / (steps.length - 1)) * 100;
-    
-    progressBar.style.width = `${progress}%`;
-    
-    steps.forEach((stepEl, index) => {
-        if (index <= step) {
-            stepEl.classList.add('active');
-        } else {
-            stepEl.classList.remove('active');
+    function startRegistrationProcess() {
+        alert('Переход к регистрации в проекте "Свой в Альфа"');
+        // Add registration process logic here
+    }
+
+    function showNextBonus() {
+        document.getElementById('generation-bonus-info').style.display = 'none';
+        alert('Информация о следующем бонусе будет доступна в следующем обновлении!');
+    }
+
+    function showBusinessRegistration() {
+        hideAllContainers();
+        document.getElementById('self-employed-info').style.display = 'block';
+        window.scrollTo(0, 0);
+    }
+
+    function showBPRegistration() {
+        hideAllContainers();
+        document.getElementById('alfa-registration').style.display = 'block';
+        window.scrollTo(0, 0);
+    }
+
+    function showEarningScheme() {
+        alert('Переход к схеме заработка');
+        // Add implementation for earning scheme section
+    }
+
+    function registerAsSelfEmployed() {
+        alert('Переход к регистрации самозанятого');
+        // Add implementation for self-employed registration
+    }
+
+    function skipStep() {
+        alert('Переход к следующему шагу регистрации');
+        // Add implementation for skipping this step
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const button = document.querySelector('.next-button');
+        setTimeout(() => {
+            button.classList.add('pulse');
+        }, 1000);
+        
+        // Скрываем прогресс-бар при первой загрузке
+        toggleProgressBar(false);
+        
+        // Проверяем, находимся ли мы на главной странице
+        if (document.getElementById('main-screen').style.display !== 'none') {
+            toggleProgressBar(false);
         }
     });
-}
 
-// Обновить существующие функции для обновления прогресса
-function showProjectInfo() {
-    hideAllContainers();
-    document.getElementById('project-info').style.display = 'block';
-    toggleProgressBar(true); // Показываем прогресс-бар
-    updateProgress(0);
-    window.scrollTo(0, 0);
-}
+    function showReferralSystem() {
+        alert('Переход к раздел�� реферальной системы');
+    }
 
-function showPointsInfo() {
-    hideAllContainers();
-    document.getElementById('points-info').style.display = 'block';
-    toggleProgressBar(true);
-    updateProgress(1);
-    window.scrollTo(0, 0);
-}
+    function showTeamBuilding() {
+        alert('Переход к разделу построения команды');
+    }
 
-function showBonusInfo() {
-    hideAllContainers();
-    document.getElementById('bonus-info').style.display = 'block';
-    toggleProgressBar(true);
-    updateProgress(2);
-    window.scrollTo(0, 0);
-}
+    function showTeamChat() {
+        window.location.href = 'https://t.me/+0zXPi-8URHw5YjFi'; // Ссылка на группу "Новичок АЛЬФА"
+    }
 
-function showQuickStart() {
-    hideAllContainers();
-    document.getElementById('quick-start').style.display = 'block';
-    toggleProgressBar(true);
-    updateProgress(3);
-    window.scrollTo(0, 0);
-}
-</script>
+    function showLeader() {
+        alert('Связываемся с вашим наставником...'); // Здесь можно будет добавить реальную логику связи с наставником
+    }
 
-// Добавить скрытие прогресс-бара при загрузке страницы
-document.addEventListener('DOMContentLoaded', function() {
-    toggleProgressBar(false);
-});
+    function showFAQ() {
+        hideAllContainers();
+        document.getElementById('faq-section').style.display = 'block';
+        window.scrollTo(0, 0);
+    }
+
+    function showTechnicalSupport() {
+        hideAllContainers();
+        document.getElementById('support-section').style.display = 'block';
+        window.scrollTo(0, 0);
+    }
+
+    function showContactInfo() {
+        alert('Переход к контактной информации');
+    }
+
+    function handleCardRegistration() {
+        window.location.href = 'https://alfabank.ru/everyday/debit-cards/';
+        setTimeout(() => {
+            alert("Благодарим вас за оформление банковской карты! Карта будет доставлена в течение одного дня. После получения карты, пожалуйста, продолжите регистрацию в проекте 'Свой в ��льфа'.");
+        }, 1000);
+    }
+
+    function updateProgress(step) {
+        const progressBar = document.getElementById('progressBar');
+        const steps = document.querySelectorAll('.progress-step');
+        const progress = (step / (steps.length - 1)) * 100;
+        
+        progressBar.style.width = `${progress}%`;
+        
+        steps.forEach((stepEl, index) => {
+            if (index <= step) {
+                stepEl.classList.add('active');
+            } else {
+                stepEl.classList.remove('active');
+            }
+        });
+    }
+
+    // Обновить существующие функции для обновления прогресса
+    function showProjectInfo() {
+        hideAllContainers();
+        document.getElementById('project-info').style.display = 'block';
+        toggleProgressBar(true); // Показываем прогресс-бар
+        updateProgress(0);
+        window.scrollTo(0, 0);
+    }
+
+    function showPointsInfo() {
+        hideAllContainers();
+        document.getElementById('points-info').style.display = 'block';
+        toggleProgressBar(true);
+        updateProgress(1);
+        window.scrollTo(0, 0);
+    }
+
+    function showBonusInfo() {
+        hideAllContainers();
+        document.getElementById('bonus-info').style.display = 'block';
+        toggleProgressBar(true);
+        updateProgress(2);
+        window.scrollTo(0, 0);
+    }
+
+    function showQuickStart() {
+        hideAllContainers();
+        document.getElementById('quick-start').style.display = 'block';
+        toggleProgressBar(true);
+        updateProgress(3);
+        window.scrollTo(0, 0);
+    }
+
+    // Добавить функции для обработки нажатий ��а кнопки
+    function startSelfEmployedRegistration() {
+        hideAllContainers();
+        document.getElementById('self-employed-steps').style.display = 'block';
+        window.scrollTo(0, 0);
+    }
+
+    function skipRegistration() {
+        // Здесь будет логика для пропуска регистрации
+        alert('Переход к следующему шагу...');
+    }
+
+    function startAlfaRegistration() {
+        alert('Переход к форме регистрации агента...');
+        // Здесь будет логика регистрации
+    }
+
+    function sendSupportMessage() {
+        const message = document.getElementById('support-message').value;
+        if (message.trim() === '') {
+            alert('Пожалуйста, опишите вашу проблему');
+            return;
+        }
+        
+        // Здесь нужно добавить логику отправки сообщения админу
+        // Например, через API или webhook
+        
+        alert('Ваше сообщение отправлено! Мы ответим вам в ближайшее время.');
+        document.getElementById('support-message').value = '';
+    }
+    </script>
+
+    // Добавить скрытие прогресс-бара при загрузке страницы
+    document.addEventListener('DOMContentLoaded', function() {
+        toggleProgressBar(false);
+    });
+
+    // Обновить блок с типами заработка в разделе "База знаний"
+    <div style="background: #f8f8f8; padding: 20px; border-radius: 15px; margin: 25px 0;">
+        <p style="margin-bottom: 15px;">
+            Вы можете зарабатывать тремя способами:
+        </p>
+
+        <div style="display: flex; flex-direction: column; gap: 15px;">
+            <!-- Первый способ -->
+            <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <div style="width: 48px; height: 48px; flex-shrink: 0;">
+                        <svg viewBox="0 0 48 48">
+                            <rect width="48" height="48" rx="10" fill="#f8f8f8"/>
+                            <path d="M24 12c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm0 18c-3.314 0-6-2.686-6-6s2.686-6 6-6 6 2.686 6 6-2.686 6-6 6z" fill="#EF3124"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h4 style="color: #333; margin: 0;">Как физическое лицо</h4>
+                        <p style="margin: 5px 0 0 0; color: #666;">Простой старт без регистрации, но с НДФЛ 13%</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Второй способ -->
+            <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <div style="width: 48px; height: 48px; flex-shrink: 0;">
+                        <svg viewBox="0 0 48 48">
+                            <rect width="48" height="48" rx="10" fill="#f8f8f8"/>
+                            <path d="M24 12c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm0 18c-3.314 0-6-2.686-6-6s2.686-6 6-6 6 2.686 6 6-2.686 6-6 6z" fill="#EF3124"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h4 style="color: #EF3124; margin: 0;">Как самозанятый</h4>
+                        <p style="margin: 5px 0 0 0; color: #666;">Оптимальный вариант с налогом всего 4%</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Третий способ -->
+            <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <div style="width: 48px; height: 48px; flex-shrink: 0;">
+                        <svg viewBox="0 0 48 48">
+                            <rect width="48" height="48" rx="10" fill="#f8f8f8"/>
+                            <path d="M12 24c0-6.627 5.373-12 12-12s12 5.373 12 12-5.373 12-12 12-12-5.373-12-12zm13-5v4h4v2h-4v4h-2v-4h-4v-2h4v-4h2z" fill="#EF3124"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h4 style="color: #333; margin: 0;">Как ИП</h4>
+                        <p style="margin: 5px 0 0 0; color: #666;">Для работы с крупными суммами и развития бизнеса</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
