@@ -1,0 +1,96 @@
+/* Анимации */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(2px); }
+    75% { transform: translateX(-2px); }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+@keyframes slideUpDown {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+}
+
+@keyframes ripple {
+    0% {
+        transform: scale(0, 0);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(100, 100);
+        opacity: 0;
+    }
+}
+
+@keyframes confetti {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(100vh) rotate(360deg); }
+}
+
+@keyframes fade-in {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes arrow-bounce {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(5px); }
+}
+
+@keyframes pulse-highlight {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+}
+
+/* Классы анимаций */
+.pulse {
+    animation: pulse 2s infinite;
+}
+
+.celebration-logo {
+    animation: pulse 2s infinite;
+}
+
+.celebration-title {
+    animation: fade-in 1s ease-out;
+}
+
+.celebration-section {
+    opacity: 0;
+    animation: fade-in 1s ease-out forwards;
+}
+
+.fade-in {
+    opacity: 0;
+    animation: fade-in 1s ease-out forwards;
+}
+
+.highlight-item {
+    position: relative;
+    animation: pulse-highlight 2s infinite;
+}
+
+/* Анимация для загрузки */
+.loading-animation {
+    animation: rotate 1s linear infinite;
+} 

@@ -1,0 +1,545 @@
+```html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+ <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #fff, #f8f8f8);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.quiz-container {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 400px;
+    padding: 30px;
+    text-align: center;
+    margin: 60px auto 0;
+}
+
+.logo {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 20px;
+}
+
+h1 {
+    color: #EF3124;
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.description {
+    color: #333;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.earnings {
+    color: #EF3124;
+    font-size: 20px;
+    font-weight: 600;
+    margin: 20px 0;
+}
+
+/* Общие стили для всех кнопок */
+.next-button,
+.action-button,
+.card-button,
+button[style*="background"],
+.registration-scheme button,
+#work-section button,
+.button-container button {
+    background: #EF3124 !important;
+    color: white !important;
+    border: none !important;
+    padding: 15px 40px !important;
+    border-radius: 30px !important;
+    font-size: 16px !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    width: 100% !important;
+    text-align: center !important;
+    line-height: 1.2 !important;
+    margin-bottom: 10px !important;
+}
+
+/* Эффект при наведении для всех кнопок */
+.next-button:hover,
+.action-button:hover,
+.card-button:hover,
+button[style*="background"]:hover,
+.registration-scheme button:hover,
+#work-section button:hover,
+.button-container button:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 5px 15px rgba(239, 49, 36, 0.3) !important;
+}
+
+.next-button:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, .5);
+    opacity: 0;
+    border-radius: 100%;
+    transform: scale(1, 1) translate(-50%);
+    transform-origin: 50% 50%;
+}
+
+.next-button:hover:after {
+    animation: ripple 1s ease-out;
+}
+
+@keyframes ripple {
+    0% {
+        transform: scale(0, 0);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(100, 100);
+        opacity: 0;
+    }
+}
+
+.alfa-icon {
+    fill: #EF3124;
+}
+
+/* Burger Menu Styles */
+.burger-menu {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    cursor: pointer;
+}
+
+.burger-icon {
+    width: 30px;
+    height: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.burger-line {
+    width: 100%;
+    height: 3px;
+    background-color: #EF3124;
+    transition: 0.3s;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -280px;
+    width: 280px;
+    height: 100vh;
+    background: white;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    transition: 0.3s;
+    z-index: 999;
+    padding: 80px 20px 20px;
+    overflow-y: auto;
+}
+
+.sidebar.active {
+    left: 0;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    margin-bottom: 5px;
+    color: #333;
+    text-decoration: none;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.menu-item:hover {
+    background: #f8f8f8;
+    color: #EF3124;
+}
+
+.menu-content {
+    display: none;
+    padding: 5px 0;
+}
+
+.sub-item {
+    padding-left: 35px;
+    font-size: 14px;
+    background: #f8f8f8;
+    margin: 5px 0;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.pulse {
+    animation: pulse 2s infinite;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    z-index: 998;
+}
+
+.overlay.active {
+    display: block;
+}
+
+/* Add new celebration animations */
+@keyframes confetti {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(100vh) rotate(360deg); }
+}
+
+@keyframes fade-in {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.celebration-logo {
+    animation: pulse 2s infinite;
+}
+
+.celebration-title {
+    animation: fade-in 1s ease-out;
+}
+
+.celebration-section {
+    opacity: 0;
+    animation: fade-in 1s ease-out forwards;
+}
+
+.fade-in {
+    opacity: 0;
+    animation: fade-in 1s ease-out forwards;
+}
+
+.confetti-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+.menu-icon {
+    display: inline-block;
+    width: 24px;
+    margin-right: 10px;
+    text-align: center;
+}
+
+/* Добавить новые стили для контейнера кнопок */
+.card-buttons-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.card-button {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: #EF3124;
+    color: white;
+    text-align: center;
+    line-height: 1.2;
+    height: 100%;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(239, 49, 36, 0.3);
+}
+
+/* Обновить стили для кнопок */
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.action-button {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: #EF3124;
+    color: white;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.action-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(239, 49, 36, 0.3);
+}
+
+/* Обновить стили для текста */
+.content-text {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+    text-align: left;
+    margin-bottom: 15px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+}
+
+/* Обновить стили для контейнера карточек */
+.card-buttons-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.card-button {
+    width: 100%;
+    padding: 15px;
+    min-height: 50px;
+    font-size: 16px;
+}
+
+/* Убрать все другие цвета кнопок */
+button[style*="background: #9C27B0"],
+button[style*="background: #2196F3"],
+button[style*="background: #4CAF50"],
+button[style*="background: #FF9800"] {
+    background: #EF3124 !important;
+}
+
+/* Обновить стили для блоков в схеме регистрации */
+.step-box {
+    background: white;
+    padding: 15px;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    max-width: 100%;
+}
+
+.step-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    gap: 12px;
+}
+
+.step-number {
+    background: #EF3124;
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.step-content {
+    margin-left: 36px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.work-option {
+    background: #f8f8f8;
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+}
+
+.work-option h4 {
+    color: #EF3124;
+    margin-bottom: 8px;
+    font-size: 16px;
+}
+
+.work-option ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.work-option li {
+    margin-bottom: 6px;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.progress-container {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50%;
+    height: 2px;
+    background: rgba(239, 49, 36, 0.1);
+    z-index: 1000;
+    display: none; /* Скрыт по умолчанию */
+}
+
+.progress-bar {
+    height: 100%;
+    background: #EF3124;
+    width: 0;
+    transition: width 0.3s ease;
+    box-shadow: 0 0 3px rgba(239, 49, 36, 0.3);
+}
+
+.progress-steps {
+    display: none; /* Скрыт по умолчанию */
+    justify-content: center;
+    gap: 15px;
+    padding: 5px 10px;
+    margin-top: 2px;
+    font-size: 14px;
+    color: #666;
+    background: rgba(255, 255, 255, 0.95);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    white-space: nowrap;
+}
+
+.progress-step {
+    position: relative;
+    padding: 2px 5px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.progress-step.active {
+    color: #EF3124;
+    font-weight: bold;
+    background: rgba(239, 49, 36, 0.1);
+}
+
+/* Добавить стили для выделения пункта меню */
+.highlight-item {
+    position: relative;
+    animation: pulse-highlight 2s infinite;
+    background: rgba(239, 49, 36, 0.1);
+    border-radius: 10px;
+}
+
+.highlight-item::after {
+    content: '←';
+    position: absolute;
+    right: 15px;
+    color: #EF3124;
+    font-size: 20px;
+    font-weight: bold;
+    animation: arrow-bounce 1s infinite;
+}
+
+@keyframes pulse-highlight {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+}
+
+@keyframes arrow-bounce {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(5px); }
+}
+}
+}
+
+/* Добавить медиа-запросы для десктопной версии */
+@media screen and (min-width: 1024px) {
+    .quiz-container {
+        max-width: 800px;
+        padding: 40px;
+        margin: 40px auto;
+    }
+
+    .logo {
+        width: 150px;
+        height: 150px;
+        margin: 0 auto 30px;
+    }
+
+    .description {
+        font-size: 18px;
+        max-width: 600px;
+        margin: 0 auto 30px;
+    }
+
+    .button-container {
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    .next-button, 
+    .action-button {
+        max-width: 400px;
+        margin: 20px auto;
+    }
+
+    /* Оптимизация бургер-меню */
+    .burger-menu {
+        top: 30px;
+        left: 30px;
+    }
+
+    .sidebar {
+        width: 320px;
+        padding: 100px 30px 30px;
+    }
+
+    /* Оптимизация текстовых блоков */
+    h1 {
+        font-size: 32px;
+        max-width: 600px;
+        margin: 0 auto 30px;
+```
