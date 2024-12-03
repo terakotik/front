@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Spam Bot Admin Panel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .settings-block {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .word-list {
+            margin: 10px 0;
+        }
+        .word-item {
+            background: #f0f0f0;
+            padding: 5px 10px;
+            margin: 5px;
+            display: inline-block;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Spam Bot Admin Panel</h1>
+        <div class="settings-block">
+            <h2>Настройки бота</h2>
+            <div>
+                <label>
+                    <input type="checkbox" id="botActive"> Бот активен
+                </label>
+            </div>
+            <div>
+                <h3>Спам слова</h3>
+                <div class="word-list" id="wordList"></div>
+                <input type="text" id="newWord" placeholder="Новое слово">
+                <button onclick="addWord()">Добавить слово</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let userId = localStorage.getItem('userId') || prompt('Введите ваш Telegram ID:');
+        localStorage.setItem('userId', userId);
+
+        function loadSettings() {
+            fetch(`/api/settings/${userId}`)
+                .then(response => response.json())
+                .then(settings => {
+                    document.getElementById('botActive').checked = settings.isActive;
+                    updateWordList(settings.spamWords);
+                });
+        }
+
+        function updateWordList(words) {
+            const wordList = document.getElementById('wordList');
+            wordList.innerHTML = words.map(word => 
+                `<span class="word-item">${word} <button onclick="removeWord('${word}')">×</button></span>`
+            ).join('');
+        }
+
+        function addWord() {
+            const newWord = document.getElementById('newWord').value.trim();
+            if (!newWord) return;
+
+            fetch(`/api/settings/${userId}/words`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ word: newWord })
+            }).then(() => {
+                loadSettings();
+                document.getElementById('newWord').value = '';
+            });
+        }
+
+        function removeWord(word) {
+            fetch(`/api/settings/${userId}/words/${word}`, {
+                method: 'DELETE'
+            }).then(() => loadSettings());
+        }
+
+        document.getElementById('botActive').addEventListener('change', function(e) {
+            fetch(`/api/settings/${userId}/active`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ isActive: e.target.checked })
+            });
+        });
+
+        loadSettings();
+    </script>
+</body>
+</html>
