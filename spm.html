@@ -1,101 +1,289 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Spam Bot Admin Panel</title>
+    <base href="https://your-domain.com">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Спам Киллер | Настройка Telegram бота</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
+        :root {
+            --primary: #5865F2;
+            --dark: #36393F;
+            --light: #FFFFFF;
+            --grey: #B9BBBE;
         }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        body {
+            background: var(--dark);
+            color: var(--light);
+        }
+        
         .container {
             max-width: 800px;
             margin: 0 auto;
+            padding: 20px;
         }
-        .settings-block {
-            border: 1px solid #ccc;
+        
+        .header {
+            text-align: center;
+            padding: 40px 0;
+        }
+        
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+        }
+        
+        .settings-panel {
+            background: #2F3136;
+            border-radius: 8px;
             padding: 20px;
             margin-bottom: 20px;
         }
-        .word-list {
-            margin: 10px 0;
+        
+        .setting-group {
+            margin-bottom: 24px;
         }
-        .word-item {
-            background: #f0f0f0;
-            padding: 5px 10px;
-            margin: 5px;
-            display: inline-block;
-            border-radius: 3px;
+        
+        .setting-title {
+            font-size: 18px;
+            margin-bottom: 12px;
+            color: var(--primary);
+        }
+        
+        textarea {
+            width: 100%;
+            height: 150px;
+            background: #40444B;
+            border: none;
+            border-radius: 4px;
+            color: var(--light);
+            padding: 12px;
+            margin-bottom: 12px;
+            resize: vertical;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .custom-checkbox {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        
+        .btn {
+            background: var(--primary);
+            color: var(--light);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s;
+            margin-right: 10px;
+        }
+        
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #43B581;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 4px;
+            display: none;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .spam-words-list {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .spam-word {
+            background: #40444B;
+            padding: 8px 12px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .remove-word {
+            color: #ff4444;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+            }
+            to {
+                transform: translateX(0);
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Spam Bot Admin Panel</h1>
-        <div class="settings-block">
-            <h2>Настройки бота</h2>
-            <div>
-                <label>
-                    <input type="checkbox" id="botActive"> Бот активен
-                </label>
+        <header class="header">
+            <svg class="logo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#5865F2" stroke-width="2"/>
+                <path d="M8 12L16 12M16 12L13 9M16 12L13 15" stroke="#5865F2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <h1>Спам Киллер</h1>
+            <p>Настройте своего Telegram бота для защиты от спама</p>
+        </header>
+
+        <div class="settings-panel">
+            <div class="setting-group">
+                <h2 class="setting-title">Список стоп-слов</h2>
+                <textarea id="stopWordsInput" placeholder="Введите слова через запятую..."></textarea>
+                <button class="btn" onclick="addSpamWord()">Добавить слово</button>
+                <button class="btn" onclick="saveSettings()">Сохранить настройки</button>
             </div>
-            <div>
-                <h3>Спам слова</h3>
-                <div class="word-list" id="wordList"></div>
-                <input type="text" id="newWord" placeholder="Новое слово">
-                <button onclick="addWord()">Добавить слово</button>
+
+            <div class="setting-group">
+                <h2 class="setting-title">Активность бота</h2>
+                <div class="checkbox-group">
+                    <label class="checkbox-wrapper">
+                        <input type="checkbox" class="custom-checkbox" id="isActive" name="isActive">
+                        Бот активен
+                    </label>
+                </div>
+            </div>
+
+            <div class="spam-words-list" id="spamWordsList">
+                <!-- Список слов будет добавляться сюда динамически -->
             </div>
         </div>
     </div>
 
+    <div class="notification" id="notification">
+        Настройки успешно сохранены!
+    </div>
+
     <script>
-        let userId = localStorage.getItem('userId') || prompt('Введите ваш Telegram ID:');
-        localStorage.setItem('userId', userId);
+        let tg = window.Telegram.WebApp;
+        let spamWords = [];
 
-        function loadSettings() {
-            fetch(`/api/settings/${userId}`)
-                .then(response => response.json())
-                .then(settings => {
-                    document.getElementById('botActive').checked = settings.isActive;
-                    updateWordList(settings.spamWords);
+        // Инициализация Telegram WebApp
+        tg.expand();
+        tg.ready();
+
+        // Загрузка начальных настроек
+        async function loadInitialSettings() {
+            const userId = tg.initDataUnsafe.user.id;
+            try {
+                const response = await fetch(`/api/settings/${userId}`);
+                const settings = await response.json();
+                spamWords = settings.spamWords || [];
+                document.getElementById('isActive').checked = settings.isActive;
+                updateSpamWordsList();
+            } catch (error) {
+                showNotification('Ошибка загрузки настроек');
+            }
+        }
+
+        function updateSpamWordsList() {
+            const spamWordsList = document.getElementById('spamWordsList');
+            spamWordsList.innerHTML = '';
+            spamWords.forEach((word, index) => {
+                const wordElement = document.createElement('div');
+                wordElement.className = 'spam-word';
+                wordElement.innerHTML = `
+                    ${word}
+                    <span class="remove-word" onclick="removeSpamWord(${index})">✕</span>
+                `;
+                spamWordsList.appendChild(wordElement);
+            });
+        }
+
+        function addSpamWord() {
+            const input = document.getElementById('stopWordsInput');
+            const newWords = input.value.split(',')
+                .map(word => word.trim())
+                .filter(word => word && !spamWords.includes(word));
+            
+            spamWords = [...spamWords, ...newWords];
+            input.value = '';
+            updateSpamWordsList();
+            showNotification('Слово добавлено в список');
+        }
+
+        function removeSpamWord(index) {
+            spamWords.splice(index, 1);
+            updateSpamWordsList();
+            showNotification('Слово удалено');
+        }
+
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.style.display = 'block';
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+
+        async function saveSettings() {
+            const userId = tg.initDataUnsafe.user.id;
+            const settings = {
+                spamWords: spamWords,
+                isActive: document.getElementById('isActive').checked
+            };
+
+            try {
+                const response = await fetch('/api/settings', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        userId: userId,
+                        settings: settings
+                    })
                 });
+
+                if (response.ok) {
+                    showNotification('Настройки успешно сохранены!');
+                    tg.close();
+                } else {
+                    showNotification('Ошибка сохранения настроек');
+                }
+            } catch (error) {
+                showNotification('Ошибка сохранения настроек');
+            }
         }
 
-        function updateWordList(words) {
-            const wordList = document.getElementById('wordList');
-            wordList.innerHTML = words.map(word => 
-                `<span class="word-item">${word} <button onclick="removeWord('${word}')">×</button></span>`
-            ).join('');
-        }
-
-        function addWord() {
-            const newWord = document.getElementById('newWord').value.trim();
-            if (!newWord) return;
-
-            fetch(`/api/settings/${userId}/words`, {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ word: newWord })
-            }).then(() => {
-                loadSettings();
-                document.getElementById('newWord').value = '';
-            });
-        }
-
-        function removeWord(word) {
-            fetch(`/api/settings/${userId}/words/${word}`, {
-                method: 'DELETE'
-            }).then(() => loadSettings());
-        }
-
-        document.getElementById('botActive').addEventListener('change', function(e) {
-            fetch(`/api/settings/${userId}/active`, {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ isActive: e.target.checked })
-            });
-        });
-
-        loadSettings();
+        // Загрузка начальных настроек при открытии страницы
+        loadInitialSettings();
     </script>
 </body>
 </html>
