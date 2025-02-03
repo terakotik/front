@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Менеджер | Автоматизация продаж</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background: #000000;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+        }
+
+        .neon-glow {
+            text-shadow: 
+                0 0 10px rgba(66, 153, 225, 0.5),
+                0 0 20px rgba(66, 153, 225, 0.3),
+                0 0 30px rgba(66, 153, 225, 0.2);
+        }
+
+        .button-glow {
+            background: linear-gradient(45deg, #1a365d, #2563eb);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(37, 99, 235, 0.3);
+        }
+
+        .button-glow:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(37, 99, 235, 0.4);
+            border-color: rgba(37, 99, 235, 0.6);
+        }
+
+        .number-card {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(37, 99, 235, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .number-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(37, 99, 235, 0.3);
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.2);
+        }
+
+        .feature-card {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(37, 99, 235, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: scale(1.02);
+            border-color: rgba(37, 99, 235, 0.3);
+            box-shadow: 0 0 40px rgba(37, 99, 235, 0.2);
+        }
+
+        .gradient-border {
+            position: relative;
+        }
+
+        .gradient-border::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.5), transparent);
+        }
+
+        .highlight-text {
+            background: linear-gradient(120deg, #2563eb, #6366f1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body class="text-white">
+    
+    <div class="relative min-h-screen">
+        <nav class="fixed w-full z-50 glass-card">
+            <div class="container mx-auto px-6 py-4">
+                <div class="flex justify-between items-center">
+                    <h1 class="text-2xl font-bold neon-glow">AI менеджер</h1>
+                    <span class="text-blue-400 text-sm">Аккредитованная IT компания Минцифры РФ</span>
+                </div>
+            </div>
+        </nav>
+
+        <main class="pt-24">
+            <!-- Hero Section -->
+            <section class="container mx-auto px-6 py-20">
+                <div class="max-w-4xl">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6 neon-glow" data-text="АВТОМАТИЗАЦИЯ БИЗНЕС ПРОЦЕССОВ И ПРОДАЖ">
+                        АВТОМАТИЗАЦИЯ БИЗНЕС ПРОЦЕССОВ И ПРОДАЖ
+                    </h2>
+                    <p class="text-xl mb-8 text-blue-200">
+                        Повышаем конверсию на 30% и уменьшаем затраты в 2 раза* за счет разработки и внедрения искусственного интеллекта в отделы продаж
+                    </p>
+                    <p class="text-sm text-blue-300 mb-12">*по результатам наших клиентов</p>
+                    
+                    <div class="flex gap-4 flex-wrap">
+                        <a href="#" class="button-glow px-8 py-4 rounded-full flex items-center">
+                            <i class="fab fa-whatsapp mr-2"></i>
+                            Оставить заявку в WhatsApp
+                        </a>
+                        <a href="#" class="button-glow px-8 py-4 rounded-full flex items-center">
+                            <i class="fab fa-telegram mr-2"></i>
+                            Оставить заявку в Telegram
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Stats Section -->
+            <section class="container mx-auto px-6 py-20">
+                <div class="grid md:grid-cols-4 gap-8">
+                    <div class="number-card p-6 rounded-xl text-center">
+                        <div class="text-4xl font-bold text-blue-400 mb-2 neon-glow">250+</div>
+                        <p class="text-sm">Проинтервьюированных предпринимателей</p>
+                    </div>
+                    <div class="number-card p-6 rounded-xl text-center">
+                        <div class="text-4xl font-bold text-blue-400 mb-2">97%</div>
+                        <p class="text-sm">Точность перевода</p>
+                    </div>
+                    <div class="number-card p-6 rounded-xl text-center">
+                        <div class="text-4xl font-bold text-blue-400 mb-2">1.5M+</div>
+                        <p class="text-sm">Обученных диалогов</p>
+                    </div>
+                    <div class="number-card p-6 rounded-xl text-center">
+                        <div class="text-4xl font-bold text-blue-400 mb-2">100+</div>
+                        <p class="text-sm">Языковых моделей</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Как это работает -->
+            <section class="container mx-auto px-6 py-20">
+                <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center neon-glow" data-text="Как это работает">
+                    Как это работает
+                </h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="step-card glass-card p-8 rounded-xl">
+                        <div class="text-blue-400 text-xl font-bold mb-4">01</div>
+                        <h3 class="text-xl font-bold mb-4">Оставьте заявку и заполните бриф</h3>
+                        <p class="text-gray-300">Договоритесь об онлайн-встрече с нашим специалистом, на котором будут определены цели и задачи для отдела продаж на искусственном интеллекте.</p>
+                    </div>
+                    <div class="step-card glass-card p-8 rounded-xl">
+                        <div class="text-blue-400 text-xl font-bold mb-4">02</div>
+                        <h3 class="text-xl font-bold mb-4">Обучаем нейросеть</h3>
+                        <p class="text-gray-300">Индивидуально для вашего бизнеса мы глубоко обучим нейросеть на материалах именно вашего бизнеса.</p>
+                    </div>
+                    <div class="step-card glass-card p-8 rounded-xl">
+                        <div class="text-blue-400 text-xl font-bold mb-4">03</div>
+                        <h3 class="text-xl font-bold mb-4">Получайте заключенные сделки</h3>
+                        <p class="text-gray-300">Разместите ссылку на ваш аккаунт в рекламе, на сайте или в соц сетях. А дальше за вас все сделает продавец на искусственном интеллекте.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Преимущества -->
+            <section class="container mx-auto px-6 py-20">
+                <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center neon-glow">Преимущества AI отдела продаж</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="feature-card p-8 rounded-xl">
+                        <i class="fas fa-robot text-4xl text-blue-400 mb-6"></i>
+                        <h3 class="text-xl font-bold mb-4">Бесперебойная работа 24/7</h3>
+                        <p class="text-gray-300">Ваши клиенты получат ответ в течение 5 секунд в любое время суток. Без выходных и праздников.</p>
+                    </div>
+                    <div class="feature-card p-8 rounded-xl">
+                        <i class="fas fa-chart-line text-4xl text-blue-400 mb-6"></i>
+                        <h3 class="text-xl font-bold mb-4">Повышение конверсии в 3 раза</h3>
+                        <p class="text-gray-300">Мгновенные ответы и качественная квалификация клиентов значительно повышают конверсию в продажи.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Технический стек -->
+            <section class="container mx-auto px-6 py-20">
+                <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center neon-glow">Технологический стек</h2>
+                <div class="tech-stack p-8 rounded-xl">
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-xl font-bold mb-4 text-blue-400">Основные технологии</h3>
+                            <ul class="space-y-3 text-gray-300">
+                                <li><i class="fas fa-check text-blue-400 mr-2"></i>Python + FastAPI</li>
+                                <li><i class="fas fa-check text-blue-400 mr-2"></i>PostgreSQL + Redis</li>
+                                <li><i class="fas fa-check text-blue-400 mr-2"></i>LangChain</li>
+                                <li><i class="fas fa-check text-blue-400 mr-2"></i>Docker</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-4 text-blue-400">Особенности реализации</h3>
+                            <ul class="space-y-3 text-gray-300">
+                                <li><i class="fas fa-check text-blue-400 mr-2"></i>Контекстно-зависимые модели</li>
+                                <li><i class="fas fa-check text-blue-400 mr-2"></i>Облачные GPU сервера</li>
+                                <li><i class="fas fa-check text-blue-400 mr-2"></i>CI/CD автоматизация</li>
+                                <li><i class="fas fa-check text-blue-400 mr-2"></i>Микросервисная архитектура</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <footer class="glass-card mt-20 py-12">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-gray-400">&copy; 2024 AI-Менеджер. Все права защищены.</p>
+        </div>
+    </footer>
+</body>
+</html>
