@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alina AI | Администратор для салонов красоты</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background: #000000;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+        }
+
+        .neon-glow {
+            text-shadow: 
+                0 0 10px rgba(66, 153, 225, 0.5),
+                0 0 20px rgba(66, 153, 225, 0.3);
+        }
+
+        .button-glow {
+            background: linear-gradient(45deg, #1a365d, #2563eb);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(37, 99, 235, 0.3);
+        }
+
+        .button-glow:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(37, 99, 235, 0.4);
+            border-color: rgba(37, 99, 235, 0.6);
+        }
+
+        .feature-card {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(37, 99, 235, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: scale(1.02);
+            border-color: rgba(37, 99, 235, 0.3);
+            box-shadow: 0 0 40px rgba(37, 99, 235, 0.2);
+        }
+
+        .highlight-text {
+            background: linear-gradient(120deg, #2563eb, #6366f1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .highlight-box {
+            border: 2px solid rgba(37, 99, 235, 0.5); /* Полупрозрачная синяя рамка */
+            box-shadow: 0 0 15px rgba(37, 99, 235, 0.3); /* Легкая тень */
+            border-radius: 8px; /* Закругленные углы */
+            padding: 16px; /* Внутренний отступ */
+            margin-bottom: 20px; /* Отступ снизу */
+        }
+
+        @media (min-width: 1024px) {
+            .desktop-small {
+                width: 100px; /* Устанавливает фиксированную ширину изображения на больших экранах */
+            }
+            .image-container {
+                display: flex;
+                justify-content: flex-end; /* Размещает изображение справа */
+            }
+            .hero-container {
+                display: flex;
+                justify-content: space-between; /* Размещает текст и изображение по краям */
+                align-items: center; /* Вертикальное выравнивание по центру */
+            }
+            .hero-text {
+                font-size: 5rem;
+                text-align: center;
+            }
+            .hero-price {
+                font-size: 3rem;
+                text-align: center;
+            }
+            .hero-button {
+                display: block;
+                margin: 0 auto;
+                width: 72px; /* Уменьшаем с 96px до 72px (48*1.5=72) */
+                height: auto;
+                transform: scale(1.5); /* Уменьшаем масштаб с 2 до 1.5 */
+            }
+        }
+    </style>
+</head>
+<body class="text-white">
+    <div class="relative min-h-screen">
+        <nav class="fixed w-full z-50 glass-card">
+            <div class="container mx-auto px-6 py-4">
+                <div class="flex justify-between items-center">
+                    <h1 class="text-2xl font-bold neon-glow">Alina AI</h1>
+                    <span class="text-blue-400 text-sm">Администратор для салонов красоты</span>
+                </div>
+            </div>
+        </nav>
+
+        <main class="pt-24">
+            <!-- Hero Section -->
+            <section class="container mx-auto px-6 py-20 hero-container relative">
+                <!-- Удалено фоновое изображение -->
+                
+                <!-- Контент -->
+                <div class="relative z-10 max-w-4xl mx-auto text-center">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6 neon-glow hero-text">
+                        Администратор для салонов красоты на базе AI
+                    </h2>
+                    <p class="text-xl mb-8 text-blue-200 hero-price">
+                        От 10 000 р
+                    </p>
+                    
+                    <div class="flex justify-center mt-8">
+                        <img src="photo.png" alt="Кнопка" class="w-48 h-auto cursor-pointer hover:transform hover:scale-105 transition-transform hero-button">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Обновить секцию с MacBook -->
+            <section class="container mx-auto px-6 py-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center neon-glow">Уникальные возможности Alina AI</h2>
+                <p class="text-center text-gray-300 mb-12 max-w-2xl mx-auto text-lg">
+                    Alina AI помогает оптимизировать работу вашего салона, автоматизируя процессы и увеличивая клиентскую базу. Все данные обрабатываются искусственным интеллектом, который работает круглосуточно.
+                </p>
+                <div class="relative max-w-5xl mx-auto">
+                    <!-- Удалено изображение ryk.png -->
+                    
+                    <!-- MacBook с анимацией -->
+                    <div class="relative">
+                        <!-- MacBook изображение -->
+                        <img src="MacBook_Pro_16-inch_.png" alt="MacBook Pro" class="w-full h-auto">
+                        
+                        <!-- Анимация поверх MacBook -->
+                        <div class="absolute inset-0 z-20 flex justify-center items-center">
+                            <img 
+                                src="__2024-08-15__19_onl.gif" 
+                                alt="Demo Animation" 
+                                class="object-contain"
+                                style="width: 80%; height: auto; position: absolute; top: 15px; left: 10%;"
+                            >
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Возможности -->
+            <section class="container mx-auto px-6 py-20">
+                <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center neon-glow">Что умеет Alina AI</h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="feature-card p-8 rounded-xl">
+                        <i class="fas fa-robot text-4xl text-blue-400 mb-6"></i>
+                        <h3 class="text-xl font-bold mb-4">Продажа услуг</h3>
+                        <p class="text-gray-300">Знает обо всех услугах салона и прекрасно умеет их продавать.</p>
+                    </div>
+                    <div class="feature-card p-8 rounded-xl">
+                        <i class="fas fa-calendar-check text-4xl text-blue-400 mb-6"></i>
+                        <h3 class="text-xl font-bold mb-4">Запись в салон</h3>
+                        <p class="text-gray-300">Быстро реагирует на запросы клиентов в Instagram*, WhatsApp, Telegram и Viber, а также автоматизирует внесение данных о бронях в CRM.</p>
+                    </div>
+                    <div class="feature-card p-8 rounded-xl">
+                        <i class="fas fa-user text-4xl text-blue-400 mb-6"></i>
+                        <h3 class="text-xl font-bold mb-4">Перенаправление</h3>
+                        <p class="text-gray-300">В случае срочных вопросов AI перенаправит клиента к живому администратору для дальнейшего общения.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Статистика -->
+            <section class="container mx-auto px-6 py-20">
+                <!-- Добавляем изображение -->
+                <div class="mb-12">
+                    <img 
+                        src="bb.png"
+                        alt="" 
+                        class="w-full object-cover object-center"
+                        width="1250"
+                        height="938"
+                        style="height: auto;"
+                    >
+                </div>
+
+                <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center neon-glow">Статистика работы Alina AI</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="number-card p-6 rounded-xl text-center">
+                        <div class="text-4xl font-bold text-blue-400 mb-2 neon-glow">100 000+</div>
+                        <p class="text-sm">Отвечено на сообщения клиентов</p>
+                    </div>
+                    <div class="number-card p-6 rounded-xl text-center">
+                        <div class="text-4xl font-bold text-blue-400 mb-2">5 000+</div>
+                        <p class="text-sm">Записано клиентов</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Кейсы -->
+            <section class="container mx-auto px-6 py-20">
+                <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center neon-glow">Кому будет полезно?</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="glass-card p-8 rounded-xl">
+                        <h3 class="text-xl font-bold mb-4">Мария, владелец салона красоты</h3>
+                        <ul class="space-y-4 text-gray-300">
+                            <li>✓ Посещаемость салона не растет</li>
+                            <li>✓ Новых клиентов не так много</li>
+                            <li>✓ Только 3 из 5 мастеров полностью загружены</li>
+                        </ul>
+                    </div>
+                    <div class="glass-card p-8 rounded-xl">
+                        <h3 class="text-xl font-bold mb-4">Ольга, частный мастер маникюра</h3>
+                        <ul class="space-y-4 text-gray-300">
+                            <li>✓ Целый день работает с клиентами</li>
+                            <li>✓ Не успевает быстро отвечать на запросы</li>
+                            <li>✓ Теряет брони и новых клиентов</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="text-center mt-12">
+                    <a href="#" class="button-glow px-8 py-4 rounded-lg inline-block">
+                        НАЧАТЬ БЕСПЛАТНО
+                    </a>
+                </div>
+            </section>
+
+            <!-- Сравнение с администратором -->
+            <section class="container mx-auto px-6 py-20">
+                <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center neon-glow">Чем Alina AI отличается от администратора?</h2>
+                <div class="glass-card p-8 rounded-xl highlight-box">
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-xl font-bold mb-4 text-blue-400">Alina AI</h3>
+                            <ul class="space-y-4 text-gray-300">
+                                <li>✓ Работает 24/7 всю неделю</li>
+                                <li>✓ Всегда отвечает за 4 секунды</li>
+                                <li>✓ Говорит на любых языках</li>
+                                <li>✓ Автоматически вносит данные о клиентах в CRM</li>
+                                <li>✓ Учится за день</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-4 text-gray-400">Администратор</h3>
+                            <ul class="space-y-4 text-gray-400">
+                                <li>× Работает 8 часов в день по графику 5/2</li>
+                                <li>× Может забыть ответить, если много дел</li>
+                                <li>× Обычно знает 1−2 языка</li>
+                                <li>× Может что-то перепутать или забыть</li>
+                                <li>× На обучение нужна неделя и больше</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Как это работает -->
+            <section class="container mx-auto px-6 py-20">
+                <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center neon-glow">Как это работает?</h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="feature-card p-8 rounded-xl">
+                        <div class="text-blue-400 text-xl font-bold mb-4">01</div>
+                        <h3 class="text-xl font-bold mb-4">Настраиваем</h3>
+                        <p class="text-gray-300">Выбираем функции, подключаем сервис к вашему календарю и CRM: YCLIENTS, Altegio или другие CRM.</p>
+                    </div>
+                    <div class="feature-card p-8 rounded-xl">
+                        <div class="text-blue-400 text-xl font-bold mb-4">02</div>
+                        <h3 class="text-xl font-bold mb-4">Тестируем</h3>
+                        <p class="text-gray-300">Проводим первые диалоги и проверяем качество ответов искусственного интеллекта.</p>
+                    </div>
+                    <div class="feature-card p-8 rounded-xl">
+                        <div class="text-blue-400 text-xl font-bold mb-4">03</div>
+                        <h3 class="text-xl font-bold mb-4">Запускаем</h3>
+                        <p class="text-gray-300">Искусственный интеллект начинает работать с вашими клиентами.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FAQ -->
+            <section class="container mx-auto px-6 py-20">
+                <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center neon-glow">Отвечаем на популярные вопросы</h2>
+                <div class="max-w-3xl mx-auto space-y-6">
+                    <div class="glass-card p-6 rounded-xl">
+                        <h3 class="text-xl font-bold mb-2">От чего зависит цена?</h3>
+                        <p class="text-gray-300">Цена зависит от набора функций, который вам нужен, масштаба вашего бизнеса и объема клиентской базы.</p>
+                    </div>
+                    <div class="glass-card p-6 rounded-xl">
+                        <h3 class="text-xl font-bold mb-2">Мой аккаунт в мессенджере не заблокируют?</h3>
+                        <p class="text-gray-300">Нет, мы соблюдаем все правила и лимиты мессенджеров.</p>
+                    </div>
+                    <!-- Добавить остальные вопросы -->
+                </div>
+            </section>
+
+            <!-- Форма заявки -->
+            <section class="container mx-auto px-6 py-20">
+                <div class="glass-card p-8 rounded-xl max-w-2xl mx-auto">
+                    <h2 class="text-2xl font-bold mb-8 text-center">Узнайте о возможностях сервиса для вашего бизнеса</h2>
+                    <form class="space-y-6">
+                        <div>
+                            <input type="text" placeholder="Имя" class="w-full p-4 bg-black/30 rounded-lg border border-blue-900 text-white">
+                        </div>
+                        <div>
+                            <input type="tel" placeholder="+7(999) 999-99-99" class="w-full p-4 bg-black/30 rounded-lg border border-blue-900 text-white">
+                        </div>
+                        <div>
+                            <input type="email" placeholder="E-mail" class="w-full p-4 bg-black/30 rounded-lg border border-blue-900 text-white">
+                        </div>
+                        <button class="button-glow px-8 py-4 rounded-lg w-full">
+                            3 дня бесплатно
+                        </button>
+                        <p class="text-xs text-gray-400 text-center">
+                            Нажимая на кнопку, вы соглашаетесь с политикой обработки персональных данных.
+                        </p>
+                    </form>
+                </div>
+            </section>
+        </main>
+
+        <footer class="glass-card mt-20 py-12">
+            <div class="container mx-auto px-6">
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div>
+                        <h3 class="text-xl font-bold mb-4">Контакты:</h3>
+                        <p class="text-gray-400">
+                            ООО "Цифровая Эра"<br>
+                            ИНН: 1660350691<br>
+                            ОГРН: 1201600066304<br>
+                            +7 904 664-90-45<br>
+                            info@reklamasos.ru
+                        </p>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold mb-4">Дополнительные ссылки:</h3>
+                        <div class="grid grid-cols-2 gap-4 text-gray-400">
+                            <a href="#" class="hover:text-blue-400">Что умеет</a>
+                            <a href="#" class="hover:text-blue-400">Для кого</a>
+                            <a href="#" class="hover:text-blue-400">Цена</a>
+                            <a href="#" class="hover:text-blue-400">Блог</a>
+                            <a href="#" class="hover:text-blue-400">Стать партнером</a>
+                            <a href="#" class="hover:text-blue-400">Функционал</a>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="space-y-2">
+                            <a href="#" class="block text-gray-400 hover:text-blue-400">Политика конфиденциальности</a>
+                            <a href="#" class="block text-gray-400 hover:text-blue-400">Пользовательское соглашение</a>
+                        </div>
+                        <p class="text-gray-400 mt-4">Разработка сайта: UP</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html> 
