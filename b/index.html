@@ -97,6 +97,13 @@
                 transform: scale(1.5); /* Уменьшаем масштаб с 2 до 1.5 */
             }
         }
+
+        @media (max-width: 768px) {
+            .mobile-large {
+                width: 3750px !important; /* 1250 * 3 */
+                height: 2814px !important; /* 938 * 3 */
+            }
+        }
     </style>
 </head>
 <body class="text-white">
@@ -186,7 +193,7 @@
                     <img 
                         src="bb.png"
                         alt="" 
-                        class="w-full object-cover object-center"
+                        class="w-full object-cover object-center mobile-large"
                         width="1250"
                         height="938"
                         style="height: auto;"
