@@ -76,7 +76,6 @@
 
         <div class="max-w-4xl mx-auto mb-16">
             <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12 bg-white p-8 rounded-2xl shadow-lg shadow-slate-200/50">
-                <!-- Контейнер для фото и имени, теперь центрированный -->
                 <div class="flex-shrink-0 text-center flex flex-col items-center">
                     <img src="https://www.galaxy.clinic/Vrachi_plastika/2024/siverina_big_2024-09-11.png?1751655857035" 
                          alt="Фотография Евгении Сивериной, пластического хирурга"
@@ -220,18 +219,31 @@
 
         <div class="text-center mt-12">
             <button id="checkButton" class="bg-indigo-600 text-white font-bold text-lg px-10 py-4 rounded-xl shadow-lg shadow-indigo-200 hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-300 transition-all duration-300 transform hover:-translate-y-1">
-                Проверить и получить совет AI
+                Получить результат
             </button>
             
+            <!-- Блок для первоначального результата -->
             <div id="resultMessage" class="hidden mt-8 max-w-2xl mx-auto p-6 rounded-2xl text-lg font-medium"></div>
 
-            <!-- Новый блок для AI-советов -->
-            <div id="geminiAdviceContainer" class="hidden mt-6 max-w-2xl mx-auto text-left">
-                <h3 class="text-2xl font-bold text-slate-800 text-center mb-4">Персональный совет от AI-ассистента</h3>
-                <div id="geminiLoader" class="flex justify-center items-center p-8">
-                    <div class="loader"></div>
+            <!-- Блок для рекомендации от AI -->
+            <div id="aiDoctorContainer" class="hidden mt-8 max-w-2xl mx-auto text-left">
+                <h3 class="text-2xl font-bold text-slate-800 text-center mb-4">Рекомендация от онлайн-врача</h3>
+                <div class="p-6 bg-white rounded-2xl shadow-lg shadow-slate-200/50">
+                    <div id="geminiLoader" class="flex justify-center items-center p-8">
+                        <div class="loader"></div>
+                    </div>
+                    <div id="geminiAdvice" class="hidden space-y-4 text-slate-700">
+                        <!-- AI text goes here -->
+                    </div>
+                    <div id="aiDoctorActions" class="hidden mt-6 flex flex-col sm:flex-row gap-4">
+                         <a href="https://www.galaxy.clinic/siverina/" target="_blank" class="w-full text-center bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-indigo-700 transition-all">
+                                Записаться на прием
+                         </a>
+                         <a href="https://t.me/doctorSiverina" target="_blank" class="w-full text-center bg-slate-200 text-slate-800 font-bold py-3 px-6 rounded-lg shadow-sm hover:bg-slate-300 transition-all">
+                                Проследовать в группу
+                         </a>
+                    </div>
                 </div>
-                <div id="geminiAdvice" class="p-6 bg-white rounded-2xl shadow-lg shadow-slate-200/50 space-y-3 text-slate-700"></div>
             </div>
         </div>
     </div>
@@ -239,11 +251,14 @@
     <script>
         // DOM элементы
         const checkButton = document.getElementById('checkButton');
-        const resultMessageDiv = document.getElementById('resultMessage');
         const checkboxes = document.querySelectorAll('.checklist-item');
-        const geminiAdviceContainer = document.getElementById('geminiAdviceContainer');
+        const resultMessageDiv = document.getElementById('resultMessage');
+        
+        // Элементы AI блока
+        const aiDoctorContainer = document.getElementById('aiDoctorContainer');
         const geminiLoader = document.getElementById('geminiLoader');
         const geminiAdviceDiv = document.getElementById('geminiAdvice');
+        const aiDoctorActions = document.getElementById('aiDoctorActions');
 
         // Обработчик изменения чекбокса
         checkboxes.forEach(checkbox => {
@@ -259,22 +274,23 @@
         
         // Функция для получения совета от Gemini
         async function getGeminiAdvice(checkedItems, resultType) {
+            aiDoctorContainer.classList.remove('hidden');
+            aiDoctorContainer.classList.add('fade-in');
             geminiLoader.style.display = 'flex';
-            geminiAdviceDiv.style.display = 'none';
-            geminiAdviceContainer.classList.remove('hidden');
-            geminiAdviceContainer.classList.add('fade-in');
-
+            geminiAdviceDiv.classList.add('hidden');
+            aiDoctorActions.classList.add('hidden');
+            
             let prompt;
             if (resultType === 'warning') {
-                prompt = `Выступи в роли опытного пластического хирурга-консультанта. Мой пациент прошел чек-лист и отметил следующие проблемы: ${checkedItems.join(', ')}. Дай ему краткий, но емкий и ободряющий совет на русском языке. Объясни, почему в его случае косметологии может быть уже недостаточно и на какие хирургические решения стоит обратить внимание (например, блефаропластика, эндоскопический лифтинг). Не давай прямых медицинских рекомендаций, а мягко направь на очную консультацию к специалисту. Заверши совет позитивным утверждением о современных возможностях. Форматируй ответ с использованием списков.`;
+                prompt = `Выступи в роли заботливого онлайн-врача. Мой пациент обеспокоен из-за следующих проблем: ${checkedItems.join(', ')}. Очень коротко (до 500 символов) и без звездочек успокой его. Скажи, что это распространенные изменения. Напиши, что подробные рекомендации и ответы на вопросы можно получить на очной консультации или задав вопрос в нашей группе. Твоя цель — успокоить и направить.`;
             } else {
-                prompt = `Выступи в роли опытного косметолога-эксперта. Мой пациент прошел чек-лист и отметил следующие незначительные проблемы: ${checkedItems.join(', ')}. Дай ему несколько полезных, практических и неочевидных советов на русском языке по уходу за областью вокруг глаз, чтобы сохранить молодость взгляда. Упомяни важность лимфодренажа, защиты от солнца и качественного сна. Не рекламируй конкретные бренды. Совет должен быть ободряющим и мотивирующим. Форматируй ответ с использованием списков.`;
+                prompt = `Выступи в роли заботливого онлайн-врача. У моего пациента хорошие результаты теста, но он отметил: ${checkedItems.join(', ')}. Очень коротко (до 500 символов) и без звездочек похвали его. Напиши, что подробные рекомендации по уходу и ответы на вопросы можно получить на очной консультации или задав вопрос в нашей группе. Твоя цель — поддержать и направить.`;
             }
 
             try {
                 let chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
                 const payload = { contents: chatHistory };
-                const apiKey = ""; // API-ключ будет предоставлен средой выполнения
+                const apiKey = "AIzaSyCNI_A05TaP6p_B0LRlGIiwcOJ0wKLmIpU";
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
                 
                 const response = await fetch(apiUrl, {
@@ -296,15 +312,16 @@
                     text = result.candidates[0].content.parts[0].text;
                 }
                 
-                geminiAdviceDiv.innerHTML = text.replace(/\n/g, '<br>');
+                geminiAdviceDiv.innerHTML = text.replace(/\n/g, '<br><br>');
 
             } catch (error) {
                 console.error("Ошибка при вызове Gemini API:", error);
                 geminiAdviceDiv.innerText = "К сожалению, произошла ошибка при генерации совета. Пожалуйста, проверьте консоль для получения дополнительной информации.";
             } finally {
                 geminiLoader.style.display = 'none';
-                geminiAdviceDiv.style.display = 'block';
-                geminiAdviceDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                geminiAdviceDiv.classList.remove('hidden');
+                aiDoctorActions.classList.remove('hidden');
+                aiDoctorContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
         }
 
@@ -316,7 +333,7 @@
             const checkedItems = Array.from(checkedCheckboxes).map(cb => {
                 return cb.closest('label').querySelector('.checklist-text').innerText;
             });
-
+            
             resultMessageDiv.className = 'hidden mt-8 max-w-2xl mx-auto p-6 rounded-2xl text-lg font-medium text-center';
             
             const giftIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block -mt-1" viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a2 2 0 00-2 2v1a2 2 0 004 0V4a2 2 0 00-2-2z"></path><path fill-rule="evenodd" d="M3 6a2 2 0 012-2h10a2 2 0 012 2v1a1 1 0 11-2 0V6H5v1a1 1 0 11-2 0V6zm3 4a2 2 0 00-2 2v3a2 2 0 002 2h8a2 2 0 002-2v-3a2 2 0 00-2-2H6zm2 4a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>`;
@@ -339,14 +356,13 @@
             resultMessageDiv.classList.remove('hidden');
             resultMessageDiv.classList.add('fade-in');
             resultMessageDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
+            
             // Вызываем Gemini API
             getGeminiAdvice(checkedItems, resultType);
         }
 
         checkButton.addEventListener('click', checkResults);
+
     </script>
 </body>
 </html>
-
-
