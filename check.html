@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Глаза Выдают Возраст: Чек-лист Эксперта</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ========================================= */
+        /* ОБЩИЕ СТИЛИ СТРАНИЦЫ И ТЕКСТА */
+        /* ========================================= */
+        body {
+            font-family: 'Manrope', sans-serif;
+            line-height: 1.6;
+            color: #333; /* Темно-серый для основного текста */
+            max-width: 850px; /* Увеличена ширина контента */
+            margin: 50px auto; /* Центрируем контент */
+            padding: 0 25px; /* Увеличены отступы по бокам */
+            background-color: #fcfcfc; /* Очень светлый фон */
+            -webkit-font-smoothing: antialiased; /* Сглаживание шрифтов для лучшего вида */
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Стиль для главного заголовка */
+        .section-title {
+            font-family: 'Manrope', sans-serif;
+            font-weight: 700; /* Жирный */
+            font-size: 2.8em; /* Крупный размер для заголовка */
+            color: #222; /* Почти черный для заголовка */
+            text-align: center;
+            margin-bottom: 50px; /* Увеличенный отступ после заголовка */
+            line-height: 1.2;
+            text-transform: uppercase; /* Заглавные буквы */
+            letter-spacing: 0.5px;
+        }
+
+        /* Стиль для параграфов с контентом */
+        .content-paragraph {
+            font-size: 1.15em; /* Чуть крупнее шрифт для абзацев */
+            margin-bottom: 30px; /* Отступ между абзацами */
+            color: #444;
+            text-align: left; /* Выравнивание по левому краю для общего текста */
+        }
+
+        /* Стиль для выделенного жирным текста */
+        .content-paragraph strong {
+            font-weight: 700; /* Жирный шрифт для выделенных слов */
+            color: #000; /* Чисто черный для выделений */
+        }
+
+        /* Стиль для первого параграфа с иконкой (синий квадрат) */
+        .first-paragraph {
+            position: relative;
+            padding-left: 35px; /* Отступ для иконки */
+        }
+
+        .first-paragraph::before {
+            content: '';
+            display: inline-block;
+            width: 18px; /* Ширина квадрата */
+            height: 18px; /* Высота квадрата */
+            background-color: #2D65F0; /* Цвет синего квадрата */
+            position: absolute;
+            left: 0;
+            top: 0.2em; /* Регулировка положения по вертикали */
+            border-radius: 4px; /* Скругленные углы квадрата */
+        }
+
+        /* Заголовок для подраздела чек-листа */
+        .checklist-heading {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #333;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            text-align: left; /* Выравнивание по левому краю */
+            border-bottom: 2px solid #e0e0e0; /* Подчеркивание */
+            padding-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        /* ========================================= */
+        /* СТИЛИ ЧЕК-ЛИСТА */
+        /* ========================================= */
+        .checklist {
+            list-style: none; /* Убираем стандартные маркеры списка */
+            padding: 0;
+            margin: 0 0 40px 0; /* Отступ снизу перед кнопкой */
+            background-color: #ffffff; /* Белый фон для списка */
+            border: 1px solid #e0e0e0; /* Легкая граница */
+            border-radius: 12px; /* Скругленные углы контейнера списка */
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08); /* Мягкая тень */
+        }
+
+        .checklist li {
+            position: relative;
+            font-size: 1.05em; /* Чуть меньше размер шрифта для пунктов */
+            color: #333;
+            padding: 15px 20px 15px 55px; /* Отступы внутри пункта, увеличен отступ слева для чекбокса */
+            border-bottom: 1px solid #eee; /* Разделитель между пунктами */
+            display: flex;
+            align-items: flex-start; /* Выравнивание по началу строки */
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .checklist li:last-child {
+            border-bottom: none; /* Убираем нижнюю границу у последнего элемента */
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+        }
+
+        .checklist li:first-child {
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+        }
+
+        /* Эффект при наведении на пункт списка */
+        .checklist li:hover {
+            background-color: #f5f5f5; /* Легкое изменение фона при наведении */
+        }
+
+        /* Скрываем нативный чекбокс */
+        .checklist input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        /* Стиль для кастомного чекбокса (квадрат) */
+        .checklist .checkmark {
+            position: absolute;
+            top: 15px; /* Выравнивание по верхнему краю пункта */
+            left: 20px;
+            height: 24px; /* Размер кастомного квадрата */
+            width: 24px;
+            background-color: #eee; /* Фон невыбранного чекбокса */
+            border: 2px solid #ccc; /* Граница невыбранного чекбокса */
+            border-radius: 5px; /* Чуть более скругленные углы */
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Плавная анимация */
+            flex-shrink: 0; /* Чтобы не сжимался */
+        }
+
+        /* При наведении на кастомный чекбокс */
+        .checklist li:hover .checkmark {
+            background-color: #ddd;
+            border-color: #bbb;
+        }
+
+        /* Когда чекбокс выбран */
+        .checklist input[type="checkbox"]:checked ~ .checkmark {
+            background-color: #2D65F0; /* Синий фон при выборе */
+            border-color: #2D65F0;
+            transform: scale(1.1); /* Легкое увеличение при выборе */
+        }
+
+        /* Стиль для галочки внутри чекбокса */
+        .checkmark::after {
+            content: "";
+            position: absolute;
+            display: none; /* Скрываем по умолчанию */
+            left: 8px;
+            top: 4px;
+            width: 7px;
+            height: 13px;
+            border: solid white;
+            border-width: 0 3px 3px 0;
+            transform: rotate(45deg); /* Поворот для галочки */
+        }
+
+        /* Показываем галочку, когда чекбокс выбран */
+        .checklist input[type="checkbox"]:checked ~ .checkmark::after {
+            display: block;
+        }
+
+        /* Стиль для текста пункта чек-листа */
+        .checklist-text {
+            flex-grow: 1; /* Позволяет тексту занимать все доступное пространство */
+            padding-top: 2px; /* Небольшой отступ для выравнивания текста с чекбоксом */
+        }
+
+        /* Стиль для текста, когда пункт чек-листа отмечен */
+        .checklist input[type="checkbox"]:checked ~ .checklist-text {
+            color: #777; /* Серый цвет для отмеченных пунктов */
+            text-decoration: line-through; /* Перечеркнутый текст */
+            transition: color 0.3s ease, text-decoration 0.3s ease;
+        }
+
+        /* ========================================= */
+        /* КНОПКА */
+        /* ========================================= */
+        .check-button-container {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .check-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background-color: #2D65F0; /* Синий цвет кнопки */
+            color: #FFFFFF;
+            font-size: 1.2em;
+            font-weight: 700;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 5px 15px rgba(45, 101, 240, 0.3); /* Тень кнопки */
+        }
+
+        .check-button:hover {
+            background-color: #2251D0; /* Темнее синий при наведении */
+            transform: translateY(-2px); /* Легкий эффект поднятия */
+        }
+
+        .check-button:active {
+            background-color: #1A3EAB; /* Еще темнее при нажатии */
+            transform: translateY(0);
+        }
+
+        /* Стиль для окна результата */
+        .result-message {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #e6f7ff; /* Светло-голубой фон */
+            border: 1px solid #91d5ff; /* Голубая рамка */
+            border-radius: 8px;
+            font-size: 1.1em;
+            color: #1890ff; /* Синий текст */
+            text-align: center;
+            display: none; /* Скрыто по умолчанию */
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="main-content">
+        <h1 class="section-title">Глаза Выдают Возраст:<br>Чек-лист Эксперта</h1>
+
+        <p class="content-paragraph first-paragraph">
+            Коллеги-косметологи, знакомо ли вам это чувство? Вы вложили все свои знания и умения, применили самые эффективные инъекции и аппаратные методики, но <strong>усталый взгляд</strong> клиента (или ваш собственный?) по-прежнему выдает возраст. В этом нет вашей вины – просто иногда проблема лежит глубже, чем возможности неинвазивных методов.
+        </p>
+
+        <p class="content-paragraph">
+            Меня зовут <strong>Евгения Сиверина</strong>, и как пластический хирург, я вижу это постоянно. И точно знаю, что для вас <strong>безупречный внешний вид клиента</strong> — это не только эстетика, но и фундамент вашей профессиональной репутации.
+        </p>
+
+        <p class="content-paragraph">
+            Представляю вам <strong>чек-лист</strong>, который поможет <strong>объективно оценить</strong>, когда проблема лежит глубже, чем возможности неинвазивных методов.
+        </p>
+
+        <p class="content-paragraph" style="font-weight: 500; font-size: 1.2em; text-align: center; color: #2D65F0; margin-bottom: 40px;">
+            <strong>Ваши Возможности Исчерпаны? Проверьте Себя!</strong><br>
+            Пройдите по пунктам ниже. Если вы отметите <strong>3 и более пункта</strong>, это сильный сигнал, что пора задуматься о следующем уровне решений.
+        </p>
+
+        <ul class="checklist">
+            <h3 class="checklist-heading" style="text-align: center; margin: 0; padding: 20px; background-color: #f0f0f0; border-radius: 12px 12px 0 0; border-bottom: 1px solid #e0e0e0;">1. Верхние Веки и Брови: Предел Косметологии</h3>
+            <li>
+                <label>
+                    <input type="checkbox" class="checklist-item">
+                    <span class="checkmark"></span>
+                    <span class="checklist-text"><strong>Избыток кожи верхних век:</strong> Кожа <strong>сильно нависает</strong>, закрывая подвижную часть века или свисая ниже.</span>
+                </label>
+            </li>
+            <li>
+                <label>
+                    <input type="checkbox" class="checklist-item">
+                    <span class="checkmark"></span>
+                    <span class="checklist-text"><strong>Ограничение поля зрения:</strong> Клиент жалуется, что <strong>нависающая кожа мешает полноценно видеть</strong> по сторонам.</span>
+                </label>
+            </li>
+            <li>
+                <label>
+                    <input type="checkbox" class="checklist-item">
+                    <span class="checkmark"></span>
+                    <span class="checklist-text"><strong>Низкое положение бровей (птоз):</strong> Бровь <strong>заметно ниже нормы</strong>, и <strong>ботулотоксин или нити не дают стабильного и достаточного подъема</strong>.</span>
+                </label>
+            </li>
+            <li>
+                <label>
+                    <input type="checkbox" class="checklist-item">
+                    <span class="checkmark"></span>
+                    <span class="checklist-text"><strong>Постоянная "тяжесть" или усталость в глазах:</strong> Клиент отмечает это постоянно, даже после отдыха.</span>
+                </label>
+            </li>
+
+            <h3 class="checklist-heading" style="text-align: center; margin: 0; padding: 20px; background-color: #f0f0f0; border-top: 1px solid #e0e0e0; border-bottom: 1px solid #e0e0e0;">2. Нижние Веки и Область Вокруг Глаз: Что Не Убрать Филлером</h3>
+            <li>
+                <label>
+                    <input type="checkbox" class="checklist-item">
+                    <span class="checkmark"></span>
+                    <span class="checklist-text"><strong>Выраженные жировые грыжи ("мешки"):</strong> "Мешки" под глазами <strong>постоянны</strong> и <strong>не уменьшаются</strong> после отдыха или ваших процедур.</span>
+                </label>
+            </li>
+            <li>
+                <label>
+                    <input type="checkbox" class="checklist-item">
+                    <span class="checkmark"></span>
+                    <span class="checklist-text"><strong>Стойкие "малярные мешки" (суфы):</strong> Заметные отеки в области скул, которые <strong>не реагируют на ваши обычные методы коррекции</strong>.</span>
+                </label>
+            </li>
+            <li>
+                <label>
+                    <input type="checkbox" class="checklist-item">
+                    <span class="checkmark"></span>
+                    <span class="checklist-text"><strong>Значительная дряблость кожи нижних век:</strong> Кожа <strong>очень тонкая, морщинистая</strong>, и коррекция филлерами или аппаратными методами даёт лишь временный и неполный эффект.</span>
+                </label>
+            </li>
+
+            <h3 class="checklist-heading" style="text-align: center; margin: 0; padding: 20px; background-color: #f0f0f0; border-top: 1px solid #e0e0e0; border-bottom: 1px solid #e0e0e0;">3. Общие Признаки Недостаточности: Когда Результат Не Соответствует Усилиям</h3>
+            <li>
+                <label>
+                    <input type="checkbox" class="checklist-item">
+                    <span class="checkmark"></span>
+                    <span class="checklist-text"><strong>Нереалистичные ожидания клиента:</strong> Клиент хочет изменений, которые <strong>объективно невозможно</strong> достичь без хирургии (например, кардинальное изменение формы глаз).</span>
+                </label>
+            </li>
+            <li>
+                <label>
+                    <input type="checkbox" class="checklist-item">
+                    <span class="checkmark"></span>
+                    <span class="checklist-text"><strong>Неудовлетворенность клиента предыдущими косметологическими результатами:</strong> Клиент уже пробовал разные косметологические процедуры, но <strong>результат его не устраивает</strong> или держится очень недолго.</span>
+                </label>
+            </li>
+            <li>
+                <label>
+                    <input type="checkbox" class="checklist-item">
+                    <span class="checkmark"></span>
+                    <span class="checklist-text"><strong>Быстрое возвращение проблемы:</strong> Эффект от косметологических процедур в области глаз <strong>исчезает слишком быстро</strong> (менее 3-6 месяцев).</span>
+                </label>
+            </li>
+        </ul>
+        <div class="check-button-container">
+            <button class="check-button" onclick="checkResults()">Проверить</button>
+        </div>
+
+        <div id="resultMessage" class="result-message">
+            </div>
+
+    </div>
+
+    <script>
+        function checkResults() {
+            const checkboxes = document.querySelectorAll('.checklist-item:checked');
+            const checkedCount = checkboxes.length;
+            const resultMessageDiv = document.getElementById('resultMessage');
+
+            if (checkedCount >= 3) {
+                resultMessageDiv.innerHTML = '<strong>Внимание!</strong> Вы отметили ' + checkedCount + ' пункта(ов). Это сильный сигнал, что пора задуматься о следующем уровне решений.';
+                resultMessageDiv.style.backgroundColor = '#fff0e6'; /* Более оранжевый фон для предупреждения */
+                resultMessageDiv.style.borderColor = '#ffc180';
+                resultMessageDiv.style.color = '#e65100'; /* Темно-оранжевый текст */
+            } else {
+                resultMessageDiv.innerHTML = 'Вы отметили ' + checkedCount + ' пункта(ов). Возможно, проблема поддается косметологическим методам.';
+                resultMessageDiv.style.backgroundColor = '#e6f7ff'; /* Светло-голубой фон */
+                resultMessageDiv.style.borderColor = '#91d5ff';
+                resultMessageDiv.style.color = '#1890ff'; /* Синий текст */
+            }
+            resultMessageDiv.style.display = 'block'; // Показываем сообщение
+        }
+    </script>
+
+</body>
+</html>
