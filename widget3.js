@@ -290,7 +290,7 @@
                     responseSchema: schema
                 }
             };
-            const apiKey = ""; // API ключ не требуется для этой модели
+            const apiKey = "AIzaSyBQx_0xPlhGmlRwuDFC52rRkgy_MB5d0yg"; // API ключ не требуется для этой модели
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
             
             const response = await fetch(apiUrl, {
