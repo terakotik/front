@@ -1,6 +1,6 @@
 /**
  * Скрипт виджета "Ai Сканер"
- * Версия 2.1 - Адаптивная
+ * Версия 2.3 - Обновленный текст
  * Этот скрипт создает и управляет виджетом для динамической генерации чек-листов.
  */
 (function() {
@@ -249,10 +249,10 @@
         widgetContent.innerHTML = `
             <div class="loader-container">
                 <div class="loader"></div>
-                <p>Изучаю ваш вопрос и создаю<br>персональный чек-лист...</p>
+                <p>Анализирую ваш вопрос и готовлю<br>разбор вопроса.</p>
             </div>`;
 
-        const prompt = `На основе вопроса пользователя: "${userQuestion}", создай чек-лист для проверки юридических и практических рисков. Верни результат в формате JSON. JSON должен содержать один ключ "groups", значение которого - массив. Каждый элемент массива должен быть объектом с двумя ключами: "title" (название группы рисков, например, "Проверка документов") и "items" (массив вопросов). Каждый элемент в "items" должен быть объектом с ключами "text" (сам вопрос чек-листа) и "risk" (подробное объяснение риска, связанного с этим вопросом). Создай 2-3 группы, в каждой по 3-5 вопросов. Ответ должен быть только в формате JSON.`;
+        const prompt = `На основе вопроса пользователя: "${userQuestion}", создай разбор вопроса для проверки юридических и практических рисков в формате чек-листа. Верни результат в формате JSON. JSON должен содержать один ключ "groups", значение которого - массив. Каждый элемент массива должен быть объектом с двумя ключами: "title" (название группы рисков, например, "Проверка документов") и "items" (массив вопросов). Каждый элемент в "items" должен быть объектом с ключами "text" (сам вопрос чек-листа) и "risk" (подробное объяснение риска, связанного с этим вопросом). Создай 2-3 группы, в каждой по 3-5 вопросов. Ответ должен быть только в формате JSON.`;
 
         const schema = {
             type: "OBJECT",
@@ -290,7 +290,8 @@
                     responseSchema: schema
                 }
             };
-            const apiKey = "AIzaSyBQx_0xPlhGmlRwuDFC52rRkgy_MB5d0yg"; // API ключ не требуется для этой модели
+            // ВАЖНО: Вставьте сюда ваш API ключ, полученный от Google
+            const apiKey = "AIzaSyBQx_0xPlhGmlRwuDFC52rRkgy_MB5d0yg"; 
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
             
             const response = await fetch(apiUrl, {
@@ -309,7 +310,7 @@
 
         } catch (error) {
             console.error("Ошибка генерации теста:", error);
-            widgetContent.innerHTML = `<div class="p-4 text-center text-red-600">Не удалось создать тест. Пожалуйста, попробуйте переформулировать ваш вопрос.</div>`;
+            widgetContent.innerHTML = `<div class="p-4 text-center text-red-600">Не удалось создать разбор вопроса. Пожалуйста, попробуйте переформулировать ваш вопрос.</div>`;
         }
     }
 
@@ -317,7 +318,7 @@
         const widgetContent = document.getElementById('widget-content');
         let html = `
             <header class="text-center mb-6">
-                <h1 class="text-2xl font-extrabold tracking-tight text-slate-800">Чек-лист по вопросу:</h1>
+                <h1 class="text-2xl font-extrabold tracking-tight text-slate-800">Разбор вопроса:</h1>
                 <p class="gradient-text mt-1 text-lg font-semibold">${userQuestion}</p>
             </header>
             <div class="space-y-3 max-w-full mx-auto">
@@ -353,6 +354,14 @@
             <div class="text-center mt-8 mb-4">
                 <button id="checkDynamicButton" class="bg-indigo-600 text-white font-bold text-md px-8 py-3 rounded-xl shadow-lg">Показать результат</button>
                 <div id="dynamicResultMessage" class="hidden mt-6 p-4 rounded-xl text-md font-medium"></div>
+                <div id="dynamicActionButtons" class="hidden mt-6 flex flex-col sm:flex-row gap-3">
+                    <a href="https://t.me/Danayn11" target="_blank" class="w-full text-center bg-indigo-600 text-white font-bold py-3 px-4 rounded-lg shadow-md hover:bg-indigo-700 transition-all text-sm">
+                        Консультация эксперта
+                    </a>
+                    <a href="https://t.me/zemla_yslygi" target="_blank" class="w-full text-center bg-slate-200 text-slate-800 font-bold py-3 px-4 rounded-lg shadow-sm hover:bg-slate-300 transition-all text-sm">
+                        Вопрос в группе
+                    </a>
+                </div>
             </div>
         `;
         widgetContent.innerHTML = html;
@@ -375,16 +384,22 @@
         document.getElementById('checkDynamicButton').addEventListener('click', () => {
             const checkedCount = document.querySelectorAll('.checklist-item:checked').length;
             const resultDiv = document.getElementById('dynamicResultMessage');
+            const actionsDiv = document.getElementById('dynamicActionButtons');
+            
+            const giftIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block -mt-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 8a6 6 0 01-7.743 5.743L10 14l-1 1-1 1H6v2H2v-4l4.257-4.257A6 6 0 1118 8zm-6-4a1 1 0 100 2 1 1 0 000-2zM2 16a1 1 0 112 0 1 1 0 01-2 0z" clip-rule="evenodd" /></svg>`;
+            const ctaButton = `<a href="https://t.me/zemla_yslygi" target="_blank" class="mt-3 inline-block bg-white text-indigo-600 font-bold px-4 py-2 rounded-lg shadow-md hover:bg-indigo-50 transition-all duration-300 text-sm"> ${giftIcon} <span class="ml-1">Получить гайд</span></a>`;
+
             let message = '';
             if (checkedCount > 0) {
-                message = `<strong>Внимание!</strong> Вы отметили <strong>${checkedCount}</strong> пункта(ов) риска. Рекомендуем проконсультироваться со специалистом.`;
+                message = `<strong>Внимание!</strong> Вы отметили <strong>${checkedCount}</strong> пункта(ов) риска. <br>Изучите наш гайд, чтобы узнать больше. ${ctaButton}`;
                 resultDiv.className = 'mt-6 p-4 rounded-xl text-md font-medium text-center bg-amber-100 border-2 border-amber-200 text-amber-900';
             } else {
-                message = `Отличный результат! Ни одного пункта риска не отмечено.`;
+                message = `Отличный результат! Ни одного пункта риска не отмечено. <br>Всегда полезно знать больше, загляните в наш гайд. ${ctaButton}`;
                 resultDiv.className = 'mt-6 p-4 rounded-xl text-md font-medium text-center bg-green-100 border-2 border-green-200 text-green-900';
             }
             resultDiv.innerHTML = message;
             resultDiv.classList.remove('hidden');
+            actionsDiv.classList.remove('hidden'); // Показываем кнопки
         });
     }
 
