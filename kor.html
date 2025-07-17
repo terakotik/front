@@ -4,74 +4,220 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Проверьте свой автомобиль на скрытую коррозию: Сэкономите тысячи!</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <style>
-        body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.gradient-text{background:linear-gradient(45deg,#3b82f6,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-fill-color:transparent}.custom-checkbox input:checked~.checkmark{background-color:#4f46e5;border-color:#4f46e5;transform:scale(1.05)}.custom-checkbox input:checked~.checkmark svg{transform:scale(1)}.custom-checkbox input:checked~.checklist-text{color:#475569}.custom-checkbox .checkmark svg{transform:scale(0);transition:transform .2s cubic-bezier(.68,-.55,.265,1.55)}@keyframes fadeIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}.fade-in{animation:fadeIn .5s ease-out forwards}.loader{border:4px solid #f3f3f3;border-top:4px solid #4f46e5;border-radius:50%;width:40px;height:40px;animation:spin 1s linear infinite}@keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}.risk-explanation{transition:all .3s ease-in-out;max-height:0;overflow:hidden;opacity:0;padding-top:0;padding-bottom:0;margin-top:0}.risk-explanation.visible{max-height:200px;opacity:1;padding-top:.75rem;padding-bottom:.75rem;margin-top:.5rem}
+        /* Кастомные стили для улучшения дизайна */
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .gradient-text {
+            background: linear-gradient(45deg, #3b82f6, #8b5cf6); /* Blue to Indigo */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+        .custom-checkbox input:checked ~ .checkmark {
+            background-color: #4f46e5; /* Indigo-600 */
+            border-color: #4f46e5;
+            transform: scale(1.05);
+        }
+        .custom-checkbox input:checked ~ .checkmark svg {
+            transform: scale(1);
+        }
+        .custom-checkbox input:checked ~ .checklist-text {
+             color: #475569; /* slate-600 */
+        }
+        .custom-checkbox .checkmark svg {
+            transform: scale(0);
+            transition: transform 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        /* Стили для спиннера загрузки */
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #4f46e5;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .risk-explanation {
+            transition: all 0.3s ease-in-out;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+            margin-top: 0;
+        }
+        .risk-explanation.visible {
+            max-height: 200px; /* Достаточно большая высота */
+            opacity: 1;
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+            margin-top: 0.5rem;
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-700">
-    <div class="container mx-auto max-w-3xl px-4 py-8 sm:py-16">
-        <div id="test-header" class="text-center mb-12">
-            <!-- Изображение было обновлено здесь -->
-            <img id="avatar-image" src="https://kuzovokspb.ru/wp-content/uploads/2025/04/Frame-30.jpg" alt="Ржавчина на автомобиле" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-white shadow-lg object-cover">
-            <h2 id="test-title" class="text-3xl sm:text-4xl font-bold text-slate-800">Проверьте свой автомобиль на скрытую коррозию: Сэкономите тысячи!</h2>
-            <p id="intro-text" class="mt-4 max-w-2xl mx-auto text-lg text-slate-600">Не видите ржавчины? Это не значит, что ее нет! Скрытая коррозия может привести к дорогостоящему ремонту. Пройдите наш быстрый тест из 13 вопросов и убедитесь, что ваш автомобиль в безопасности.</p>
-        </div>
-        <div class="space-y-4 max-w-3xl mx-auto">
-            <div class="bg-white rounded-2xl shadow-lg shadow-slate-200/50 overflow-hidden">
-                <ul id="checklist-group" class="divide-y divide-slate-200"></ul>
+
+    <div class="container mx-auto max-w-4xl px-4 py-8 sm:py-16 pb-24">
+        
+        <header class="text-center mb-12">
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-slate-800">
+                <span class="block">Проверьте свой автомобиль на скрытую коррозию:</span>
+                <span class="block gradient-text mt-2">Сэкономьте тысячи!</span>
+            </h1>
+             <p class="mt-4 max-w-2xl mx-auto text-lg text-slate-600">Не видите ржавчины? Это не значит, что ее нет! Скрытая коррозия может привести к дорогостоящему ремонту. Пройдите наш быстрый тест и убедитесь, что ваш автомобиль в безопасности.</p>
+        </header>
+
+        <div class="max-w-4xl mx-auto mb-16">
+            <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12 bg-white p-8 rounded-2xl shadow-lg shadow-slate-200/50">
+                <div class="flex-shrink-0 text-center flex flex-col items-center">
+                    <img src="https://kuzovokspb.ru/wp-content/uploads/2025/04/Frame-30.jpg" 
+                         alt="Фотография эксперта по кузовному ремонту"
+                         class="w-48 h-48 md:w-56 md:h-56 rounded-full object-cover object-top shadow-2xl shadow-indigo-200 border-4 border-white"
+                         onerror="this.onerror=null;this.src='https://placehold.co/224x224/e0e7ff/4338ca?text=Эксперт';">
+                    <div class="mt-4">
+                        <p class="font-bold text-lg text-slate-800">Евгений</p>
+                        <p class="text-sm text-slate-500">Директор компании</p>
+                        <p class="text-sm text-indigo-600 font-medium">Кузовок</p>
+                    </div>
+                </div>
+                <div class="text-lg text-slate-600 space-y-4 text-center md:text-left">
+                     <p>
+                        Скрытая коррозия — тихий враг любого автомобиля. Она незаметно разрушает кузов изнутри, и когда проблема становится видна, ремонт может стоить целое состояние.
+                    </p>
+                    <p>
+                        Меня зовут <strong>Евгений</strong>, и наша команда в "Кузовок" специализируется на защите автомобилей. Мы знаем все уязвимые места и как предотвратить дорогостоящие повреждения.
+                    </p>
+                    <p>
+                        Этот <strong>чек-лист</strong> поможет вам за минуту выявить первые признаки скрытой угрозы и понять, нуждается ли ваш автомобиль в профессиональной диагностике.
+                    </p>
+                </div>
             </div>
         </div>
+        
+        <div class="space-y-4 max-w-3xl mx-auto">
+            <!-- Вопросы -->
+            <div class="bg-white rounded-2xl shadow-lg shadow-slate-200/50 overflow-hidden">
+                 <ul id="checklist-group" class="divide-y divide-slate-200"></ul>
+            </div>
+        </div>
+
         <div class="text-center mt-12">
-            <button id="checkButton" class="bg-indigo-600 text-white font-bold text-lg px-10 py-4 rounded-xl shadow-lg shadow-indigo-200 hover:bg-indigo-700">Получить результат</button>
+            <button id="checkButton" class="bg-indigo-600 text-white font-bold text-lg px-10 py-4 rounded-xl shadow-lg shadow-indigo-200 hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-300 transition-all duration-300 transform hover:-translate-y-1">
+                Получить результат
+            </button>
+            
             <div id="resultMessage" class="hidden mt-8 max-w-2xl mx-auto p-6 rounded-2xl text-lg font-medium"></div>
+
             <div id="aiDoctorContainer" class="hidden mt-8 max-w-2xl mx-auto text-left">
                 <h3 class="text-2xl font-bold text-slate-800 text-center mb-4">Рекомендация от онлайн-эксперта</h3>
                 <div class="p-6 bg-white rounded-2xl shadow-lg shadow-slate-200/50">
-                    <div id="geminiLoader" class="flex justify-center items-center p-8"><div class="loader"></div></div>
+                    <div id="geminiLoader" class="flex justify-center items-center p-8">
+                        <div class="loader"></div>
+                    </div>
                     <div id="geminiAdvice" class="hidden space-y-4 text-slate-700"></div>
                     <div id="aiDoctorActions" class="hidden mt-6 flex flex-col sm:flex-row gap-4">
-                        <a href="https://wa.me/79213885714" target="_blank" class="w-full text-center bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-indigo-700">Записаться на консультацию</a>
-                        <a href="https://t.me/@KuzovOk78" target="_blank" class="w-full text-center bg-slate-200 text-slate-800 font-bold py-3 px-6 rounded-lg shadow-sm hover:bg-slate-300">Задать вопрос в группе</a>
+                         <a href="https://wa.me/79213885714" target="_blank" class="w-full text-center bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-indigo-700 transition-all">
+                                Записаться на консультацию
+                         </a>
+                         <a href="https://t.me/@KuzovOk78" target="_blank" class="w-full text-center bg-slate-200 text-slate-800 font-bold py-3 px-6 rounded-lg shadow-sm hover:bg-slate-300 transition-all">
+                                Задать вопрос в группе
+                         </a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script>
-        const testData = [{"text":"<strong>Появление пузырей на краске:</strong> Заметили вздутия или пузыри на поверхности кузова? Это может быть признаком коррозии под краской.","risk":"<strong>🚩 Риск разрушения кузова:</strong>  Если коррозия распространится, это может привести к серьезному повреждению кузова и необходимости дорогостоящего ремонта или даже замены частей."},{"text":"<strong>Странные звуки при движении:</strong> Слышите скрипы, скрежет или стуки при проезде неровностей?","risk":"<strong>🚩 Риск повреждения подвески:</strong> Это может указывать на коррозию элементов подвески, что приведет к опасности на дороге и дорогостоящему ремонту."},{"text":"<strong>Наличие ржавчины в скрытых местах:</strong> Проверьте скрытые участки, например, под днищем, в колесных арках, порогах и под капотом.","risk":"<strong>🚩 Риск прогнивания металла:</strong>  Ржавчина в труднодоступных местах может быстро распространяться, приводя к серьезным повреждениям."},{"text":"<strong>Повышенная влажность в салоне:</strong> Чувствуете неприятный запах сырости или повышенную влажность в салоне автомобиля?","risk":"<strong>🚩 Риск повреждения электроники:</strong> Влажность может повредить электронику, вызвав короткое замыкание и дорогостоящий ремонт."},{"text":"<strong>Потеря блеска краски:</strong> Краска стала тусклой и потускневшей в некоторых местах?","risk":"<strong>🚩 Риск образования очагов коррозии:</strong> Это может указывать на начальную стадию коррозии под краской."},{"text":"<strong>Выхлопные газы в салоне:</strong> Замечаете запах выхлопных газов внутри автомобиля?","risk":"<strong>🚩 Риск отравления угарным газом:</strong>  Это очень опасно и может быть вызвано коррозией в выхлопной системе."},{"text":"<strong>Проблемы с открыванием/закрыванием дверей:</strong>  Двери стали плохо открываться или закрываться?","risk":"<strong>🚩 Риск повреждения петель:</strong> Коррозия петель может затруднить открытие и закрытие дверей, а также привести к их поломке."},{"text":"<strong>Рыжики на деталях из металла:</strong> Видите небольшие рыжие пятна на металлических частях автомобиля?","risk":"<strong>🚩 Риск распространения ржавчины:</strong>  Даже небольшие очаги ржавчины могут быстро распространиться на большие площади."},{"text":"<strong>Проблемы с тормозной системой:</strong> Заметили неисправности в тормозной системе, например, ухудшение эффективности торможения?","risk":"<strong>🚩 Риск аварии:</strong> Коррозия элементов тормозной системы может привести к серьезным авариям."},{"text":"<strong>Плохой контакт электропроводки:</strong> Заметили проблемы с электрикой, например, неработающие фары или стеклоподъемники?","risk":"<strong>🚩 Риск короткого замыкания:</strong> Коррозия может повредить проводку, вызвав короткое замыкание и пожар."},{"text":"<strong>Неровности на поверхности металла:</strong> Прощупайте поверхность кузова на наличие неровностей или бугорков.","risk":"<strong>🚩 Риск разрушения структуры металла:</strong> Неровности могут указывать на наличие скрытой коррозии."},{"text":"<strong>Ухудшение управляемости автомобиля:</strong> Появились трудности с управлением автомобилем?","risk":"<strong>🚩 Риск аварии:</strong> Коррозия элементов подвески и рулевого управления может серьезно повлиять на управляемость."},{"text":"<strong>Наличие влаги в багажнике:</strong>  Заметили повышенную влажность или лужицу воды в багажнике?","risk":"<strong>🚩 Риск повреждения багажника и содержимого:</strong> Это может быть вызвано коррозией днища автомобиля."}];
-        const apiKey = "AIzaSyBQx_0xPlhGmlRwuDFC52rRkgy_MB5d0yg";
 
-        document.addEventListener('DOMContentLoaded', () => {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const checklistData = [
+                {"text":"<strong>Появление пузырей на краске:</strong> Заметили вздутия или пузыри на поверхности кузова? Это может быть признаком коррозии под краской.","risk":"<strong>🚩 Риск разрушения кузова:</strong> Если коррозия распространится, это может привести к серьезному повреждению кузова и необходимости дорогостоящего ремонта или даже замены частей."},
+                {"text":"<strong>Странные звуки при движении:</strong> Слышите скрипы, скрежет или стуки при проезде неровностей?","risk":"<strong>🚩 Риск повреждения подвески:</strong> Это может указывать на коррозию элементов подвески, что приведет к опасности на дороге и дорогостоящему ремонту."},
+                {"text":"<strong>Наличие ржавчины в скрытых местах:</strong> Проверьте скрытые участки, например, под днищем, в колесных арках, порогах и под капотом.","risk":"<strong>🚩 Риск прогнивания металла:</strong> Ржавчина в труднодоступных местах может быстро распространяться, приводя к серьезным повреждениям."},
+                {"text":"<strong>Повышенная влажность в салоне:</strong> Чувствуете неприятный запах сырости или повышенную влажность в салоне автомобиля?","risk":"<strong>🚩 Риск повреждения электроники:</strong> Влажность может повредить электронику, вызвав короткое замыкание и дорогостоящий ремонт."},
+                {"text":"<strong>Потеря блеска краски:</strong> Краска стала тусклой и потускневшей в некоторых местах?","risk":"<strong>🚩 Риск образования очагов коррозии:</strong> Это может указывать на начальную стадию коррозии под краской."},
+                {"text":"<strong>Выхлопные газы в салоне:</strong> Замечаете запах выхлопных газов внутри автомобиля?","risk":"<strong>🚩 Риск отравления угарным газом:</strong> Это очень опасно и может быть вызвано коррозией в выхлопной системе."},
+                {"text":"<strong>Проблемы с открыванием/закрыванием дверей:</strong> Двери стали плохо открываться или закрываться?","risk":"<strong>🚩 Риск повреждения петель:</strong> Коррозия петель может затруднить открытие и закрытие дверей, а также привести к их поломке."},
+                {"text":"<strong>Рыжики на деталях из металла:</strong> Видите небольшие рыжие пятна на металлических частях автомобиля?","risk":"<strong>🚩 Риск распространения ржавчины:</strong> Даже небольшие очаги ржавчины могут быстро распространиться на большие площади."},
+                {"text":"<strong>Проблемы с тормозной системой:</strong> Заметили неисправности в тормозной системе, например, ухудшение эффективности торможения?","risk":"<strong>🚩 Риск аварии:</strong> Коррозия элементов тормозной системы может привести к серьезным авариям."},
+                {"text":"<strong>Плохой контакт электропроводки:</strong> Заметили проблемы с электрикой, например, неработающие фары или стеклоподъемники?","risk":"<strong>🚩 Риск короткого замыкания:</strong> Коррозия может повредить проводку, вызвав короткое замыкание и пожар."},
+                {"text":"<strong>Неровности на поверхности металла:</strong> Прощупайте поверхность кузова на наличие неровностей или бугорков.","risk":"<strong>🚩 Риск разрушения структуры металла:</strong> Неровности могут указывать на наличие скрытой коррозии."},
+                {"text":"<strong>Ухудшение управляемости автомобиля:</strong> Появились трудности с управлением автомобилем?","risk":"<strong>🚩 Риск аварии:</strong> Коррозия элементов подвески и рулевого управления может серьезно повлиять на управляемость."},
+                {"text":"<strong>Наличие влаги в багажнике:</strong> Заметили повышенную влажность или лужицу воды в багажнике?","risk":"<strong>🚩 Риск повреждения багажника и содержимого:</strong> Это может быть вызвано коррозией днища автомобиля."}
+            ];
+
             const checklistGroup = document.getElementById('checklist-group');
+            if (checklistGroup) {
+                checklistData.forEach(item => {
+                    const li = document.createElement('li');
+                    li.className = 'p-4 sm:p-6';
+                    
+                    const label = document.createElement('label');
+                    label.className = 'custom-checkbox flex items-start cursor-pointer';
+                    
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.className = 'hidden checklist-item';
+                    
+                    const checkmark = document.createElement('div');
+                    checkmark.className = 'checkmark flex-shrink-0 w-6 h-6 rounded-md border-2 border-slate-300 bg-slate-100 mr-4 mt-1 flex items-center justify-center transition-all duration-300';
+                    checkmark.innerHTML = `<svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>`;
+                    
+                    const textSpan = document.createElement('span');
+                    textSpan.className = 'checklist-text text-base text-slate-700';
+                    textSpan.innerHTML = item.text;
+                    
+                    label.appendChild(checkbox);
+                    label.appendChild(checkmark);
+                    label.appendChild(textSpan);
+                    
+                    li.appendChild(label);
+                    
+                    if (item.risk) {
+                        const riskDiv = document.createElement('div');
+                        riskDiv.className = 'risk-explanation ml-10 p-3 bg-red-50 border border-red-200 rounded-lg text-red-800 text-sm';
+                        riskDiv.innerHTML = item.risk;
+                        li.appendChild(riskDiv);
+                    }
+                    
+                    checklistGroup.appendChild(li);
+                });
+            }
+
+            // DOM элементы
             const checkButton = document.getElementById('checkButton');
-            const resultMessage = document.getElementById('resultMessage');
+            const checkboxes = document.querySelectorAll('.checklist-item');
+            const resultMessageDiv = document.getElementById('resultMessage');
             const aiDoctorContainer = document.getElementById('aiDoctorContainer');
             const geminiLoader = document.getElementById('geminiLoader');
             const geminiAdviceDiv = document.getElementById('geminiAdvice');
             const aiDoctorActions = document.getElementById('aiDoctorActions');
 
-            // Render checklist
-            testData.forEach(item => {
-                const li = document.createElement('li');
-                li.className = 'p-4 sm:p-6';
-                li.innerHTML = `
-                    <label class="custom-checkbox flex items-start cursor-pointer">
-                        <input type="checkbox" class="hidden checklist-item">
-                        <div class="checkmark flex-shrink-0 w-6 h-6 rounded-md border-2 border-slate-300 bg-slate-100 mr-4 mt-1 flex items-center justify-center transition-all duration-300">
-                            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-                        </div>
-                        <span class="checklist-text text-base text-slate-700">${item.text}</span>
-                    </label>
-                    <div class="risk-explanation ml-10 p-3 bg-red-50 border border-red-200 rounded-lg text-red-800 text-sm">${item.risk}</div>
-                `;
-                checklistGroup.appendChild(li);
-            });
-
-            document.querySelectorAll('.checklist-item').forEach(checkbox => {
+            // Обработчик изменения чекбокса
+            checkboxes.forEach(checkbox => {
                 checkbox.addEventListener('change', (event) => {
                     const li = event.target.closest('li');
                     const riskDiv = li.querySelector('.risk-explanation');
@@ -84,40 +230,8 @@
                     }
                 });
             });
-
-            checkButton.addEventListener('click', checkResults);
-
-            function checkResults() {
-                const checkedCheckboxes = document.querySelectorAll('.checklist-item:checked');
-                const checkedCount = checkedCheckboxes.length;
-                const checkedItems = Array.from(checkedCheckboxes).map(cb => cb.closest('label').querySelector('.checklist-text').innerText);
-                
-                resultMessage.className = 'hidden mt-8 max-w-2xl mx-auto p-6 rounded-2xl text-lg font-medium text-center';
-                const ctaButton = `<a href="https://wa.me/79213885714" target="_blank" class="mt-4 inline-block bg-white text-indigo-600 font-bold px-6 py-3 rounded-lg shadow-md hover:bg-indigo-50">Получить консультацию</a>`;
-
-                let message = '', resultType = '';
-                if (checkedCount >= 2) {
-                    resultType = 'warning';
-                    message = `<strong>Внимание, высокий риск!</strong> Вы отметили <strong>${checkedCount}</strong> пункта(ов).<br>Не откладывайте решение этого вопроса. ${ctaButton}`;
-                    resultMessage.classList.add('bg-amber-100', 'border-2', 'border-amber-200', 'text-amber-900');
-                } else if (checkedCount === 1) {
-                    resultType = 'success';
-                    message = `Вы отметили <strong>1</strong> пункт. Это повод для внимания.<br>Чтобы быть в курсе, получите консультацию. ${ctaButton}`;
-                    resultMessage.classList.add('bg-green-100', 'border-2', 'border-green-200', 'text-green-900');
-                } else {
-                     resultType = 'success';
-                     message = `Вы не отметили ни одного пункта. Отличный результат! <br>Чтобы и дальше быть уверенным, получите консультацию. ${ctaButton}`;
-                     resultMessage.classList.add('bg-green-100', 'border-2', 'border-green-200', 'text-green-900');
-                }
-                
-                resultMessage.innerHTML = message;
-                resultMessage.classList.remove('hidden');
-                resultMessage.classList.add('fade-in');
-                resultMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                
-                if (checkedCount > 0) getGeminiAdvice(checkedItems, resultType);
-            }
-
+            
+            // Функция для получения совета от Gemini
             async function getGeminiAdvice(checkedItems, resultType) {
                 aiDoctorContainer.classList.remove('hidden');
                 aiDoctorContainer.classList.add('fade-in');
@@ -125,21 +239,38 @@
                 geminiAdviceDiv.classList.add('hidden');
                 aiDoctorActions.classList.add('hidden');
                 
-                let prompt = resultType === 'warning'
-                    ? `Выступи в роли опытного эксперта по теме. Пользователь обеспокоен, так как тест выявил следующие риски: ${checkedItems.join(', ')}. Очень коротко (до 500 символов), без нумерации и звездочек, успокой его. Скажи, что ситуация требует внимания, но большинство вопросов решаемы. Посоветуй записаться на консультацию для точного анализа. Твоя цель — снизить тревожность и направить на консультацию.`
-                    : `Выступи в роли опытного эксперта по теме. У пользователя хорошие результаты теста, но он отметил: ${checkedItems.join(', ')}. Очень коротко (до 500 символов), без нумерации и звездочек, похвали его за ответственный подход. Посоветуй записаться на консультацию для плановой проверки или присоединиться к группе. Твоя цель — поддержать и направить.`;
+                let prompt;
+                if (resultType === 'warning') {
+                    prompt = `Выступи в роли опытного эксперта по антикоррозийной обработке. Пользователь обеспокоен, так как тест выявил следующие признаки коррозии: ${checkedItems.join(', ')}. Очень коротко (до 500 символов) и без звездочек успокой его. Скажи, что это частые проблемы, и главное — вовремя принять меры. Посоветуй записаться на профессиональную диагностику, чтобы точно определить степень повреждений и подобрать правильный метод защиты. Твоя цель — снизить тревожность и мотивировать на визит в сервис.`;
+                } else {
+                    prompt = `Выступи в роли опытного эксперта по антикоррозийной обработке. У пользователя хорошие результаты теста, но он отметил: ${checkedItems.join(', ')}. Очень коротко (до 500 символов) и без звездочек похвали его за внимательное отношение к автомобилю. Посоветуй для профилактики и сохранения отличного состояния кузова записаться на плановый осмотр или задать вопрос в группе. Твоя цель — поддержать и предложить профилактические меры.`;
+                }
 
                 try {
+                    const apiKey = "AIzaSyBQx_0xPlhGmlRwuDFC52rRkgy_MB5d0yg";
                     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+                    
                     const response = await fetch(apiUrl, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
                     });
-                    if (!response.ok) throw new Error(`API Error: ${response.statusText}`);
+
+                    if (!response.ok) {
+                        throw new Error(`API Error: ${response.statusText}`);
+                    }
+
                     const result = await response.json();
-                    const text = result.candidates[0].content.parts[0].text;
+                    
+                    let text = "Не удалось получить совет. Попробуйте еще раз.";
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        text = result.candidates[0].content.parts[0].text;
+                    }
+                    
                     geminiAdviceDiv.innerHTML = text.replace(/\*/g, '').replace(/\n/g, '<br><br>');
+
                 } catch (error) {
                     console.error("Ошибка AI-советника:", error);
                     geminiAdviceDiv.innerHTML = "К сожалению, произошла ошибка при генерации совета. Для срочной помощи свяжитесь с нами напрямую.";
@@ -150,6 +281,50 @@
                     aiDoctorContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }
             }
+
+            // Основная функция проверки результатов
+            function checkResults() {
+                const checkedCheckboxes = document.querySelectorAll('.checklist-item:checked');
+                const checkedCount = checkedCheckboxes.length;
+                
+                const checkedItems = Array.from(checkedCheckboxes).map(cb => {
+                    return cb.closest('label').querySelector('.checklist-text').innerText;
+                });
+                
+                resultMessageDiv.className = 'hidden mt-8 max-w-2xl mx-auto p-6 rounded-2xl text-lg font-medium text-center';
+                
+                const ctaButton = `<a href="https://wa.me/79213885714" target="_blank" class="mt-4 inline-block bg-white text-indigo-600 font-bold px-6 py-3 rounded-lg shadow-md hover:bg-indigo-50">Получить консультацию</a>`;
+
+                let message = '';
+                let resultType = '';
+
+                if (checkedCount >= 2) {
+                    resultType = 'warning';
+                    message = `<strong>Внимание, высокий риск!</strong> Вы отметили <strong>${checkedCount}</strong> пункта(ов).<br>Не откладывайте решение этого вопроса. ${ctaButton}`;
+                    resultMessageDiv.classList.add('bg-amber-100', 'border-2', 'border-amber-200', 'text-amber-900');
+                } else if (checkedCount === 1) {
+                    resultType = 'success';
+                    message = `Вы отметили <strong>1</strong> пункт. Это повод для внимания.<br>Чтобы быть в курсе, получите консультацию. ${ctaButton}`;
+                    resultMessageDiv.classList.add('bg-green-100', 'border-2', 'border-green-200', 'text-green-900');
+                } else {
+                    resultType = 'success';
+                    message = `Вы не отметили ни одного пункта. Отличный результат! <br>Чтобы и дальше быть уверенным, получите консультацию. ${ctaButton}`;
+                    resultMessageDiv.classList.add('bg-green-100', 'border-2', 'border-green-200', 'text-green-900');
+                }
+                
+                resultMessageDiv.innerHTML = message;
+                resultMessageDiv.classList.remove('hidden');
+                resultMessageDiv.classList.add('fade-in');
+                
+                if (checkedCount > 0) {
+                    getGeminiAdvice(checkedItems, resultType);
+                } else {
+                    resultMessageDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    aiDoctorContainer.classList.add('hidden');
+                }
+            }
+
+            checkButton.addEventListener('click', checkResults);
         });
     </script>
 </body>
