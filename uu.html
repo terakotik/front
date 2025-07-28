@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -68,12 +68,20 @@
             border-bottom: 1px solid #E2E8F0;
         }
 
-        .hero-bg {
-            background-color: var(--dark-blue);
-            background-image: linear-gradient(var(--primary-cyan), transparent),
-                              linear-gradient(to top left, #051020, transparent),
-                              linear-gradient(to top right, #051020, transparent);
-            background-blend-mode: screen;
+        .hero-section {
+            position: relative;
+            background-image: url('https://vlast.kz/media/pages/cr/1455789427zur8e_1000x768.jpeg');
+            background-size: cover;
+            background-position: center;
+        }
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(10, 25, 47, 0.7); /* --dark-blue with opacity */
         }
         
         #oil-terminal {
@@ -99,13 +107,6 @@
         }
         #oil-terminal:hover {
             box-shadow: 0 0 15px rgba(0, 169, 224, 0.5);
-        }
-        .blinking-cursor::after {
-            content: '_';
-            animation: blink 1s step-end infinite;
-        }
-        @keyframes blink {
-            50% { opacity: 0; }
         }
         
         .amg-interference-text {
@@ -144,7 +145,23 @@
             from { height: 10%; }
             to { height: 90%; }
         }
-
+        
+        /* Стили для модального окна */
+        #amg-modal-overlay {
+            transition: opacity 0.3s ease-in-out;
+        }
+        #amg-modal {
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+        #amg-modal-content {
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #39FF14;
+            text-shadow: 0 0 5px rgba(57, 255, 20, 0.5);
+            height: 70vh;
+            overflow-y: auto;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -202,8 +219,8 @@
         </div>
         
         <main>
-            <section class="hero-bg text-white">
-                <div class="container mx-auto px-4 py-24 md:py-48 text-center">
+            <section class="hero-section text-white">
+                <div class="container mx-auto px-4 py-24 md:py-48 text-center relative z-10">
                     <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight max-w-4xl mx-auto fade-in-up">
                         Энергия недр для&nbsp;уверенного будущего
                     </h1>
@@ -327,6 +344,17 @@
         </footer>
     </div>
 
+    <!-- Модальное окно AMG -->
+    <div id="amg-modal-overlay" class="fixed inset-0 bg-black/70 z-50 hidden opacity-0"></div>
+    <div id="amg-modal" class="fixed inset-0 flex items-center justify-center p-4 z-50 hidden opacity-0 scale-95">
+        <div id="amg-modal-box" class="bg-black border-2 border-[var(--primary-cyan)] rounded-lg shadow-2xl w-full max-w-2xl p-6 relative" style="box-shadow: 0 0 30px rgba(0, 169, 224, 0.5);">
+            <button id="amg-modal-close" class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors">
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+            <pre id="amg-modal-content"></pre>
+        </div>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
              // --- Эффект Motion Blur при скролле ---
@@ -395,42 +423,69 @@
 
             // Интерактивность для терминала
             const terminal = document.getElementById('oil-terminal');
+            const amgModalOverlay = document.getElementById('amg-modal-overlay');
+            const amgModal = document.getElementById('amg-modal');
+            const amgModalBox = document.getElementById('amg-modal-box');
+            const amgModalClose = document.getElementById('amg-modal-close');
+            const amgModalContent = document.getElementById('amg-modal-content');
+
+            const improvementsText = `
+ИНИЦИАЛИЗАЦИЯ ЯДРА AMG TURBO... OK
+ЗАГРУЗКА МОДУЛЯ ПРОИЗВОДИТЕЛЬНОСТИ... OK
+------------------------------------
+ПРОТОКОЛ ОБНОВЛЕНИЯ САЙТА АКТИВИРОВАН:
+
+> УСКОРЕНИЕ ПРОИЗВОДИТЕЛЬНОСТИ: ВКЛЮЧЕНО
+  - РЕАКТИВНЫЙ СКРОЛЛ И MOTION BLUR
+  - АСИНХРОННАЯ ЗАГРУЗКА ШРИФТОВ
+  - МОНИТОРИНГ WEB VITALS В РЕАЛЬНОМ ВРЕМЕНИ
+
+> ОПТИМИЗАЦИЯ UI/UX: ВКЛЮЧЕНА
+  - ПРЕМИАЛЬНАЯ КОМПОНОВКА И "ВОЗДУХ"
+  - ТИПОГРАФИЧЕСКАЯ ИЕРАРХИЯ
+  - ИСПРАВЛЕНИЕ ВИСЯЧИХ ПРЕДЛОГОВ
+
+> ИНТЕРАКТИВНОЕ ЯДРО: ВКЛЮЧЕНО
+  - SVG-ЛОГОТИП И АНИМАЦИИ
+  - РЕАКТИВНОЕ МОБИЛЬНОЕ МЕНЮ
+  - ДИНАМИЧЕСКИЙ ТЕРМИНАЛ В ФУТЕРЕ
+
+> БРЕНДИНГ: УСИЛЕН
+  - СОВРЕМЕННАЯ ЦВЕТОВАЯ ПАЛИТРА
+  - ТЕМАТИЧЕСКИЕ ИКОНКИ
+  - ФИРМЕННАЯ ПОДПИСЬ AMG CORE
+
+СТАТУС СИСТЕМЫ: ОПТИМАЛЬНЫЙ
+            `;
+
+            const fx = new TextScramble(amgModalContent);
+
+            const showModal = () => {
+                amgModalOverlay.classList.remove('hidden');
+                amgModal.classList.remove('hidden');
+                setTimeout(() => {
+                    amgModalOverlay.classList.remove('opacity-0');
+                    amgModal.classList.remove('opacity-0', 'scale-95');
+                    fx.setText(improvementsText);
+                }, 10);
+            };
+
+            const hideModal = () => {
+                amgModalOverlay.classList.add('opacity-0');
+                amgModal.classList.add('opacity-0', 'scale-95');
+                setTimeout(() => {
+                    amgModalOverlay.classList.add('hidden');
+                    amgModal.classList.add('hidden');
+                    amgModalContent.innerHTML = '';
+                }, 300);
+            };
+
             if (terminal) {
-                const originalContent = terminal.innerHTML;
-                const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-
-                const runAnimation = async () => {
-                    if(terminal.classList.contains('is-animating')) return;
-                    terminal.classList.add('is-animating');
-                    
-                    // Stage 1: System Check
-                    terminal.innerHTML = `<p id="system-check-text" class="text-green-400"></p>`;
-                    const fxCheck = new TextScramble(document.getElementById('system-check-text'));
-                    await fxCheck.setText('SYSTEMS CHECK...');
-                    await wait(1500);
-
-                    // Stage 2: Pressure Analysis
-                    terminal.innerHTML = `<p class="text-gray-400">> PRESSURE ANALYSIS</p><div id="pressure-graph" class="w-full h-full"></div>`;
-                    const graphEl = document.getElementById('pressure-graph');
-                    graphEl.innerHTML = `<svg class="w-full h-full" viewBox="0 0 80 40"><path d="M0 35 C 20 5, 40 5, 60 25 L 80 20" stroke="var(--primary-cyan)" fill="none" stroke-width="1"/></svg>`;
-                    await wait(1500);
-
-                    // Stage 3: AMG CORE
-                    terminal.innerHTML = ''; 
-                    const amgText = document.createElement('p');
-                    amgText.className = 'amg-interference-text';
-                    amgText.innerText = 'AMG CORE';
-                    terminal.appendChild(amgText);
-                    terminal.classList.add('effect-interference');
-                    await wait(1200);
-
-                    // Revert
-                    terminal.innerHTML = originalContent;
-                    terminal.classList.remove('is-animating', 'effect-interference');
-                };
-
-                terminal.addEventListener('click', runAnimation);
+                terminal.addEventListener('click', showModal);
             }
+            amgModalClose.addEventListener('click', hideModal);
+            amgModal.addEventListener('click', hideModal);
+            amgModalBox.addEventListener('click', (e) => e.stopPropagation());
 
             // Логика гамбургер-меню
             const menuBtn = document.getElementById('menu-btn');
