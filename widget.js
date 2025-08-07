@@ -1,7 +1,7 @@
 /**
  * WhatsApp Chat Widget
- * * @author 1target.ru
- * @version 2.0.0
+ * @author 1target.ru
+ * @version 2.1.0
  */
 (function() {
     // --- НАСТРОЙКИ ВИДЖЕТА (меняйте значения здесь) ---
@@ -33,16 +33,9 @@
      * Инициализация виджета после полной загрузки страницы
      */
     function initWidget() {
-        // 1. Подключаем внешние ресурсы (шрифты и иконки)
         loadExternalResources();
-
-        // 2. Создаем и внедряем CSS стили
         injectStyles();
-
-        // 3. Создаем и внедряем HTML-структуру виджета
         injectHTML();
-
-        // 4. Назначаем обработчики событий
         attachEventListeners();
     }
 
@@ -76,12 +69,21 @@
                 right: 20px;
                 z-index: 1000;
                 font-family: 'Inter', sans-serif;
+                /* ИСПРАВЛЕНИЕ: Задаем ширину здесь, чтобы все дочерние элементы ее наследовали */
+                width: calc(100vw - 40px);
+                max-width: 288px;
+            }
+            @media (min-width: 768px) {
+                .wa-widget-container {
+                    max-width: 320px;
+                }
             }
             .wa-widget-wrapper {
                 display: flex;
                 flex-direction: column;
                 align-items: flex-end;
                 transition: all 0.3s ease;
+                width: 100%;
             }
             .wa-expanded-view {
                 background-color: #f9fafb;
@@ -123,8 +125,7 @@
                 margin-bottom: 0;
             }
             .wa-widget-form {
-                max-width: 288px;
-                width: calc(100vw - 40px);
+                width: 100%;
                 background-color: white;
                 border-radius: 1rem;
                 box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.15);
@@ -132,9 +133,6 @@
                 align-items: center;
                 padding: 8px;
                 animation: wa-widget-slideInFromRight 0.7s ease-out forwards;
-            }
-            @media (min-width: 768px) {
-                .wa-widget-form, .wa-expanded-view { max-width: 320px; }
             }
             .wa-widget-input {
                 color: #374151;
@@ -175,6 +173,9 @@
                 animation: wa-widget-pulse 2s infinite;
             }
             .wa-dev-link {
+                display: block;
+                width: 100%;
+                text-align: right;
                 font-size: 10px;
                 color: #9ca3af;
                 text-decoration: none;
@@ -237,7 +238,8 @@
         input.addEventListener('focus', () => wrapper.classList.add('expanded'));
 
         document.addEventListener('click', (event) => {
-            if (!wrapper.contains(event.target)) {
+            const container = document.querySelector('.wa-widget-container');
+            if (!container.contains(event.target)) {
                 wrapper.classList.remove('expanded');
             }
         });
