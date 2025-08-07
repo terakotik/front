@@ -7,7 +7,7 @@
     // --- НАСТРОЙКИ ВИДЖЕТА (меняйте значения здесь) ---
     const config = {
         // Номер WhatsApp для отправки
-        whatsappPhoneNumber: '79626866966',
+        whatsappPhoneNumber: '79108247848',
 
         // Текст в свернутом виде
         placeholderText: 'Здравствуйте, напишите нам',
