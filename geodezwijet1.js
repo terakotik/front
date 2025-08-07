@@ -1,7 +1,7 @@
 /**
  * WhatsApp Chat Widget - Universal & Tech Edition
  * @author 1target.ru
- * @version 3.0.0
+ * @version 3.1.0
  */
 (function() {
     // --- НАСТРОЙКИ ВИДЖЕТА (меняйте значения здесь) ---
@@ -60,136 +60,128 @@
      */
     function injectStyles() {
         const styles = `
-            :root {
-                --wa-brand-start: ${config.buttonGradientStart};
-                --wa-brand-end: ${config.buttonGradientEnd};
-                --wa-bg-light: #ffffff;
-                --wa-bg-dark: #111827;
-                --wa-bg-dark-hover: #1f2937;
-                --wa-text-light: #f9fafb;
-                --wa-text-dark: #374151;
-                --wa-border-color: #374151;
-            }
             .wa-widget-container, .wa-widget-container * {
-                box-sizing: border-box !important;
+                box-sizing: border-box;
                 -webkit-font-smoothing: antialiased;
                 -moz-osx-font-smoothing: grayscale;
             }
             .wa-widget-container {
-                position: fixed !important;
-                bottom: 20px !important;
-                right: 20px !important;
-                z-index: 2147483647 !important; /* Max z-index */
-                font-family: 'Inter', sans-serif !important;
-                width: calc(100vw - 40px) !important;
-                max-width: 320px !important;
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                z-index: 2147483647;
+                font-family: 'Inter', sans-serif;
+                width: calc(100vw - 40px);
+                max-width: 320px;
             }
             .wa-widget-wrapper {
-                display: flex !important;
-                flex-direction: column !important;
-                align-items: flex-end !important;
-                transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
-                width: 100% !important;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+                transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+                width: 100%;
             }
             .wa-expanded-view {
-                background-color: var(--wa-bg-dark) !important;
-                border: 1px solid var(--wa-border-color) !important;
-                border-radius: 1rem !important;
-                padding: 1rem !important;
-                margin-bottom: 12px !important;
-                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1) !important;
-                width: 100% !important;
-                transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out, transform 0.4s ease-in-out !important;
-                max-height: 0 !important;
-                opacity: 0 !important;
-                overflow: hidden !important;
-                transform: translateY(15px) !important;
+                background-color: #f9fafb; /* Светлый фон */
+                border: 1px solid #e5e7eb;
+                border-radius: 1rem;
+                padding: 1rem;
+                margin-bottom: 12px;
+                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+                width: 100%;
+                transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out, transform 0.4s ease-in-out;
+                max-height: 0;
+                opacity: 0;
+                overflow: hidden;
+                transform: translateY(15px);
             }
             .wa-widget-wrapper.expanded .wa-expanded-view {
-                max-height: 300px !important;
-                opacity: 1 !important;
-                transform: translateY(0) !important;
+                max-height: 300px;
+                opacity: 1;
+                transform: translateY(0);
             }
             .wa-quick-reply-btn {
-                width: 100% !important;
-                padding: 12px !important;
-                margin-bottom: 8px !important;
-                border: 1px solid var(--wa-border-color) !important;
-                border-radius: 0.75rem !important;
-                background-color: var(--wa-bg-dark-hover) !important;
-                text-align: left !important;
-                font-size: 0.875rem !important;
-                font-weight: 500 !important;
-                color: var(--wa-text-light) !important;
-                cursor: pointer !important;
-                transition: all 0.2s ease !important;
+                width: 100%;
+                padding: 12px;
+                margin-bottom: 8px;
+                border: 1px solid #e5e7eb;
+                border-radius: 0.75rem;
+                background-color: #ffffff;
+                text-align: left;
+                font-size: 0.875rem;
+                font-weight: 500;
+                color: #374151;
+                cursor: pointer;
+                transition: all 0.2s ease;
             }
             .wa-quick-reply-btn:hover {
-                background-color: var(--wa-border-color) !important;
-                transform: translateY(-2px) !important;
+                background-color: #f3f4f6;
+                border-color: #d1d5db;
+                transform: translateY(-2px);
             }
             .wa-quick-reply-btn:last-child {
-                margin-bottom: 0 !important;
+                margin-bottom: 0;
             }
             .wa-widget-form {
-                width: 100% !important;
-                background-color: var(--wa-bg-light) !important;
-                border-radius: 1rem !important;
-                box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.15) !important;
-                display: flex !important;
-                align-items: center !important;
-                padding: 8px !important;
-                animation: wa-widget-slideInFromRight 0.7s ease-out forwards !important;
+                width: 100%;
+                background-color: #ffffff;
+                border-radius: 1rem;
+                box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.15);
+                display: flex;
+                align-items: center;
+                padding: 8px;
+                animation: wa-widget-slideInFromRight 0.7s ease-out forwards;
             }
             .wa-widget-input {
-                color: var(--wa-text-dark) !important;
-                padding-left: 12px !important;
-                padding-right: 8px !important;
-                flex-grow: 1 !important;
-                background-color: transparent !important;
-                border: none !important;
-                font-size: 0.875rem !important;
-                font-weight: 500 !important;
-                min-width: 0 !important;
+                color: #374151;
+                padding-left: 12px;
+                padding-right: 8px;
+                flex-grow: 1;
+                background-color: transparent;
+                border: none;
+                font-size: 0.875rem;
+                font-weight: 500;
+                min-width: 0;
             }
-            .wa-widget-input::placeholder { color: #6b7280 !important; }
-            .wa-widget-input:focus { outline: none !important; }
+            .wa-widget-input::placeholder { color: #6b7280; }
+            .wa-widget-input:focus { outline: none; }
             .wa-widget-button {
-                background: linear-gradient(45deg, var(--wa-brand-start), var(--wa-brand-end)) !important;
-                color: white !important;
-                width: 40px !important;
-                height: 40px !important;
-                border-radius: 50% !important;
-                display: flex !important;
-                align-items: center !important;
-                justify-content: center !important;
-                flex-shrink: 0 !important;
-                border: none !important;
-                cursor: pointer !important;
-                transition: transform 0.2s ease !important;
-                animation: wa-widget-shake 10s cubic-bezier(.36,.07,.19,.97) both infinite !important;
+                background: linear-gradient(45deg, ${config.buttonGradientStart}, ${config.buttonGradientEnd});
+                color: white;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                /* ИСПРАВЛЕНИЕ: Запрещаем кнопке сжиматься */
+                flex-shrink: 0;
+                border: none;
+                cursor: pointer;
+                transition: transform 0.2s ease;
+                animation: wa-widget-shake 10s cubic-bezier(.36,.07,.19,.97) both infinite;
             }
-            .wa-widget-button:hover { transform: scale(1.1) !important; }
+            .wa-widget-button:hover { transform: scale(1.1); }
             .wa-online-indicator {
-                width: 10px !important;
-                height: 10px !important;
-                background-color: #22c55e !important;
-                border-radius: 50% !important;
-                margin-left: 1rem !important;
-                flex-shrink: 0 !important;
-                animation: wa-widget-pulse 2s infinite !important;
+                width: 10px;
+                height: 10px;
+                background-color: #22c55e;
+                border-radius: 50%;
+                margin-left: 1rem;
+                flex-shrink: 0;
+                animation: wa-widget-pulse 2s infinite;
             }
             .wa-dev-link {
-                display: block !important;
-                width: 100% !important;
-                text-align: right !important;
-                font-size: 10px !important;
-                color: #9ca3af !important;
-                text-decoration: none !important;
-                margin-top: 6px !important;
-                transition: color 0.2s !important;
+                display: block;
+                width: 100%;
+                text-align: right;
+                font-size: 10px;
+                color: #9ca3af;
+                text-decoration: none;
+                margin-top: 6px;
+                transition: color 0.2s;
             }
-            .wa-dev-link:hover { color: #4b5563 !important; }
+            .wa-dev-link:hover { color: #4b5563; }
             @keyframes wa-widget-slideInFromRight { 0% { transform: translateX(110%); opacity: 0; } 100% { transform: translateX(0); opacity: 1; } }
             @keyframes wa-widget-pulse { 0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); } 70% { box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); } 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); } }
             @keyframes wa-widget-shake { 1%, 9% { transform: translate3d(-1px, 0, 0) rotate(-3deg); } 2%, 8% { transform: translate3d(2px, 0, 0) rotate(3deg); } 3%, 5%, 7% { transform: translate3d(-3px, 0, 0) rotate(-3deg); } 4%, 6% { transform: translate3d(3px, 0, 0) rotate(3deg); } 10%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); } }
