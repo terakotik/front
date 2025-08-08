@@ -1,7 +1,7 @@
 **
  * WhatsApp Chat Widget
  * @author 1target.ru
- * @version 4.0.0
+ * @version 5.0.0 (Stable JS Version)
  */
 (function() {
     // --- НАСТРОЙКИ ВИДЖЕТА (меняйте значения здесь) ---
@@ -19,7 +19,7 @@
             message: 'Здравствуйте! Могу я чем-то помочь?'
         },
         developerLink: 'https://1target.ru',
-        developerText: 'Установить на свой сайт'
+        developerText: 'Установить себе на сайт'
     };
     // ----------------------------------------------------
 
