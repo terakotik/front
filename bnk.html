@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Студия Освещения: Макет Telegram-бота</title>
+    <title>Студия Освещения: Макет Telegram-бота (LLM)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
@@ -26,7 +26,7 @@
             align-items: center;
             justify-content: center;
             height: 56px;
-            font-size: 1rem; /* Уменьшен размер для текста */
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.1s ease;
@@ -56,10 +56,11 @@
             transform: translate(3px, 3px);
         }
 
-        /* Стиль для главного изображения и загрузки */
+        /* Стиль для области вывода текста */
         .visualization-container {
             width: 100%;
-            height: 250px;
+            height: auto; 
+            min-height: 150px;
             background-color: #2D3748; /* Темный фон для имитации ночного вида */
             color: white;
             display: flex;
@@ -67,14 +68,11 @@
             justify-content: center;
             font-weight: 600;
             border-radius: 8px;
-            font-size: 0.9rem;
+            font-size: 1rem;
             border: 2px solid #000;
             overflow: hidden;
-        }
-        .visualization-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            padding: 16px;
+            text-align: left;
         }
         
         /* Спиннер загрузки */
@@ -143,22 +141,43 @@
     <!-- Панель управления/кнопки (Всегда внизу) -->
     <div id="controls-panel" class="fixed-controls">
         <!-- Кнопки будут вставляться сюда JS-ом -->
+        <div class="text-xs text-center text-gray-500" id="auth-status">Загрузка сервисов...</div>
     </div>
 
-    <script>
-        // --- API Константы ---
-        const apiKey = ""; // API Key будет предоставлен средой
-        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/imagen-4.0-generate-001:predict?key=${apiKey}`;
+    <script type="module">
+        // --- Firebase Imports ---
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // --- API Константы (Используем Gemini LLM для симуляции Mistral-задачи) ---
+        const apiKey = ""; 
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+
+        // --- Firebase Globals ---
+        let db = null;
+        let auth = null;
+        let userId = null;
+        let isAuthReady = false;
+        let appId = 'default-app-id'; 
+        
+        // Get globals provided by the environment
+        if (typeof __app_id !== 'undefined') { appId = __app_id; }
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
 
         // --- Глобальное Состояние и Элементы DOM ---
         let currentState = 'upload'; // 'upload', 'processing', 'result'
         let currentMode = 'mono';
         let currentFixtures = 5;
-        let imageUrl = ''; // URL сгенерированного изображения
+        let generatedText = ''; 
+        let userDescription = ''; 
 
         const chatContainer = document.getElementById('chat-container');
         const contentArea = document.getElementById('content-area');
         const controlsPanel = document.getElementById('controls-panel');
+        const authStatusElement = document.getElementById('auth-status');
         
         const LABELS = {
             UPLOAD: 'Загрузить фото/план',
@@ -168,7 +187,7 @@
             MONO: 'Однотонное',
             FIXTURES_5: '5 Светильников',
             FIXTURES_10: '10 Светильников',
-            SAVE: 'Сохранить',
+            SAVE: 'Сохранить и получить ID',
             BACK: 'Назад'
         };
 
@@ -176,13 +195,18 @@
 
         const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-        function generatePrompt(mode, fixtures) {
-            const style = "low-poly 3D render, retro 1990s video game style, 16:9 aspect ratio";
-            const lightMode = mode === 'mono' ? 'white monochromatic architectural light' : 'colorful neon accent lighting';
-            const fixtureCount = fixtures === 5 ? 'five' : 'ten';
+        function generateLLMRequest(mode, fixtures) {
+            const modeText = mode === 'mono' ? 'классическим монохромным белым светом' : 'ярким цветным акцентным освещением';
+            const fixtureCount = fixtures === 5 ? 'пятью' : 'десятью';
             
-            // Задаем промпт на английском для лучшего результата генерации
-            return `A photo of a typical residential house at night, illuminated by dramatic architectural lighting. Use exactly ${fixtureCount} external spotlights providing a stunning ${lightMode}. Style: ${style}, clean lines, dramatic shadows, cinematic contrast.`;
+            // Если есть описание от пользователя, используем его
+            const houseDescription = userDescription || 'типичный жилой дом';
+
+            const systemPrompt = "Вы — креативный дизайнер-визуализатор. На основе заданных параметров, создайте краткое, но яркое текстовое описание (1-2 предложения) готовой 3D-визуализации архитектурного освещения в стиле 'ретро-3D / low-poly'. Описание должно быть на русском языке. Не включайте приветствия или вводные фразы.";
+
+            const userQuery = `Дом: "${houseDescription}". Освещение: ${modeText} с использованием ${fixtureCount} светильников. Создай описание визуализации.`;
+            
+            return { systemPrompt, userQuery };
         }
 
         async function fetchWithRetry(url, options, maxRetries = 5) {
@@ -234,18 +258,18 @@
             chatContainer.scrollTop = chatContainer.scrollHeight;
         }
         
-        // --- Логика Генерации Изображения (Nano Banana) ---
+        // --- Логика Генерации Текста (LLM) ---
 
-        async function generateImage(mode, fixtures) {
+        async function generateTextDescription(mode, fixtures) {
             currentState = 'processing';
             renderResultScreen(true); // Показать загрузку
 
-            const userPrompt = generatePrompt(mode, fixtures);
-            console.log("Image generation prompt:", userPrompt);
+            const { systemPrompt, userQuery } = generateLLMRequest(mode, fixtures);
+            console.log("LLM Request:", userQuery);
 
             const payload = { 
-                instances: [{ prompt: userPrompt }], 
-                parameters: { "sampleCount": 1 } 
+                contents: [{ parts: [{ text: userQuery }] }], 
+                systemInstruction: { parts: [{ text: systemPrompt }] }
             };
 
             const options = {
@@ -258,21 +282,21 @@
                 const response = await fetchWithRetry(apiUrl, options);
                 const result = await response.json();
 
-                const base64Data = result?.predictions?.[0]?.bytesBase64Encoded;
+                const text = result?.candidates?.[0]?.content?.parts?.[0]?.text;
 
-                if (base64Data) {
-                    imageUrl = `data:image/png;base64,${base64Data}`;
+                if (text) {
+                    generatedText = text; 
                 } else {
-                    console.error("Image data missing in API response.");
-                    imageUrl = `https://placehold.co/600x400/CC0000/FFFFFF?text=ОШИБКА+ГЕНЕРАЦИИ`;
+                    console.error("LLM text missing in API response.");
+                    generatedText = `[ОШИБКА: Не удалось получить описание. Пожалуйста, попробуйте снова.]`;
                 }
 
                 currentState = 'result';
-                renderResultScreen(); // Отобразить результат с изображением
+                renderResultScreen(); // Отобразить результат с текстом
 
             } catch (error) {
-                console.error("Error during image generation:", error);
-                imageUrl = `https://placehold.co/600x400/CC0000/FFFFFF?text=ОШИБКА+СЕТИ`;
+                console.error("Error during LLM generation:", error);
+                generatedText = `[ОШИБКА СЕТИ: Не удалось связаться с сервером LLM.]`;
                 currentState = 'result';
                 renderResultScreen();
             }
@@ -281,64 +305,133 @@
         // --- Обработчики состояний ---
 
         async function handleUpload() {
-            renderUserMessage(LABELS.UPLOAD);
+            if (!isAuthReady) {
+                renderBotMessage("Пожалуйста, подождите, идет инициализация Firebase.");
+                return;
+            }
+            
+            // Считываем описание пользователя перед началом обработки
+            const input = document.getElementById('user-description-input');
+            userDescription = input ? input.value.trim() : '';
+
+            // Отображаем сообщение пользователя
+            const userText = userDescription 
+                ? `${LABELS.UPLOAD} (Описание: "${userDescription}")` 
+                : LABELS.UPLOAD;
+            renderUserMessage(userText);
             
             // Сообщение о начале обработки
             renderBotMessage(`
-                ${LABELS.PROCESS} Наш ИИ генерирует ночной вид вашего дома с идеальным освещением...
+                ${LABELS.PROCESS} ИИ-ассистент генерирует текстовое описание для вашей визуализации, используя ваши параметры...
             `);
-            controlsPanel.innerHTML = ''; // Убрать кнопки во время обработки
+            controlsPanel.innerHTML = '<div class="text-xs text-center text-gray-500">Генерация...</div>'; // Убрать кнопки во время обработки
             
-            // Имитация загрузки фото перед генерацией
-            await sleep(1000); 
+            await sleep(500); 
 
-            // Начать генерацию изображения
-            await generateImage(currentMode, currentFixtures);
+            // Начать генерацию текстового описания (LLM)
+            await generateTextDescription(currentMode, currentFixtures);
         }
 
         function handleModeChange(newMode) {
+            if (!isAuthReady) return;
             currentMode = newMode;
             renderResultScreen(); // Обновить кнопки сразу
-            generateImage(currentMode, currentFixtures); // Начать генерацию
+            generateTextDescription(currentMode, currentFixtures); // Начать генерацию
         }
         
         function handleFixturesChange(newFixtures) {
+            if (!isAuthReady) return;
             currentFixtures = newFixtures;
             renderResultScreen(); // Обновить кнопки сразу
-            generateImage(currentMode, currentFixtures); // Начать генерацию
+            generateTextDescription(currentMode, currentFixtures); // Начать генерацию
         }
         
-        function handleSave() {
-            renderBotMessage(`
-                ${LABELS.RESULT} Сохранено! 
-                <span class="text-sm text-green-600">(Имитация сохранения)</span>
-            `);
+        async function handleSave() {
+            if (!isAuthReady) {
+                renderBotMessage("Подождите, идет инициализация сервисов...");
+                return;
+            }
+
+            if (!generatedText) {
+                renderBotMessage("Сначала сгенерируйте описание!");
+                return;
+            }
+            
+            // 1. Prepare data
+            const dataToSave = {
+                timestamp: Date.now(),
+                userId: userId,
+                description: userDescription,
+                generatedText: generatedText,
+                mode: currentMode,
+                fixtures: currentFixtures
+            };
+
+            // 2. Save to Firestore
+            try {
+                // Путь: /artifacts/{appId}/public/data/visualizations/{docId}
+                const visualizationsRef = collection(db, 'artifacts', appId, 'public', 'data', 'visualizations');
+                const docRef = await addDoc(visualizationsRef, dataToSave);
+                
+                // 3. Inform user with the ID
+                const docId = docRef.id;
+                
+                // Обновление панели управления для показа ID
+                controlsPanel.innerHTML = `
+                    <div class="p-4 bg-yellow-100 border-2 border-yellow-500 rounded-lg text-sm text-gray-800">
+                        <p class="font-bold">✅ УСПЕШНО СОХРАНЕНО!</p>
+                        <p class="break-all mt-1">Идентификатор для публикации на GitHub: <code class="font-mono bg-yellow-200 p-1 rounded font-semibold text-base">${docId}</code></p>
+                        <p class="mt-2">Используйте этот ID в своем коде на GitHub для загрузки данных из Firestore.</p>
+                    </div>
+                    <button class="retro-button text-base default-button mt-2" onclick="handleBack()">${LABELS.BACK}</button>
+                `;
+
+                // Update chat log
+                renderBotMessage(`
+                    ✅ **Визуализация сохранена!** ID документа: **${docId}**.
+                `);
+
+
+            } catch (e) {
+                console.error("Error adding document: ", e);
+                renderBotMessage(`
+                    ❌ **Ошибка сохранения:** Не удалось сохранить данные в Firestore. ${e.message}
+                `);
+            }
         }
         
         function handleBack() {
             currentState = 'upload';
-            // Сброс URL изображения при возврате на стартовый экран
-            imageUrl = ''; 
+            // Сброс текста при возврате на стартовый экран
+            generatedText = ''; 
             renderUploadScreen();
         }
 
         // --- Экраны ---
         
         function renderUploadScreen() {
+            // Убедимся, что аутентификация завершена, прежде чем показывать кнопку
+            const disabled = !isAuthReady;
+            const buttonClass = disabled ? 'default-button opacity-50 cursor-not-allowed' : 'default-button';
+            
             contentArea.innerHTML = `
                 <div class="flex justify-start mb-4">
                     <div class="bot-bubble">
-                        <p>Нажмите "${LABELS.UPLOAD}", чтобы начать работу. Мы создадим визуализацию в стиле **ретро-3D / low-poly**.</p>
+                        <p>Нажмите "${LABELS.UPLOAD}", чтобы начать работу. Вы также можете ввести описание своего дома. После генерации нажмите "Сохранить", чтобы получить ID для вашего хостинга GitHub.</p>
                         <p class="mt-1 text-sm text-gray-500">${new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })}</p>
                     </div>
                 </div>
             `;
             
-            // Кнопка загрузки занимает всю ширину
+            // Добавляем поле ввода и кнопку загрузки
             controlsPanel.innerHTML = `
-                <div class="grid grid-cols-1 gap-2">
-                    <button class="retro-button text-base default-button" onclick="handleUpload()">${LABELS.UPLOAD}</button>
+                <div class="flex flex-col gap-2">
+                    <input type="text" id="user-description-input" placeholder="Введите описание дома (напр., 'современный, бетонный')" 
+                           class="w-full p-3 border border-gray-400 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+                           value="${userDescription}" ${disabled ? 'disabled' : ''}>
+                    <button class="retro-button text-base ${buttonClass}" onclick="handleUpload()" ${disabled ? 'disabled' : ''}>${LABELS.UPLOAD}</button>
                 </div>
+                <div class="text-xs text-center text-gray-500 mt-2" id="auth-status">${isAuthReady ? 'Готово к работе.' : 'Загрузка сервисов...'}</div>
             `;
         }
 
@@ -350,29 +443,30 @@
                  visualContent = `
                     <div class="flex flex-col items-center justify-center h-full">
                         <div class="spinner"></div>
-                        <p class="mt-2">Генерация нового освещения...</p>
+                        <p class="mt-2">Генерация нового описания...</p>
                     </div>
                  `;
-            } else if (imageUrl) {
-                visualContent = `<img src="${imageUrl}" alt="Сгенерированное освещение дома" class="object-cover">`;
+            } else if (generatedText) {
+                // Отображаем сгенерированный текст
+                visualContent = `<p class="text-white text-left">${generatedText}</p>`;
             } else {
-                 visualContent = `<p>ВИЗУАЛИЗАЦИЯ</p>`;
+                 visualContent = `<p>ОПИСАНИЕ ВИЗУАЛИЗАЦИИ</p>`;
             }
 
-            // 1. Отобразить результат (изображение/загрузка)
+            // 1. Отобразить результат (текст/загрузка)
             contentArea.innerHTML = `
                 <!-- Сообщение о результате -->
                 <div class="flex justify-start mb-4">
                     <div class="bot-bubble">
-                        <p>${LABELS.RESULT} Ваш дом выглядит прекрасно! Измените настройки ниже для нового дизайна.</p>
+                        <p>${LABELS.RESULT} Ваше текстовое описание готово. Нажмите "Сохранить", чтобы получить ID для внешнего хостинга.</p>
                         <p class="mt-1 text-sm text-gray-500">${new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })}</p>
                     </div>
                 </div>
                 
-                <!-- Контейнер для изображения/загрузки -->
+                <!-- Контейнер для текста -->
                 <div class="flex justify-start mb-4">
                     <div class="bot-bubble w-full p-2">
-                        <div class="visualization-container">
+                        <div class="visualization-container bg-gray-700 border-gray-900">
                             ${visualContent}
                         </div>
                     </div>
@@ -405,11 +499,51 @@
                 </div>
             `;
         }
+        
+        // --- Firebase Init ---
+        // Запускаем инициализацию Firebase и Auth при загрузке модуля
+        if (Object.keys(firebaseConfig).length > 0) {
+            const app = initializeApp(firebaseConfig);
+            db = getFirestore(app);
+            auth = getAuth(app);
+            
+            // setLogLevel('Debug'); // Раскомментируйте для отладки
+            
+            onAuthStateChanged(auth, async (user) => {
+                if (user) {
+                    userId = user.uid;
+                    authStatusElement.textContent = `Подключено: ${userId.substring(0, 8)}...`;
+                } else {
+                    userId = crypto.randomUUID(); // Fallback ID
+                    authStatusElement.textContent = `Анонимный ID: ${userId.substring(0, 8)}...`;
+                }
+                isAuthReady = true;
+                if (currentState === 'upload') {
+                    renderUploadScreen();
+                } else {
+                    renderResultScreen(false);
+                }
+            });
 
-        // Инициализация
-        window.onload = function() {
+            try {
+                if (initialAuthToken) {
+                    await signInWithCustomToken(auth, initialAuthToken);
+                } else {
+                    await signInAnonymously(auth);
+                }
+            } catch (error) {
+                console.error("Firebase Auth Error:", error);
+                authStatusElement.textContent = `Ошибка аутентификации.`;
+            }
+        } else {
+            // Локальный режим, если конфиг отсутствует
+            console.warn("Firebase config missing. Running in local-only mode.");
+            userId = crypto.randomUUID();
+            isAuthReady = true;
+            authStatusElement.textContent = `Локальный режим.`;
             renderUploadScreen();
-        };
+        }
+
 
         // Экспорт функций
         window.handleModeChange = handleModeChange;
